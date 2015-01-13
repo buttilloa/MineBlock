@@ -116,3 +116,4 @@ C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\obj\x86\Debug\MineBloc
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\obj\x86\Debug\MineBlock.exe
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\obj\x86\Debug\MineBlock.pdb
+C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb

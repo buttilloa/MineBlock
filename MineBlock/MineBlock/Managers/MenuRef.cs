@@ -9,12 +9,13 @@ namespace MineBlock.Managers
 {
     public class MenuRef
     {
-        public Rectangle StartButton = new Rectangle(331, 260, 153, 43);
-        public Rectangle Savestate1 = new Rectangle(19, 220, 153, 43);
-        public Rectangle Savestate2 = new Rectangle(161, 326, 153, 43);
-        public Rectangle Savestate3 = new Rectangle(330, 220, 153, 43);
-        public Rectangle Savestate4 = new Rectangle(488, 326, 153, 43);
-        public Rectangle Savestate5 = new Rectangle(628, 220, 153, 43);
+        public Rectangle StartButton = new Rectangle(794, 580, 369, 94);
+        
+        public Rectangle Savestate1 = new Rectangle(45, 495, 369, 94);
+        public Rectangle Savestate2 = new Rectangle(386, 734, 369, 94);
+        public Rectangle Savestate3 = new Rectangle(792, 495, 369, 94);
+        public Rectangle Savestate4 = new Rectangle(1171, 734, 369, 94);
+        public Rectangle Savestate5 = new Rectangle(1507, 495, 369, 94);
 
         public Boolean Savestate1exists = false;
         public Boolean Savestate2exists = false;
@@ -22,9 +23,9 @@ namespace MineBlock.Managers
         public Boolean Savestate4exists = false;
         public Boolean Savestate5exists = false;
 
-        public Rectangle Paused1 = new Rectangle(19, 220, 153, 43);
-        public Rectangle Paused2 = new Rectangle(330, 220, 153, 43);
-        public Rectangle Paused3 = new Rectangle(628, 220, 153, 43);
+        public Rectangle Paused1 = new Rectangle(45, 495, 369, 94);
+        public Rectangle Paused2 = new Rectangle(792, 495, 369, 94);
+        public Rectangle Paused3 = new Rectangle(1507, 495, 369, 94);
         public int CursorTouching = 0;
         Vector2 cursorPos = new Vector2(0, 0);
         public enum GameStates { TitleScreen, SaveSelect, Playing, Paused };
@@ -221,21 +222,22 @@ namespace MineBlock.Managers
                  spriteBatch.Draw(game1.TitleScreen, new Rectangle(0, 0, 800,480), Color.White);
                 spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X * 40, (int)cursorPos.Y * 40, 12, 19), Color.White);
 #endif
-                spriteBatch.DrawString(Game1.pericles14, "Select the Game to Load", new Vector2(280, 100), Color.White);
-                spriteBatch.DrawString(Game1.pericles14, "Save Game 1", new Vector2(Savestate1.X + 15, Savestate1.Y + 6), Color.White);
-                spriteBatch.DrawString(Game1.pericles1, Savestate1exists ? "Load" : "Create", new Vector2(Savestate1.X + 53, Savestate1.Y + 23), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Select the Game to Load", new Vector2(715, 300), Color.White);
 
-                spriteBatch.DrawString(Game1.pericles14, "Save Game 2", new Vector2(Savestate2.X + 15, Savestate2.Y + 6), Color.White);
-                spriteBatch.DrawString(Game1.pericles1, Savestate2exists ? "Load" : "Create", new Vector2(Savestate2.X + 53,Savestate2.Y + 23), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Save Game 1", new Vector2(Savestate1.X + 60, Savestate1.Y + 10), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, Savestate1exists ? "Load" : "Create", new Vector2(Savestate1.X + 130, Savestate1.Y + 43), Color.White);
 
-                spriteBatch.DrawString(Game1.pericles14, "Save Game 3", new Vector2(Savestate3.X + 15, Savestate3.Y + 6), Color.White);
-                spriteBatch.DrawString(Game1.pericles1, Savestate3exists ? "Load" : "Create", new Vector2(Savestate3.X + 53,Savestate3.Y + 23), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Save Game 2", new Vector2(Savestate2.X + 60, Savestate2.Y + 10), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, Savestate2exists ? "Load" : "Create", new Vector2(Savestate2.X + 130, Savestate2.Y + 43), Color.White);
 
-                spriteBatch.DrawString(Game1.pericles14, "Save Game 4", new Vector2(Savestate4.X + 15, Savestate4.Y + 6), Color.White);
-                spriteBatch.DrawString(Game1.pericles1, Savestate4exists ? "Load" : "Create", new Vector2(Savestate4.X + 53, Savestate4.Y + 23), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Save Game 3", new Vector2(Savestate3.X + 60, Savestate3.Y + 10), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, Savestate3exists ? "Load" : "Create", new Vector2(Savestate3.X + 130, Savestate3.Y + 43), Color.White);
 
-                spriteBatch.DrawString(Game1.pericles14, "Save Game 5", new Vector2(Savestate5.X + 15, Savestate5.Y + 6), Color.White);
-                spriteBatch.DrawString(Game1.pericles1, Savestate5exists ? "Load" : "Create", new Vector2(Savestate5.X + 53,Savestate5.Y + 23), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Save Game 4", new Vector2(Savestate4.X + 60, Savestate4.Y + 10), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, Savestate4exists ? "Load" : "Create", new Vector2(Savestate4.X + 130, Savestate4.Y + 43), Color.White);
+
+                spriteBatch.DrawString(Game1.pericles28, "Save Game 5", new Vector2(Savestate5.X + 60, Savestate5.Y + 10), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, Savestate5exists ? "Load" : "Create", new Vector2(Savestate5.X + 130, Savestate5.Y + 43), Color.White);
 
 
                 if (CursorTouching == 1) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate1, Color.White);
@@ -254,9 +256,9 @@ namespace MineBlock.Managers
                  spriteBatch.Draw(game1.Paused, new Rectangle(0, 0, 800,480), Color.White);
                 spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X * 40, (int)cursorPos.Y * 40, 12, 19), Color.White);
 #endif
-                spriteBatch.DrawString(Game1.pericles14, "Exit to Menu", new Vector2(Paused1.X + 13, Paused1.Y + 11), Color.White);
-                spriteBatch.DrawString(Game1.pericles14, "Resume Game", new Vector2(Paused2.X + 13,Paused2.Y + 11), Color.White);
-                spriteBatch.DrawString(Game1.pericles14, "Options", new Vector2(Paused3.X + 22, Paused3.Y + 11), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Exit to Menu", new Vector2(Paused1.X + 13, Paused1.Y + 11), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Resume Game", new Vector2(Paused2.X + 13, Paused2.Y + 11), Color.White);
+                spriteBatch.DrawString(Game1.pericles28, "Options", new Vector2(Paused3.X + 22, Paused3.Y + 11), Color.White);
                 if (CursorTouching == 1) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused1, Color.White);
                 else if (CursorTouching == 2) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused2, Color.White);
                 else if (CursorTouching == 3) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused3, Color.White);

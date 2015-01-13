@@ -42,7 +42,7 @@ namespace MineBlock.Commands
         }
         public void ParseCmd()
         {
-           
+
             currentcmd++;
             string[] parsed = Command.Split(' ');
             foreach (Command cmd in cmds)
@@ -54,7 +54,7 @@ namespace MineBlock.Commands
                     }
                     catch (System.IndexOutOfRangeException)
                     {
-                        output = "invalid arguments: "+cmd.Desc;
+                        output = "invalid arguments: " + cmd.Desc;
                     }
                     break;
                 }
@@ -65,7 +65,7 @@ namespace MineBlock.Commands
                     history.Add("" + cmd.ToString().Substring(19) + " : " + cmd.Desc);
                 output = "Displays all commands";
             }
-         history.Add(Command + " : "+output);
+            history.Add(Command + " : " + output);
         }
         public void getKeyStrokes()
         {
@@ -107,22 +107,23 @@ namespace MineBlock.Commands
                         Command += key.ToString().Substring(1, 1);
                     else if (key.ToString() == "Enter") ParseCmd();
                     else
-                       if(IsKeyAChar(key))
-                        Command += key;
+                        if (IsKeyAChar(key))
+                            Command += key;
 
                 }
             }
             oldstate = newState;
         }
-        bool IsKeyAChar(Keys key) { 
-            return key >= Keys.A && key <= Keys.Z; 
+        bool IsKeyAChar(Keys key)
+        {
+            return key >= Keys.A && key <= Keys.Z;
         }
         public void Draw(SpriteBatch batch)
         {
             if (display)
                 for (int i = 0; i < 20; i++)
                     for (int j = 0; j < 13; j++)
-                        batch.DrawString(Game1.pericles1, "" + i + "," + j, new Vector2((i * 40) + 2, (j * 40) + 2), Color.Gray);
+                        batch.DrawString(Game1.pericles1, "" + i + "," + j, new Vector2((i * 40) + 2, (j * 40) + 2), Color.White);
             if (outlined)
                 for (int i = 0; i < 20; i++)
                     for (int j = 0; j < 13; j++)
@@ -133,16 +134,20 @@ namespace MineBlock.Commands
                     if (mob.CurrentChunk == Game1.currentChunkNumber) batch.DrawString(Game1.pericles14, "" + ((mob.getX() * 40) + mob.subPixel.X) + "," + ((mob.getY() * 40) + mob.subPixel.Y), new Vector2(mob.getX() * 40, (mob.getY() * 40) - 10), Color.Gray);
                     else batch.DrawString(Game1.pericles1, "" + mob.ToString().Substring(15) + " " + mob.CurrentChunk + ((mob.getX() * 40) + mob.subPixel.X) + "," + ((mob.getY() * 40) + mob.subPixel.Y), new Vector2(mob.getX() * 40, (mob.getY() * 40) - 10), Color.Gray);
                 }
+        }
+        public void Drawstatic(SpriteBatch batch)
+        {
+
             if (isShown)
             {
-                batch.Draw(Game1.Blur, new Rectangle(0, 455, 800, 25), Color.White);
-                batch.DrawString(Game1.pericles14, Command + "_", new Vector2(2, 457), Color.Gray);
-               String[] temp = history.ToArray();
+                batch.Draw(Game1.Blur, new Rectangle(0, 1055, 1920, 25), Color.White);
+                batch.DrawString(Game1.pericles14, Command + "_", new Vector2(2, 1057), Color.Gray);
+                String[] temp = history.ToArray();
 
-               Array.Reverse(temp);
-                    
-                for (int i = 0; i < temp.Length;i++)
-                    batch.DrawString(Game1.pericles1, temp[i], new Vector2(3, 440-(i*13)), Color.DarkGray);
+                Array.Reverse(temp);
+
+                for (int i = 0; i < temp.Length; i++)
+                    batch.DrawString(Game1.pericles1, temp[i], new Vector2(3, 1040 - (i * 13)), Color.DarkGray);
             }
         }
     }

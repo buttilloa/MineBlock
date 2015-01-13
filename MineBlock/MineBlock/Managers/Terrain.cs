@@ -74,8 +74,8 @@ namespace MineBlock
         public static Block[,] genUnderGround(Block[,] blocks, int chunk)
         {
 
-            blocks = new Block[20, 13];
-            for (int i = 0; i < 20; i++)
+            blocks = new Block[25, 13];
+            for (int i = 0; i < 25; i++)
                 for (int j = 0; j < 13; j++)
                 {
                     blocks[i, j] = new Stone(i, j);
@@ -367,20 +367,22 @@ namespace MineBlock
         public static Block[,] GenerateSpawnTerrain(MobManager mobManager, PlayerManager player)
         {
             int height = Game1.randy.Next(6, 10);
-            Block[,] blocks = new Block[20, 13];
-            for (int i = 0; i < 20; i++)
-                for (int j = 0; j < 13; j++)
+            int maxheight = 13;
+            int maxwidth = 20;
+            Block[,] blocks = new Block[maxwidth, maxheight];
+            for (int i = 0; i < maxwidth; i++)
+                for (int j = 0; j < maxheight; j++)
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < maxwidth; i++)
                 if (Game1.randy.Next(0, 5) == 3)
                     blocks[i, height] = new SnowyGrass(i, height);
                 else
                     blocks[i, height] = new Grass(i, height);
 
-            for (int i = 0; i < 20; i++)
-                for (int j = height + 1; j < 13; j++)
+            for (int i = 0; i < maxwidth; i++)
+                for (int j = height + 1; j < maxheight; j++)
                 {
                     blocks[i, j] = new Dirt(i, j);
                 }

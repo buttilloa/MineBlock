@@ -22,3 +22,4 @@ Content\Weapons\HandGun1.xnb
 Content\Menus\Blur.xnb
 Content\Fonts\Pericles1.xnb
 Content\Fonts\Pericles14.xnb
+Content\Fonts\Pericles28.xnb

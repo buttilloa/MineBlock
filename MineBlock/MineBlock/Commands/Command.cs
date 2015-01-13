@@ -125,6 +125,7 @@ namespace MineBlock.Commands
         public override String Execute(String[] args)
         {
             Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+            Game1.menu.state = Managers.MenuRef.GameStates.Playing;
             return "Game Loaded " + args[1];
         }
 

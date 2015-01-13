@@ -15,7 +15,7 @@ namespace MineBlock.Blocks
             if (x != 19 && y != 12)
                 Console.WriteLine("Information block placed at " + x + " " + y + " Is this Correct?");
             index = 255;
-
+            canMine = false;
         }
         public void getBiomefromIndex(int index)
         {
@@ -49,7 +49,7 @@ namespace MineBlock.Blocks
             }
             return 0;
         }
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch)
+        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, int startposX , int startposY)
         {
 
         }

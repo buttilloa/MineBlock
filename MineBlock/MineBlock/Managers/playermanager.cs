@@ -19,7 +19,7 @@ namespace MineBlock
         public Block[] hotbar = new Block[9];
         public int[] count = new int[9];
         Weapon currentWeapon = new Handgun();
-        public List<Bullet> shots= new List<Bullet>();
+        public List<Bullet> shots = new List<Bullet>();
         public int selected = 0;
         public Vector2 highlighted = new Vector2(0, 0);
         readonly Vector2 gravity = new Vector2(0, 259.8f);
@@ -27,7 +27,7 @@ namespace MineBlock
         public Boolean WantsToChange = false;
         public Boolean drawTeleporterMessage;
         public int Health = 100;
-     
+
         Rectangle Bar = new Rectangle(0, 0, 62, 20);
         Rectangle Bar2;
         Vector2 chestInvLocation;
@@ -36,7 +36,7 @@ namespace MineBlock
         int[] chestInvCount = new int[9];
         String teleporterMessage;
         public String ChunkTp = "";
-        
+
         public PlayerManager(Texture2D sheet, Texture2D hotbatsheet, Texture2D hotbarselector)
         {
             Guy = sheet;
@@ -72,38 +72,38 @@ namespace MineBlock
         }
         public void update(GameTime time)
         {
-             Health = (int)MathHelper.Clamp(Health, 0, 100);
+            Health = (int)MathHelper.Clamp(Health, 0, 100);
             // if (Health < 100)
-           //{
-         
-             //  Health++;
-           //}
+            //{
+
+            //  Health++;
+            //}
             try
             {
 
-                if (bottomBlock() == 0 || bottomBlock() == 14 || bottomBlock() == 11 || (bottomBlock() == 83 && HandleInputs.isKeyDown("Down")))
+                if (bottomBlock() == 0 || bottomBlock() == 14 || bottomBlock() == 11 || (bottomBlock() == 83 && HandleInputs.isKeyDown("S")))
                 {
                     float timed = (float)time.ElapsedGameTime.TotalSeconds;
-                  
+
                     Player.Velocity += gravity * timed;
 
                 }
                 else
                 {
-                    if (Player.Velocity.Y > 178)  
-                        if(Health>0)
-                        Health -= (int)Player.Velocity.Y / 20;
-                     
-                  
+                    if (Player.Velocity.Y > 178)
+                        if (Health > 0)
+                            Health -= (int)Player.Velocity.Y / 20;
+
+
                     Player.Velocity = new Vector2(Player.Velocity.X, 0);
                 }
-                 if (bottomBlock() == 158)
-                 {
-                     Commandblock block = (Commandblock)blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1];
-                     block.Activate();
-                     block.index = 159;
-                     
-                 }
+                if (bottomBlock() == 158)
+                {
+                    Commandblock block = (Commandblock)blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1];
+                    block.Activate();
+                    block.index = 159;
+
+                }
             }
             catch (System.IndexOutOfRangeException) { Console.WriteLine("ERROR: NO BLOCK BELOW YOU"); }
             if (Player.Velocity.X > 0)
@@ -142,13 +142,13 @@ namespace MineBlock
 
             try
             {
-                if (HandleInputs.isKeyDown("Right") && (RightBlock() == 0 || RightBlock() == 14 || RightBlock() == 83)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
-                else if (HandleInputs.isKeyDown("Left") && (LeftBlock() == 0 || LeftBlock() == 14 || LeftBlock() == 83)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
+                if (HandleInputs.isKeyDown("D") && (RightBlock() == 0 || RightBlock() == 14 || RightBlock() == 83)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
+                else if (HandleInputs.isKeyDown("A") && (LeftBlock() == 0 || LeftBlock() == 14 || LeftBlock() == 83)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
                 else Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
             catch (System.IndexOutOfRangeException) { }
 
-            if (HandleInputs.isKeyDown("Up") && (isonGround() || isOnLadder()) && Player.Location.Y > 0)
+            if (HandleInputs.isKeyDown("W") && (isonGround() || isOnLadder()) && Player.Location.Y > 0)
             {
                 if (BlockAbove() == 0 || BlockAbove() == 14 || BlockAbove() == 83)
                     Player.Velocity = new Vector2(0, -175);
@@ -198,14 +198,14 @@ namespace MineBlock
             foreach (Bullet shot in shots)
             {
                 shot.update(time);
-               
+
             }
             foreach (Bullet shot in shots)
             {
                 shot.update(time);
                 if (shot.shot.Location.X >= 770 || shot.shot.Location.X <= -30)
                 {
-                    shots.Remove(shot); 
+                    shots.Remove(shot);
                     break;
                 }
             }
@@ -296,9 +296,8 @@ namespace MineBlock
             drawChestInv = true;
 
         }
-        public void Draw(SpriteBatch batch)
+        public void Drawstatic(SpriteBatch batch)
         {
-            Player.Draw(batch);
             batch.Draw(hotboarSheet, new Rectangle(10, 10, 362, 42), Color.White);
             for (int i = 0; i < 9; i++)
             {
@@ -310,19 +309,26 @@ namespace MineBlock
                 }
             }
             batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), Color.White);
-            batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), Color.White);
+          
             if (drawTeleporterMessage)
                 batch.DrawString(Game1.pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
-            Bar = new Rectangle((int)Player.Location.X + 23, (int)Player.Location.Y+10, 60, 10);
+            batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            currentWeapon.DrawInInv(batch, 400, 12);
+        }
+        public void Draw(SpriteBatch batch)
+        {
+            Player.Draw(batch);
+            Bar = new Rectangle((int)Player.Location.X + 23, (int)Player.Location.Y + 10, 60, 10);
             Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
             batch.Draw(Game1.HealthBar, Bar, Color.White);
             batch.Draw(Game1.Weather, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
-            batch.DrawString(Game1.pericles1,""+Health, new Vector2(Bar2.X+16,Bar2.Y-20), Color.White);
-            currentWeapon.DrawInHand(batch,(int)Player.Location.X, (int)Player.Location.Y,Player.Flip);
-            batch.Draw(hotboarSheet, new Vector2(400,12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            batch.DrawString(Game1.pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
+            currentWeapon.DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
+             batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), Color.White);
             foreach (Bullet shot in shots)
                 shot.Draw(batch);
-            currentWeapon.DrawInInv(batch,400,12);
+
             if (drawChestInv)
             {
                 batch.Draw(hotboarSheet, new Rectangle((int)chestInvLocation.X, (int)chestInvLocation.Y, 181, 21), Color.White);

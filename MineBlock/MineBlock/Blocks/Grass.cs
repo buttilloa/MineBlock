@@ -36,9 +36,9 @@ namespace MineBlock.Blocks
              }
         
          }
-        public override void Draw(SpriteBatch batch)
+        public override void Draw(SpriteBatch batch, int startposX, int startposY)
         {
-            batch.Draw(Game1.grass, new Vector2(x * 40, y * 40), new Rectangle((special * 40), 0, 40, 40), Color.White);
+            batch.Draw(Game1.grass, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle((special * 40), 0, 40, 40), Color.White);
         }
         public override Block Reset(int X, int Y)
         {

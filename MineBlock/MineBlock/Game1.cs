@@ -23,19 +23,20 @@ namespace MineBlock
 
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
-        public static Texture2D terrainsheet, cursor, Weather, Pigsheet, cowsheet, chickensheet, grass, HealthBar, HandGun,Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
+        public static Texture2D terrainsheet, cursor, Weather, Pigsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
         Texture2D playerSheet, hotbarsheet, hotbarselector; // Player Textures
         public Texture2D TitleScreen, Pointer, SaveSelect, Paused; // Textures acessed by Menu Class
         public static MobManager mobManager = new MobManager(); // Manages Mobs
         public static List<Block[,]> chunks = new List<Block[,]>(); // List of all the chunks
         public static Random randy = new Random(System.Environment.TickCount); // Random?
-        public static SpriteFont pericles14, pericles1; // Fonts
+        public static SpriteFont pericles14, pericles1,pericles28; // Fonts
         public static PlayerManager player; // Manages Player
         public static Weather weather = new Weather(); // Manages Weather
         public static int selectedSave = 0; // Save Slot
-        MenuRef menu = new MenuRef(); // Manages Menus
+        public static MenuRef menu = new MenuRef(); // Manages Menus
         public static SaveManager saves = new SaveManager(); // Manages Saves
         public static ConsoleManager console = new ConsoleManager(); // Manages the ingame Console
+        public float zoom = 0.0f;
 #if XBOX
         bool GameSaveRequested = false;  // Xbox specific saving Variables
          IAsyncResult result;
@@ -46,6 +47,11 @@ namespace MineBlock
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+           // Console.WriteLine("Height" + graphics.PreferredBackBufferHeight);
+            graphics.IsFullScreen = true;
 #if XBOX
         Components.Add(new GamerServicesComponent(this)); // Xbox Specific Player Manager
 #endif
@@ -59,7 +65,7 @@ namespace MineBlock
         }
         //Load Content
         protected override void LoadContent()
-        { 
+        {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //Menus
             Blur = Content.Load<Texture2D>(@"Menus/Blur");
@@ -82,6 +88,7 @@ namespace MineBlock
             hotbarselector = Content.Load<Texture2D>(@"Player/Hotbar_selector");
             playerSheet = Content.Load<Texture2D>(@"Player/Player");
             //Fonts
+            pericles28 = Content.Load<SpriteFont>(@"Fonts/Pericles28");
             pericles14 = Content.Load<SpriteFont>(@"Fonts/Pericles14");
             pericles1 = Content.Load<SpriteFont>(@"Fonts/Pericles1");
             //Misc
@@ -137,19 +144,22 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
             {
                 if (currentChunkNumber < 90)
                     currentChunkNumber += 10;
-                player.Player.Location = new Vector2(380, 0);
+                player.updateBlocks(chunks[currentChunkNumber]);
+                //player.Player.Location = new Vector2(380, 0);
             }
             else if (player.Player.Location.X <= -30)
             {
                 if (currentChunkNumber % 10 != 0)
                     currentChunkNumber--;
-                player.Player.Location = new Vector2(380, 0);
+                player.updateBlocks(chunks[currentChunkNumber]);
+                //player.Player.Location = new Vector2(380, 0);
             }
             else if (player.Player.Location.X >= 730)
             {
                 if (currentChunkNumber % 10 != 9)
                     currentChunkNumber++;
-                player.Player.Location = new Vector2(380, 0);
+                player.updateBlocks(chunks[currentChunkNumber]);
+                //player.Player.Location = new Vector2(380, 0);
             }
 
             player.WantsToChange = false;
@@ -160,7 +170,7 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
 
         }
         //Update the Games Logic
-       protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)
         {
             if (console.isShown)
                 console.getKeyStrokes();
@@ -199,6 +209,8 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 GameSaveRequested = false;
             }
 #endif
+                if (HandleInputs.isKeyDown("Up")) zoom += .01f;
+                if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
                 player.update(gameTime);
                 mobManager.update(gameTime);
                 if (player.Player.Location.Y > 400 || player.WantsToChange)
@@ -255,7 +267,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
                         player.count[player.selected]--;
                         if (player.count[player.selected] == 0)
                             player.hotbar[player.selected] = new Air((player.selected * 40) + 16, 16);
- player.updateBlocks(chunks[currentChunkNumber]);
+                        player.updateBlocks(chunks[currentChunkNumber]);
                     }
 
                 }
@@ -279,23 +291,69 @@ if ((GameSaveRequested) && (result.IsCompleted))
 
         }
         //Render on Screen
+        Matrix cameraTransform;
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            
-            spriteBatch.Begin();
+
+            //spriteBatch.Begin();
+            cameraTransform = Matrix.CreateTranslation(-(Convert.ToInt32(player.Player.Location.X) - 950), -(Convert.ToInt32(player.Player.Location.Y) - 530), zoom);
+            //cameraTransform = Matrix.CreateTranslation(-(player.Player.Location.X - 350), -(player.Player.Location.Y - 150), 0.0f);
+            spriteBatch.Begin(SpriteSortMode.Immediate,
+                  BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null,
+                  cameraTransform); // moveable objects
             if (menu.state == MenuRef.GameStates.Playing)
             {
+                if (currentChunkNumber % 10 != 0)
+                {
+                    if (currentChunkNumber > 9)
+                        foreach (Block block in chunks[currentChunkNumber - 11])
+                            block.Draw(spriteBatch, -800, -520);
+                    foreach (Block block in chunks[currentChunkNumber - 1])
+                        block.Draw(spriteBatch, -800, 0);
+                    if (currentChunkNumber < 90)
+                        foreach (Block block in chunks[currentChunkNumber + 9])
+                            block.Draw(spriteBatch, -800, 520);
+                }
+
+                if (currentChunkNumber > 9)
+                    foreach (Block block in chunks[currentChunkNumber - 10])
+                        block.Draw(spriteBatch, 0, -520);
                 foreach (Block block in chunks[currentChunkNumber])
-                    block.Draw(spriteBatch);//Draw Blocks
+                    block.Draw(spriteBatch, 0, 0);//Draw Blocks
+                if (currentChunkNumber < 90)
+                    foreach (Block block in chunks[currentChunkNumber + 10])
+                        block.Draw(spriteBatch, 0, 520);
+
+                if (currentChunkNumber % 10 != 9)
+                {
+                    if (currentChunkNumber > 9)
+                        foreach (Block block in chunks[currentChunkNumber - 9])
+                            block.Draw(spriteBatch, 800, -520);//Draw Blocks
+                    foreach (Block block in chunks[currentChunkNumber + 1])
+                        block.Draw(spriteBatch, 800, 0);//Draw Blocks
+                    if (currentChunkNumber < 90)
+                        foreach (Block block in chunks[currentChunkNumber + 11])
+                            block.Draw(spriteBatch, 800, 520);
+                }
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
-                weather.Draw(spriteBatch);// Draw Weather
-                spriteBatch.DrawString(pericles14, "Chunk: " + currentChunkNumber, new Vector2(690, 10), Color.White);// Draw Current Chunk int
-                spriteBatch.DrawString(pericles14, getInfoBlock().Biome, new Vector2(690, 24), Color.White); // Draw Current Biome
+
             }
-            else menu.Draw(this, spriteBatch); // Draw Menus
+
             console.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin(); //static objects
+            if (menu.state == MenuRef.GameStates.Playing)
+            {
+                player.Drawstatic(spriteBatch);
+                spriteBatch.DrawString(pericles14, "Chunk: " + currentChunkNumber, new Vector2(1810, 10), Color.White);// Draw Current Chunk int
+                spriteBatch.DrawString(pericles14, getInfoBlock().Biome, new Vector2(1810, 24), Color.White); // Draw Current Biome
+                weather.Draw(spriteBatch);// Draw Weather
+            }
+            else menu.Draw(this, spriteBatch);  // Draw Menus
+            console.Drawstatic(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
