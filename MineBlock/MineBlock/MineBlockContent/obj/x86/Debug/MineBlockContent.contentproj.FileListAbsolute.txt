@@ -3,3 +3,4 @@ C:\Users\EAHSCS\Desktop\MineBlock\MineBlock\MineBlockContent\obj\x86\Debug\MineB
 C:\Users\Anthony\Desktop\MineBlock\MineBlock\MineBlockContent\obj\x86\Debug\MineBlockContent.contentprojResolveAssemblyReference.cache
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlockContent\obj\x86\Debug\MineBlockContent.contentprojResolveAssemblyReference.cache
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlockContent\obj\x86\Debug\MineBlockContent.contentprojResolveAssemblyReference.cache
+C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlockContent\obj\x86\Debug\MineBlockContent.contentprojResolveAssemblyReference.cache

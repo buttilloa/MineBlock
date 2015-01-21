@@ -39,6 +39,7 @@ namespace MineBlock.Commands
             cmds.Add(new ToggleDownfall());
             cmds.Add(new AddtoCB());
             cmds.Add(new DeleteSave());
+            cmds.Add(new Fuckoff());
         }
         public void ParseCmd()
         {

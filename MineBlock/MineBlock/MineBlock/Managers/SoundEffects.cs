@@ -13,13 +13,14 @@ namespace MineBlock
         public static SoundEffectInstance ChestOpen;
         public static SoundEffectInstance Rain;
         public static SoundEffectInstance Snow;
+        public static SoundEffectInstance Fuck;
         public static void LoadSounds(ContentManager Content)
         {
             RickRoll = Content.Load<SoundEffect>(@"Sounds/RickRoll").CreateInstance();
             ChestOpen = Content.Load<SoundEffect>(@"Sounds/Chest").CreateInstance();
             Rain = Content.Load<SoundEffect>(@"Sounds/Rain").CreateInstance();
             Snow = Content.Load<SoundEffect>(@"Sounds/Snow").CreateInstance();
-            
+            Fuck = Content.Load<SoundEffect>(@"Sounds/fuck").CreateInstance();
         }
 
     }

@@ -15,6 +15,7 @@ namespace MineBlock
         public int MineTime = 120;
         public int damage = 0;
         int drawdamage = 0;
+        public bool isfucked = false;
         // Boolean isFlamible = false;
         public Boolean canMine = true;
 
@@ -89,10 +90,10 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked?Color.Red:Color.White);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
 
             handleBlockDmg(batch,startposX, startposY);
         }

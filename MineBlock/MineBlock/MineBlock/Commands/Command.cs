@@ -344,4 +344,27 @@ namespace MineBlock.Commands
         }
 
     }
+    class Fuckoff : Command
+    {
+
+        public Fuckoff()
+        {
+            Desc = "Fucken god: usage : fuckoff";
+            index = 16;
+            usage = "fuckoff";
+        }
+        public override String Execute(String[] args)
+        {
+            SoundEffects.Fuck.Play();
+            foreach (Block block in Game1.chunk)
+            {
+                block.x = Game1.randy.Next(0, 200);
+                block.y = Game1.randy.Next(0, 130);
+                block.isfucked = true;
+            }
+            Game1.player.updateBlocks(Game1.chunk);
+            return "No you fuck off";
+        }
+
+    }
 }
