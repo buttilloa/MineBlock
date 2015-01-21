@@ -68,7 +68,7 @@ namespace MineBlock
                     subPixel = new Vector2(subPixel.X, 39);
                     Position.Y--;
                 }
-                blocks = Game1.chunks[Game1.currentChunkNumber];
+                blocks = Game1.chunk;
                 //sprite.Location = Position;  
                 try
                 {
@@ -76,8 +76,8 @@ namespace MineBlock
                         Velocity = new Vector2(Velocity.X, -15f);
                 }
                 catch (System.IndexOutOfRangeException) { Console.WriteLine("Mob dun messud up"); }
-                if (getY()*40 > 400)
-                    CurrentChunk = Game1.randy.Next(0, Game1.chunks.Count);
+                //if (getY()*40 > 400)
+                //    CurrentChunk = Game1.randy.Next(0, Game1.chunk);
                 if (blocks[getX(), getY() + 1].index == 0)
                 {
                    

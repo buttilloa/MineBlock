@@ -17,10 +17,11 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 18;
+            MineTime = 60;
         }
         public override void update(Block[,] blocks)
         {
-            if (y < 11)
+            if (y < 130)
                 if (blocks[x, y + 1].index == 0 || blocks[x, y + 1].index == 14 || blocks[x, y + 1].index == 11)
                 {
                     manualDraw = true;
@@ -36,7 +37,7 @@ namespace MineBlock.Blocks
                         blocks[x, y - 1] = new Air(x, y - 1);
                     }
                 }
-
+            base.update(blocks);
         }
 
         public override Block Reset(int X, int Y)
@@ -74,7 +75,7 @@ namespace MineBlock.Blocks
             }
             else
                 batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
-
+            handleBlockDmg(batch, startposX, startposY);
         }
     }
 }

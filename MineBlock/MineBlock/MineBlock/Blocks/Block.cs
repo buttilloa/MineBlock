@@ -12,6 +12,9 @@ namespace MineBlock
         public int index;
         public int x = 0, y = 0;
         public int special;
+        public int MineTime = 120;
+        public int damage = 0;
+        int drawdamage = 0;
         // Boolean isFlamible = false;
         public Boolean canMine = true;
 
@@ -68,7 +71,9 @@ namespace MineBlock
         public virtual void update(Block[,] blocks)
         {
 
-
+            if (damage > 0)
+                if(Game1.randy.Next(0,10) ==5)
+                damage--;
         }
         public virtual void switchTeleporter(Boolean IsLava)
         {
@@ -84,10 +89,33 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX+(x * 40), startposY+(y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY+(y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
+
+            handleBlockDmg(batch,startposX, startposY);
+        }
+        public void handleBlockDmg(SpriteBatch batch, int startposX, int startposY)
+        {
+            if (damage > 0)
+            {
+                if (damage <= .1f * MineTime) drawdamage = 1;
+                else if (damage <= MineTime * .2f) drawdamage = 2;
+                else if (damage <= MineTime * .3f) drawdamage = 3;
+                else if (damage <= MineTime * .4f) drawdamage = 4;
+                else if (damage <= MineTime * .5f) drawdamage = 5;
+                else if (damage <= MineTime * .6f) drawdamage = 6;
+                else if (damage <= MineTime * .7f) drawdamage = 7;
+                else if (damage <= MineTime * .8f) drawdamage = 8;
+                else if (damage <= MineTime * .9f) drawdamage = 9;
+                else if (damage <= MineTime) drawdamage = 10;
+                if (drawdamage > 0)
+                {
+                    batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Color.White);
+
+                }
+            }
         }
         public void DrawMini(SpriteBatch batch)
         {

@@ -93,28 +93,31 @@ namespace MineBlock
         public void SaveChunk(int chunk)
         {
             Stream SaveData = null;
-            if (container.FileExists("saveData" + chunk))
+            if (container.FileExists("saveData"+chunk))
             {
                 //Load number here.
-                SaveData = container.OpenFile("saveData" + chunk, FileMode.Open);
+                SaveData = container.OpenFile("saveData"+chunk, FileMode.Open);
 
             }
             else
             {
-                SaveData = container.CreateFile("saveData" + chunk);
+                SaveData = container.CreateFile("saveData"+chunk);
             }
-
-
-            Block[,] blocks = Game1.chunks[chunk];
+            Block[,] block = new Block[20, 13];
+            int chunkx = chunk % 10;
+            int chunky = chunk / 10; 
+            for (int i = 0; i < 20; i++)
+                for (int j = 0; j < 13; j++)
+                    block[i,j] = Game1.chunk[i + (20 * chunkx), j + (13 * chunky)];
             SaveData.Position = 0;
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 13; j++)
                 {
 
-                    SaveData.WriteByte((byte)blocks[i, j].index);
-                    if (blocks[i, j].index == 255)
+                    SaveData.WriteByte((byte)block[i, j].index);
+                    if (block[i, j].index == 255)
                     {
-                        _InformationBlock Info = (_InformationBlock)blocks[i, j];
+                        _InformationBlock Info = (_InformationBlock)block[i, j];
                         SaveData.WriteByte((byte)Info.getindexfromBiome(Info.Biome));
                         if (Info.ShouldSnow) SaveData.WriteByte(1);
                         else SaveData.WriteByte(0);
@@ -218,9 +221,9 @@ namespace MineBlock
 
 
             SaveData.Position = 0;
-            Game1.switchChunk(player,SaveData.ReadByte());
+            //Game1.switchChunk(player,SaveData.ReadByte());
             player.Player.Location = new Vector2(SaveData.ReadByte(), SaveData.ReadByte());
-            player.updateBlocks(Game1.chunks[Game1.currentChunkNumber]);
+            player.updateBlocks(Game1.chunk);
 
             for (int i = 0; i < 9; i++)
                 player.hotbar[i] = new Block().returnBlock((int)SaveData.ReadByte(), (i * 40) + 16, 16);
@@ -234,8 +237,7 @@ namespace MineBlock
             SaveData.Close();
             SaveData.Dispose();
         }
-       
-
+    
         public void SaveMobs(MobManager mobs)
         {
             Stream SaveData = null;
@@ -313,10 +315,10 @@ namespace MineBlock
             SaveData.Dispose();
         }
 
-        public List<Block[,]> loadSave(int selectedSave,int currentChunkNumber, List<Block[,]>chunks,PlayerManager player, MobManager mobManager )
+        public Block[,] loadSave(int selectedSave,int currentChunkNumber, Block[,]chunks,PlayerManager player, MobManager mobManager )
         {
 #if WINDOWS
-            chunks.Clear();
+            chunks = new Block[200, 130];
             Console.WriteLine("READING SAVE " + selectedSave);
             GetDevice();
             GetContainer("MineBlock" + selectedSave);
@@ -324,26 +326,41 @@ namespace MineBlock
             {
                 //chunks[currentChunkNumber] = LoadChunk(currentChunkNumber);
                 //chunks.Add(currentChunk);
-                loadTerrainCollum(chunks);
+                 chunks = loadTerrainCollum(chunks);
                 LoadPlayer(player);
                 mobManager.RemoveMobs();
                 LoadMobs(mobManager);
             }
             else
             {
-                chunks.Add(Terrain.GenerateSpawnTerrain(mobManager, player));
+              Block[,] genned = Terrain.GenerateSpawnTerrain(mobManager, player);
+                //int chunkx = p % 10;
+                //int chunky = p / 10;
+                for (int i = 0; i < 20; i++)
+                    for (int j = 0; j < 13; j++)
+                        chunks[i, j] = genned[i, j];
                 //currentChunk = chunks[0];
-                chunks = Terrain.genTerrainCollum(chunks, 100);
+                chunks = Terrain.genTerrain(chunks, 100);
             }
             return chunks;
 #endif
 
         }
-        public List<Block[,]>loadTerrainCollum(List<Block[,]> chunks)
+        public Block[,] loadTerrainCollum(Block[,] chunks)
         {
-            for (int p = 1; p < 101; p++)
+            for (int p = 1; p < 100; p++)
             {
-                chunks.Add(LoadChunk(p));
+                Block[,] loaded = LoadChunk(p);
+                int chunkx = p % 10;
+                int chunky = p / 10; 
+                for (int i = 0; i < 20; i++)
+                    for (int j = 0; j < 13; j++)
+                        chunks[i + (20 * chunkx), j + (13 * chunky)] = loaded[i, j];
+                for (int i = 0; i < 200; i++)
+                    for (int j = 0; j < 130; j++)
+                        if (chunks[i, j] == null)
+                            chunks[i, j] = new Air(i, j);
+                //chunks.Add(LoadChunk(p));
             }
             return chunks;
         }
@@ -353,10 +370,10 @@ namespace MineBlock
             GetDevice();
             GetContainer("MineBlock" + selectedSave);
 #endif
-            for (int i = 0; i < Game1.chunks.Count; i++)
+           for (int i = 0; i < 100; i++)
             {
                 SaveChunk(i);
-            }
+           }
             SaveMobs(mobManager);
             SavePlayer(player);
         }

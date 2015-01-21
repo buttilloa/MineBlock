@@ -13,13 +13,14 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 2;
+            MineTime = 60;
         }
         public override void update(Block[,] blocks)
         {
          if (Game1.randy.Next(0, 100) == 8&& y !=0 )
              if (blocks[x, y - 1].index == 0) blocks[x, y] = new Grass(blocks[x, y].x, blocks[x, y].y);
-                
-        
+
+         base.update(blocks);
         }
         public override Block Place(int x, int y)
         {

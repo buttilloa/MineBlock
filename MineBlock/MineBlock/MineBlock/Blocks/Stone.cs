@@ -13,6 +13,7 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 1;
+            MineTime = 180;
         }
        /* public override void update(Block[,] blocks)
         {

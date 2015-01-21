@@ -16,7 +16,7 @@ namespace MineBlock
         {
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown((Keys)Enum.Parse(typeof(Keys), key))) return true;
-           
+
             return false;
 
         }
@@ -30,6 +30,10 @@ namespace MineBlock
         public static Vector2 moveHighlighter(Vector2 high)
         {
             MouseState ms = Mouse.GetState();
+
+            //if(Game1.menu.state == Managers.MenuRef.GameStates.Playing)
+            //return Vector2.Transform(new Vector2(ms.X,ms.Y), Matrix.Invert(Game1.cameraTransform));
+            Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, 800), (int)MathHelper.Clamp(ms.Y, -10, 500));
             return new Vector2(ms.X / 40, ms.Y / 40);
         }
         public static String SimNumPad(String chunk)
@@ -61,11 +65,11 @@ namespace MineBlock
                 string test = "NumPad" + temp;
                 if (keys.IsKeyDown((Keys)Enum.Parse(typeof(Keys), test)))
                 {
-                   
+
                     return i;
 
                 }
-                
+
             }
             return 10;
         }
@@ -95,11 +99,11 @@ namespace MineBlock
                 string test = "D" + temp;// NumPad
                 if (keys.IsKeyDown((Keys)Enum.Parse(typeof(Keys), test)))
                 {
-                   
+
                     return i;
 
                 }
-               
+
             }
             return current;
         }

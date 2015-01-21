@@ -136,7 +136,8 @@ namespace MineBlock
             if (Player.Location.X >= 798 && Player.Velocity.X >= -1)
                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
 
-            highlighted = HandleInputs.moveHighlighter(highlighted);
+            highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location/40)- new Vector2(8,3));
+            
 
 
 
@@ -154,7 +155,7 @@ namespace MineBlock
                     Player.Velocity = new Vector2(0, -175);
             }
             if (HandleInputs.isKeyUp("T") && ChunkTp != "")
-                if (Convert.ToInt32(ChunkTp) > -1 && Convert.ToInt32(ChunkTp) < Game1.chunks.Count())
+                if (Convert.ToInt32(ChunkTp) > -1 && Convert.ToInt32(ChunkTp) < Game1.chunk.Length)
                 {
                     blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].switchTeleporter(true);
                     teleporterMessage = "Yes Sir";
@@ -309,12 +310,12 @@ namespace MineBlock
                 }
             }
             batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), Color.White);
-          
+
             if (drawTeleporterMessage)
                 batch.DrawString(Game1.pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
-            batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            currentWeapon.DrawInInv(batch, 400, 12);
+            //currentWeapon.DrawInInv(batch, 400, 12);
         }
         public void Draw(SpriteBatch batch)
         {
@@ -324,10 +325,10 @@ namespace MineBlock
             batch.Draw(Game1.HealthBar, Bar, Color.White);
             batch.Draw(Game1.Weather, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
             batch.DrawString(Game1.pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
-            currentWeapon.DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
-             batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), Color.White);
-            foreach (Bullet shot in shots)
-                shot.Draw(batch);
+            //currentWeapon.DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
+            batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), Color.White);
+            //foreach (Bullet shot in shots)
+            //    shot.Draw(batch);
 
             if (drawChestInv)
             {

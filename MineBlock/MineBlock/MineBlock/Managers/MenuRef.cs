@@ -78,12 +78,11 @@ namespace MineBlock.Managers
 
                 Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
 
-                // if (Cursor.Intersects(StartButton))
-                //   if (HandleInputs.LeftTrigger())
-                //{
-                //     state = GameStates.SaveSelect;
-
-                //}
+                if (Game1.saves.hasSaved(1)) Savestate1exists = true; // Check for Existing Saves
+                if (Game1.saves.hasSaved(2)) Savestate2exists = true;
+                if (Game1.saves.hasSaved(3)) Savestate3exists = true;
+                if (Game1.saves.hasSaved(4)) Savestate4exists = true;
+                if (Game1.saves.hasSaved(5)) Savestate5exists = true;
 #endif
 #if XBOX
                 cursorPos = HandleInputs.moveHighlighter(cursorPos);
@@ -98,7 +97,7 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         Game1.selectedSave = 1;
-                        Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+                        Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
                         state =GameStates.Playing;
                     }
                 }
@@ -108,7 +107,7 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         Game1.selectedSave = 2;
-                        Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+                        Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
                         state = GameStates.Playing;
                     }
                 }
@@ -118,7 +117,7 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         Game1.selectedSave = 3;
-                        Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+                        Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
                         state = GameStates.Playing;
                     }
                 }
@@ -128,7 +127,7 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         Game1.selectedSave = 4;
-                        Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+                        Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
                         state = GameStates.Playing;
                     }
                 }
@@ -138,7 +137,7 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         Game1.selectedSave = 5;
-                        Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+                        Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
                         state = GameStates.Playing;
                     }
                 }

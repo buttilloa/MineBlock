@@ -8,7 +8,7 @@ namespace MineBlock
 {
     public class Terrain
     {
-
+        public static int genheight = 0;
         public static Block[,] genStone(Block[,] blocks, int chunk)
         {
 
@@ -18,7 +18,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(5, 13);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 blocks[i, height] = new Stone(i, height);
@@ -65,9 +65,17 @@ namespace MineBlock
 
                         blocks[i, j] = new Lava(i, j);
                 }
+            if (height != genheight)
+
+                for (int i = 0; i < Math.Abs(genheight - height); i++)
+                {
+                    blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new CobbleStone(Math.Abs(genheight - height) + i, height - i);
+                    blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new CobbleStone(Math.Abs(genheight - height) - i, height + i);
+                }
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone";
+            Info.chunk = chunk;
             Console.WriteLine("Succesfully Generated a " + "Stone" + " Chunk at " + chunk);
             return blocks;
         }
@@ -130,14 +138,9 @@ namespace MineBlock
                     }
                 }
             blocks[19, 12] = new _InformationBlock(19, 12);
-            blocks[9, 0] = new Air(9, 0);
-            blocks[10, 0] = new Air(10, 0);
-            blocks[11, 0] = new Air(11, 0);
-            blocks[9, 1] = new Air(9, 1);
-            blocks[10, 1] = new Air(10, 1);
-            blocks[11, 1] = new Air(11, 1);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone/gravel";
+            Info.chunk = chunk;
             Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
             return blocks;
         }
@@ -150,7 +153,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(3, 13);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 blocks[i, height] = new Stone(i, height);
@@ -202,6 +205,7 @@ namespace MineBlock
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone/gravel";
+            Info.chunk = chunk;
             Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
             return blocks;
         }
@@ -213,7 +217,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(3, 13);
+            int height = Game1.randy.Next(genheight-1, genheight+1);
             for (int i = 0; i < 20; i++)
             {
                 if (Game1.randy.Next(0, 5) == 3)
@@ -232,9 +236,11 @@ namespace MineBlock
 
                     blocks[i, j] = new Dirt(i, j);
                 }
+            
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Dirt";
+            Info.chunk = chunk;
             Game1.mobManager.AddMob(new Mobs.Pig(10, (height - 1), chunk));
             Game1.mobManager.AddMob(new Mobs.Cow(2, (height - 1), chunk));
             Game1.mobManager.AddMob(new Mobs.Chicken(17, (height - 1), chunk));
@@ -249,7 +255,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(3, 13);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 blocks[i, height] = new SnowyGrass(i, height);
@@ -263,6 +269,7 @@ namespace MineBlock
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Snow";
+            Info.chunk = chunk;
             Info.ShouldSnow = true;
             Console.WriteLine("Succesfully Generated a " + "Snow" + " Chunk at " + chunk);
             return blocks;
@@ -275,7 +282,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(3, 13);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 if (Game1.randy.Next(0, 13) != 3)
@@ -295,6 +302,7 @@ namespace MineBlock
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Mycelium";
+            Info.chunk = chunk;
             Console.WriteLine("Succesfully Generated a " + "Mycelium" + " Chunk at " + chunk);
             return blocks;
         }
@@ -306,7 +314,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(3, 13);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 blocks[i, height] = new Sand(i, height);
@@ -361,6 +369,7 @@ namespace MineBlock
             blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Beach";
+            Info.chunk = chunk;
             Console.WriteLine("Succesfully Generated a " + "Beach" + " Chunk at " + chunk);
             return blocks;
         }
@@ -369,6 +378,7 @@ namespace MineBlock
             int height = Game1.randy.Next(6, 10);
             int maxheight = 13;
             int maxwidth = 20;
+            genheight = height;
             Block[,] blocks = new Block[maxwidth, maxheight];
             for (int i = 0; i < maxwidth; i++)
                 for (int j = 0; j < maxheight; j++)
@@ -392,6 +402,7 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.isSpawnChunk = true;
             Info.Biome = "Spawn";
+            Info.chunk = 0;
             mobManager.AddMob(new Mobs.Pig(2, height - 1, 0));
             mobManager.AddMob(new Mobs.Cow(17, height - 1, 0));
             mobManager.AddMob(new Mobs.Chicken(10, height - 1, 0));
@@ -400,45 +411,68 @@ namespace MineBlock
             player.updateBlocks(blocks);
             return blocks;
         }
-        public static List<Block[,]> genTerrainCollum(List<Block[,]> chunks,int chunkcount)
+        public static Block[,] genTerrain(Block[,] chunks,int chunkcount)
         {
           
             Block[,] blocks = new Block[20, 13];
-            for (int p = 1; p < chunkcount; p++)
-            {
-
-                if (p < 10)
-                {
-                    switch (Game1.randy.Next(0, 5))
+            //chunks = new Block[200, 130];
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                    if(chunks[i,j] ==null )
+                    chunks[i, j] = new Air(i, j);
+                    for (int p = 1; p < chunkcount; p++)
                     {
-                        case 1:
+
+                        if (p < 10)
+                        {
+                            Block[,] genned;
+                            switch (Game1.randy.Next(0, 5))
                             {
-                                chunks.Add(genStone(blocks, p));
-                                break;
+                                case 1:
+                                    {
+
+                                        genned = genStone(blocks, p);
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        genned = genSnow(blocks, p);
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        genned = genBeach(blocks, p);
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        genned = genMycelium(blocks, p);
+                                        break;
+                                    }
+                                default: genned = genDirt(blocks, p); break;
                             }
-                        case 2:
-                            {
-                                chunks.Add(genSnow(blocks, p));
-                                break;
-                            }
-                        case 3:
-                            {
-                                chunks.Add(genBeach(blocks, p));
-                                break;
-                            }
-                        case 4:
-                            {
-                                chunks.Add(genMycelium(blocks, p));
-                                break;
-                            }
-                        default: chunks.Add(genDirt(blocks, p)); break;
+                            int chunkx = p % 10;
+                            int chunky = p / 10;
+                            for (int i = 0; i < 20; i++)
+                                for (int j = 0; j < 13; j++)
+                                    chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
+                     
+                        }
+                        else
+                        {
+                            Block[,] genned = genUnderGround(blocks, p);
+                            int chunkx = p % 10;
+                            int chunky = p / 10;
+                            for (int i = 0; i < 20; i++)
+                                for (int j = 0; j < 13; j++)
+                                    chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
+                        }
+
                     }
-                }
-                else
-                    chunks.Add(Terrain.genUnderGround(blocks, p));
-
-            }
-
+                    for (int i = 0; i < 200; i++)
+                        for (int j = 0; j < 130; j++)
+                        { chunks[i, j].x = i; chunks[i, j].y = j; }
+                    Game1.player.updateBlocks(chunks);
             return chunks;
         }
     }

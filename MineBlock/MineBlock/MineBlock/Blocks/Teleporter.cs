@@ -13,6 +13,7 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 46;
+            MineTime = 240;
         }
         public override void update(Block[,] blocks)
         {
@@ -20,7 +21,7 @@ namespace MineBlock.Blocks
             if(index!=46)
             if(Game1.randy.Next(0,100)==4)
                 index = 46;
-        
+            base.update(blocks);
         }
         public override void switchTeleporter(Boolean isLava)
         {

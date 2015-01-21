@@ -41,7 +41,7 @@ namespace MineBlock.Commands
             Type hai = Type.GetType(args[1]);
             ConstructorInfo ctor = hai.GetConstructor(new[] { typeof(int), typeof(int) });
             Block instance = (Block)ctor.Invoke(new object[] { Convert.ToInt32(args[2]), Convert.ToInt32(args[3]) });
-            Game1.chunks[Game1.currentChunkNumber][Convert.ToInt32(args[2]), Convert.ToInt32(args[3])] = instance;
+            Game1.chunk[Convert.ToInt32(args[2]), Convert.ToInt32(args[3])] = instance;
             Console.WriteLine("" + instance);
 
             return "Changed block" + "[" + Convert.ToInt32(args[2]) + "." + Convert.ToInt32(args[3]) + "] to " + instance;
@@ -124,7 +124,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber, Game1.chunks, Game1.player, Game1.mobManager);
+            Game1.chunk = Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
             Game1.menu.state = Managers.MenuRef.GameStates.Playing;
             return "Game Loaded " + args[1];
         }
@@ -184,7 +184,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            Game1.switchChunk(Game1.player, Convert.ToInt32(args[1]));
+           // Game1.switchChunk(Game1.player, Convert.ToInt32(args[1]));
             return "Switched to" + Convert.ToInt32(args[1]);
         }
 
@@ -315,7 +315,7 @@ namespace MineBlock.Commands
         {
             try
             {
-                Commandblock cb = (Commandblock)Game1.chunks[Game1.currentChunkNumber][Convert.ToInt32(args[1]), Convert.ToInt32(args[2])];
+                Commandblock cb = (Commandblock)Game1.chunk[Convert.ToInt32(args[1]), Convert.ToInt32(args[2])];
                 if (args.Length > 2)
                     cb.command = new String[args.Length-2];
                 for (int i = 3; i < args.Length; i ++)

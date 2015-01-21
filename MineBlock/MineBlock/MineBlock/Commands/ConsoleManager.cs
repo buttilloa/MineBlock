@@ -10,7 +10,7 @@ namespace MineBlock.Commands
 {
     public class ConsoleManager
     {
-        public bool isShown = true;
+        public bool isShown = false;
         String Command = "";
         String output = "";
         public List<String> history = new List<String>();
@@ -140,14 +140,14 @@ namespace MineBlock.Commands
 
             if (isShown)
             {
-                batch.Draw(Game1.Blur, new Rectangle(0, 425, 800, 25), Color.White);
-                batch.DrawString(Game1.pericles14, Command + "_", new Vector2(2, 427), Color.Gray);
+                batch.Draw(Game1.Blur, new Rectangle(0, 458, 800, 25), Color.White);
+                batch.DrawString(Game1.pericles14, Command + "_", new Vector2(2, 458), Color.Gray);
                 String[] temp = history.ToArray();
 
                 Array.Reverse(temp);
 
                 for (int i = 0; i < temp.Length; i++)
-                    batch.DrawString(Game1.pericles1, temp[i], new Vector2(3, 420 - (i * 13)), Color.DarkGray);
+                    batch.DrawString(Game1.pericles1, temp[i], new Vector2(3, 444 - (i * 13)), Color.DarkGray);
             }
         }
     }

@@ -26,14 +26,14 @@ namespace MineBlock.Blocks
                     if (blocks[x - 1, y].index == 14)
                         blocks[x, y] = new BedRock(x, y);
                 }
-                if (x < 19)
+                if (x < 199)
                 {
                     if (blocks[x + 1, y].index == 0)
                         blocks[x + 1, y] = new Lava(x + 1, y);
                     if (blocks[x + 1, y].index == 14)
                         blocks[x, y] = new Lava(x, y);
                 }
-                if (y < 11)
+                if (y < 129)
                 {
                     if (blocks[x, y + 1].index == 0)
                         blocks[x, y + 1] = new Lava(x, y + 1);

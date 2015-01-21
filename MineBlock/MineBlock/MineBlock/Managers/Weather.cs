@@ -72,7 +72,7 @@ namespace MineBlock
                     if (snows[i].Y < 600)
                         snows[i] = new Rectangle(snows[i].X, snows[i].Y + Game1.randy.Next(1, 4), 3, 3);
                     batch.Draw(Game1.Weather, snows[i], Color.White);
-                    foreach (Block block in Game1.chunks[Game1.currentChunkNumber])
+                    foreach (Block block in Game1.chunk)
                         if (block.index != 6 && block.index != 0)
                             if (snows[i].Intersects(new Rectangle(block.x * 40, block.y * 40, 40, 40)))
                             {
@@ -97,7 +97,7 @@ namespace MineBlock
                     if (rains[i].Y < 600)
                         rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
                     batch.Draw(Game1.Weather, rains[i], Color.Blue);
-                    foreach (Block block in Game1.chunks[Game1.currentChunkNumber])
+                    foreach (Block block in Game1.chunk)
                        if (block.index != 6 && block.index != 0)
                        if (rains[i].Intersects(new Rectangle(block.x*40,block.y*40,40,40)))
                     {

@@ -13,6 +13,7 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 16;
+           MineTime = 240;
         }
         public override Block Place(int x, int y)
         {

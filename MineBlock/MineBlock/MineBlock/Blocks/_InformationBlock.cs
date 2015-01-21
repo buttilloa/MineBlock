@@ -10,6 +10,7 @@ namespace MineBlock.Blocks
         public Boolean isSpawnChunk = false;
         public Boolean ShouldSnow = false;
         public String Biome = "";
+        public int chunk =0;
         public _InformationBlock(int x, int y)
         {
             if (x != 19 && y != 12)

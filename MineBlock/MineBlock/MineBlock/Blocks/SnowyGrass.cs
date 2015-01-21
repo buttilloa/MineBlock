@@ -13,7 +13,7 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 68;
-          
+            MineTime = 60;
         }
      
         public override Block Reset(int X, int Y)
