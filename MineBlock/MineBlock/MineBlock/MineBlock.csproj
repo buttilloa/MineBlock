@@ -134,6 +134,7 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ConsoleManager.cs" />
     <Compile Include="Managers\MenuRef.cs" />
+    <Compile Include="Mobs\Hoverbot.cs" />
     <Compile Include="Mobs\Mob.cs" />
     <Compile Include="Managers\MobManager.cs" />
     <Compile Include="Mobs\Chicken.cs" />

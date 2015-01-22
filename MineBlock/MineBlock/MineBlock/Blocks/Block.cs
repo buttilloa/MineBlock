@@ -9,7 +9,7 @@ namespace MineBlock
 {
     public class Block
     {
-        public int index;
+        public int index = -1;
         public int x = 0, y = 0;
         public int special;
         public int MineTime = 120;

@@ -14,7 +14,7 @@ namespace MineBlock
 
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
-        public static Texture2D terrainsheet, cursor, Weather, Pigsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
+        public static Texture2D terrainsheet, cursor, Weather,hoverbot, Pigsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
         Texture2D playerSheet, hotbarsheet, hotbarselector; // Player Textures
         public Texture2D TitleScreen, Pointer, SaveSelect, Paused; // Textures acessed by Menu Class
         public static MobManager mobManager = new MobManager(); // Manages Mobs
@@ -70,6 +70,7 @@ namespace MineBlock
             Pigsheet = Content.Load<Texture2D>(@"Mobs/Pig");
             chickensheet = Content.Load<Texture2D>(@"Mobs/Chicken");
             cowsheet = Content.Load<Texture2D>(@"Mobs/Cow");
+            hoverbot = Content.Load<Texture2D>(@"Mobs/HoverBot");
             //Blocks
             grass = Content.Load<Texture2D>(@"Blocks/grass");
             terrainsheet = Content.Load<Texture2D>(@"Blocks/terrainsheet");
@@ -109,7 +110,7 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
             if (saves.hasSaved(3)) menu.Savestate3exists = true;
             if (saves.hasSaved(4)) menu.Savestate4exists = true;
             if (saves.hasSaved(5)) menu.Savestate5exists = true;
-
+            mobManager.addBot();
         }
         //Unload Content
         protected override void UnloadContent()

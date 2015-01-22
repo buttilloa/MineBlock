@@ -16,6 +16,7 @@ namespace MineBlock
         private float frameTime = 0.1f;
         private float timeForCurrentFrame = 0.0f;
         public Boolean Flip = false;
+        public float scale = 1f;
        
         public bool isVisible = true;
         private Color tintColor = Color.White;
@@ -37,6 +38,7 @@ namespace MineBlock
             frames.Add(initialFrame);
             frameWidth = initialFrame.Width;
             frameHeight = initialFrame.Height;
+            scale = 0.4f;
         }
         public Vector2 Location
         {
@@ -144,7 +146,7 @@ namespace MineBlock
                 tintColor,
                 rotation,
                 new Vector2(frameWidth / 2, frameHeight / 2),
-                0.4f,
+                scale,
                 this.Flip ? SpriteEffects.FlipHorizontally:SpriteEffects.None,
                 0.0f);
         }

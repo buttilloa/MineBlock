@@ -16,8 +16,7 @@ namespace MineBlock
         {
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown((Keys)Enum.Parse(typeof(Keys), key))) return true;
-
-            return false;
+             return false;
 
         }
         public static Boolean isKeyUp(String key)

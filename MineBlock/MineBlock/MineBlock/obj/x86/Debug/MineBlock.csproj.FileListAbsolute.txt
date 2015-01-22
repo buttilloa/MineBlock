@@ -182,3 +182,5 @@ C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug
 C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.exe
 C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.pdb
 C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb
+C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb
+C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\HoverBot.xnb

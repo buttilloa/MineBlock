@@ -78,7 +78,7 @@ namespace MineBlock.Commands
                 {
                     Keys key = newState.GetPressedKeys()[0];
 
-                    if (key.ToString() == "Escape")
+                    if (key.ToString() == "OemTilde")
                         isShown = false;
                     else if (key.ToString() == "Space")
                         Command += " ";
@@ -122,12 +122,12 @@ namespace MineBlock.Commands
         public void Draw(SpriteBatch batch)
         {
             if (display)
-                for (int i = 0; i < 20; i++)
-                    for (int j = 0; j < 13; j++)
+                for (int i = 0; i < 200; i++)
+                    for (int j = 0; j < 130; j++)
                         batch.DrawString(Game1.pericles1, "" + i + "," + j, new Vector2((i * 40) + 2, (j * 40) + 2), Color.White);
             if (outlined)
-                for (int i = 0; i < 20; i++)
-                    for (int j = 0; j < 13; j++)
+                for (int i = 0; i < 200; i++)
+                    for (int j = 0; j < 130; j++)
                         batch.Draw(Game1.SaveSelectHighlight, new Rectangle(i * 40, j * 40, 40, 40), Color.Wheat);
             if (mobCooords)
                 foreach (Mob mob in Game1.mobManager.mobs)
