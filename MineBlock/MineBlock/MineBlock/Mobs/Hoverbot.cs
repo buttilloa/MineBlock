@@ -1,40 +1,38 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MineBlock.Blocks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MineBlock.Mobs
 {
     public class Hoverbot
     {
-        enum BotState {mine,place,follow};
+        enum BotState { mine, place, follow, idle };
         BotState botstate = BotState.follow;
         public Sprite Botsprite;
-        //bool isMineing = false;
-        //bool isPlacing = false
-            
+        Texture2D t;
         int speed = 150;
         Block target1 = new Block();
         Block target2 = new Block();
         int startx;
         int minetimer;
-        public Hoverbot()
+        public Hoverbot(GraphicsDevice g)
         {
             Botsprite = new Sprite(new Vector2(10, 10), Game1.hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
             Botsprite.scale = 1;
             Botsprite.AddFrame(new Rectangle(32, 0, 15, 21));
             Botsprite.AddFrame(new Rectangle(61, 0, 15, 21));
             Botsprite.AddFrame(new Rectangle(88, 0, 15, 21));
+            t = new Texture2D(g, 1, 1);
+            t.SetData<Color>(
+                new Color[] { Color.White });
         }
         public void update(GameTime time)
         {
-           
-            if(target1.index != -1)
-                flytoLocation(new Vector2(target1.x*40,target1.y*40));
-            else flytoLocation(Game1.player.Player.Location);
+
+            if (target1.index != -1)
+                flytoLocation(new Vector2(target1.x * 40, target1.y * 40));
+            else if (botstate != BotState.idle) flytoLocation(Game1.player.Player.Location);
             if (HandleInputs.isKeyDown("N") && botstate == BotState.follow)
                 getTarget1Block(true);
             if (HandleInputs.isKeyDown("M") && botstate == BotState.follow)
@@ -43,13 +41,19 @@ namespace MineBlock.Mobs
                 getTarget1Block(false);
             if (HandleInputs.isKeyDown("K") && botstate == BotState.follow)
                 getTarget2Block(false);
+            /*if (HandleInputs.isKeyDown("C"))
+                if (botstate != BotState.follow)
+                    botstate = BotState.follow;
+                else if (botstate == BotState.follow)
+                    botstate = BotState.idle;
+             */
             if (botstate == BotState.mine)
                 mineBlock();
             if (botstate == BotState.place)
-               PlaceBlock();
+                PlaceBlock();
             Botsprite.Update(time);
         }
-        
+
         public void flytoLocation(Vector2 location)
         {
             Botsprite.Velocity = (location - Botsprite.Location) * 2f;
@@ -71,15 +75,15 @@ namespace MineBlock.Mobs
         {
             target1 = Game1.chunk[(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y];
             startx = target1.x;
-         
-            
+
+
         }
         public void getTarget2Block(Boolean mine)
         {
             target2 = Game1.chunk[(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y];
             if (mine)
             {
-               // target2.MineTime *= 2;
+                // target2.MineTime *= 2;
                 if (target2.index != 0 && target2.canMine)
                 {
                     botstate = BotState.mine;
@@ -93,8 +97,8 @@ namespace MineBlock.Mobs
         public void mineBlock()
         {
             target1 = Game1.chunk[target1.x, target1.y];
-            int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x+1, target2.y+1)).X);
-            int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x+1, target2.y+1)).Y);
+            int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).X);
+            int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).Y);
             if (target1.y < target1.y + ycount)
             {
                 if (target1.x < target1.x + xcount)
@@ -133,8 +137,8 @@ namespace MineBlock.Mobs
         public void PlaceBlock()
         {
             target1 = Game1.chunk[target1.x, target1.y];
-             int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x+1, target2.y+1)).X);
-            int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x+1, target2.y+1)).Y);
+            int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).X);
+            int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).Y);
             if (target1.y < target1.y + ycount)
             {
                 if (target1.x < target1.x + xcount)
@@ -158,9 +162,34 @@ namespace MineBlock.Mobs
             }
             else { target1 = new Block(); botstate = BotState.follow; }
         }
+
         public void draw(SpriteBatch batch)
         {
+            if (target1.index >= 0 && botstate != BotState.follow)
+                DrawLine(batch, new Vector2((target1.x * 40) + 20, (target1.y * 40) + 20), new Vector2(Botsprite.Location.X + 6, Botsprite.Location.Y + 13));
             Botsprite.Draw(batch);
+        }
+        void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+        {
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle =
+                (float)Math.Atan2(edge.Y, edge.X);
+
+
+            sb.Draw(t,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    1), //width of line, change this to make thicker line
+                null,
+                Color.Red, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                0);
+
         }
     }
 

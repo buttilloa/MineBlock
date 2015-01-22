@@ -8,7 +8,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Chest.xnb</Output>
-      <Time>2015-01-21T07:38:05.9022-05:00</Time>
+      <Time>2015-01-22T07:56:21.393-05:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Rain.wav</Source>
@@ -17,7 +17,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Rain.xnb</Output>
-      <Time>2015-01-21T07:38:05.9932-05:00</Time>
+      <Time>2015-01-22T07:56:21.481-05:00</Time>
     </Item>
     <Item>
       <Source>Sounds\RickRoll.wav</Source>
@@ -26,7 +26,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\RickRoll.xnb</Output>
-      <Time>2015-01-21T07:38:06.0512-05:00</Time>
+      <Time>2015-01-22T07:56:21.537-05:00</Time>
     </Item>
     <Item>
       <Source>Sounds\Snow.wav</Source>
@@ -35,7 +35,7 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Snow.xnb</Output>
-      <Time>2015-01-21T07:38:06.1532-05:00</Time>
+      <Time>2015-01-22T07:56:21.64-05:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Chicken.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Chicken.xnb</Output>
-      <Time>2015-01-21T07:38:05.8722-05:00</Time>
+      <Time>2015-01-22T07:56:21.369-05:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Cow.png</Source>
@@ -53,7 +53,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Cow.xnb</Output>
-      <Time>2015-01-21T07:38:05.8742-05:00</Time>
+      <Time>2015-01-22T07:56:21.371-05:00</Time>
     </Item>
     <Item>
       <Source>Misc\cursor.png</Source>
@@ -62,7 +62,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\cursor.xnb</Output>
-      <Time>2015-01-21T07:38:05.8672-05:00</Time>
+      <Time>2015-01-22T07:56:21.365-05:00</Time>
     </Item>
     <Item>
       <Source>Blocks\grass.png</Source>
@@ -71,7 +71,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\grass.xnb</Output>
-      <Time>2015-01-21T07:38:05.7882-05:00</Time>
+      <Time>2015-01-22T07:56:21.3-05:00</Time>
     </Item>
     <Item>
       <Source>Player\Hotbar.png</Source>
@@ -80,7 +80,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar.xnb</Output>
-      <Time>2015-01-21T07:38:05.8832-05:00</Time>
+      <Time>2015-01-22T07:56:21.38-05:00</Time>
     </Item>
     <Item>
       <Source>Player\Hotbar_selector.png</Source>
@@ -89,7 +89,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar_selector.xnb</Output>
-      <Time>2015-01-21T07:38:05.8852-05:00</Time>
+      <Time>2015-01-22T07:56:21.381-05:00</Time>
     </Item>
     <Item>
       <Source>Menus\Paused.png</Source>
@@ -98,7 +98,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Paused.xnb</Output>
-      <Time>2015-01-21T07:38:05.8182-05:00</Time>
+      <Time>2015-01-22T07:56:21.32-05:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Pig.png</Source>
@@ -107,7 +107,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Pig.xnb</Output>
-      <Time>2015-01-21T07:38:05.8762-05:00</Time>
+      <Time>2015-01-22T07:56:21.375-05:00</Time>
     </Item>
     <Item>
       <Source>Player\Player.png</Source>
@@ -116,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Player.xnb</Output>
-      <Time>2015-01-21T07:38:05.8892-05:00</Time>
+      <Time>2015-01-22T07:56:21.384-05:00</Time>
     </Item>
     <Item>
       <Source>Misc\pointer.png</Source>
@@ -125,7 +125,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\pointer.xnb</Output>
-      <Time>2015-01-21T07:38:05.8692-05:00</Time>
+      <Time>2015-01-22T07:56:21.367-05:00</Time>
     </Item>
     <Item>
       <Source>Menus\SaveSelect.png</Source>
@@ -134,7 +134,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelect.xnb</Output>
-      <Time>2015-01-21T07:38:05.8212-05:00</Time>
+      <Time>2015-01-22T07:56:21.323-05:00</Time>
     </Item>
     <Item>
       <Source>Menus\SaveSelectHighlight.png</Source>
@@ -143,7 +143,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelectHighlight.xnb</Output>
-      <Time>2015-01-21T07:38:05.8232-05:00</Time>
+      <Time>2015-01-22T07:56:21.325-05:00</Time>
     </Item>
     <Item>
       <Source>Blocks\terrainsheet.png</Source>
@@ -152,7 +152,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\terrainsheet.xnb</Output>
-      <Time>2015-01-21T07:38:12.7672-05:00</Time>
+      <Time>2015-01-22T07:56:21.309-05:00</Time>
     </Item>
     <Item>
       <Source>Menus\TitleScreen.png</Source>
@@ -161,7 +161,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\TitleScreen.xnb</Output>
-      <Time>2015-01-21T07:38:05.8412-05:00</Time>
+      <Time>2015-01-22T07:56:21.35-05:00</Time>
     </Item>
     <Item>
       <Source>Misc\Weather.bmp</Source>
@@ -170,7 +170,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\Weather.xnb</Output>
-      <Time>2015-01-21T07:38:05.8612-05:00</Time>
+      <Time>2015-01-22T07:56:21.363-05:00</Time>
     </Item>
     <Item>
       <Source>Player\HealthBar.png</Source>
@@ -179,7 +179,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\HealthBar.xnb</Output>
-      <Time>2015-01-21T07:38:05.8772-05:00</Time>
+      <Time>2015-01-22T07:56:21.378-05:00</Time>
     </Item>
     <Item>
       <Source>Weapons\HandGun1.png</Source>
@@ -188,7 +188,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Weapons\HandGun1.xnb</Output>
-      <Time>2015-01-21T07:38:06.1572-05:00</Time>
+      <Time>2015-01-22T07:56:21.674-05:00</Time>
     </Item>
     <Item>
       <Source>Menus\Blur.png</Source>
@@ -197,7 +197,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Blur.xnb</Output>
-      <Time>2015-01-21T07:38:05.8152-05:00</Time>
+      <Time>2015-01-22T07:56:21.318-05:00</Time>
     </Item>
     <Item>
       <Source>Fonts\Pericles1.spritefont</Source>
@@ -206,7 +206,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb</Output>
-      <Time>2015-01-21T07:38:05.8062-05:00</Time>
+      <Time>2015-01-22T07:56:21.311-05:00</Time>
     </Item>
     <Item>
       <Source>Fonts\Pericles14.spritefont</Source>
@@ -215,7 +215,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb</Output>
-      <Time>2015-01-21T07:38:05.8082-05:00</Time>
+      <Time>2015-01-22T07:56:21.313-05:00</Time>
     </Item>
     <Item>
       <Source>Fonts\Pericles28.spritefont</Source>
@@ -224,7 +224,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
-      <Time>2015-01-21T07:38:05.8112-05:00</Time>
+      <Time>2015-01-22T07:56:21.316-05:00</Time>
     </Item>
     <Item>
       <Source>Sounds\fuck.wav</Source>
@@ -233,7 +233,16 @@
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb</Output>
-      <Time>2015-01-21T07:56:51.3312-05:00</Time>
+      <Time>2015-01-22T07:56:21.671-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Mobs\HoverBot.png</Source>
+      <Name>Mobs\HoverBot</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\EAHSCS\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\HoverBot.xnb</Output>
+      <Time>2015-01-22T07:56:21.374-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

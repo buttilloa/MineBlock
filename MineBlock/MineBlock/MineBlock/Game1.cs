@@ -54,7 +54,7 @@ namespace MineBlock
         {
 
             base.Initialize();
-
+            
         }
         //Load Content
         protected override void LoadContent()
@@ -110,7 +110,7 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
             if (saves.hasSaved(3)) menu.Savestate3exists = true;
             if (saves.hasSaved(4)) menu.Savestate4exists = true;
             if (saves.hasSaved(5)) menu.Savestate5exists = true;
-            mobManager.addBot();
+            mobManager.addBot(GraphicsDevice);
         }
         //Unload Content
         protected override void UnloadContent()

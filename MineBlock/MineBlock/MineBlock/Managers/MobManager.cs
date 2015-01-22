@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MineBlock
 {
@@ -19,9 +20,9 @@ namespace MineBlock
             mobs.Add(mob); 
            
         }
-        public void addBot()
+        public void addBot(GraphicsDevice g)
         {
- bot = new Hoverbot();
+ bot = new Hoverbot(g);
         }
         public void RemoveMobs()
         {
