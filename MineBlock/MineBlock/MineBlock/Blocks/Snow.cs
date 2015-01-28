@@ -13,6 +13,7 @@ namespace MineBlock.Blocks
             x = XPos;
             y = yPos;
             index = 66;
+            preferedTool = new MineBlock.Items.Shovel(0);
           
         }
      

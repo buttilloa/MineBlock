@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using MineBlock.Blocks;
+using MineBlock.Items;
 namespace MineBlock
 {
     public class Block
@@ -12,10 +13,11 @@ namespace MineBlock
         public int index = -1;
         public int x = 0, y = 0;
         public int special;
-        public int MineTime = 120;
-        public int damage = 0;
-        int drawdamage = 0;
+        public float MineTime = 120;
+        public float damage = 0;
+        public int drawdamage = 0;
         public bool isfucked = false;
+        public Item preferedTool = null;
         // Boolean isFlamible = false;
         public Boolean canMine = true;
 
@@ -23,6 +25,7 @@ namespace MineBlock
         {
 
         }
+
         public virtual Block Reset(int x, int y)
         {
             return new Block();
@@ -73,31 +76,34 @@ namespace MineBlock
         {
 
             if (damage > 0)
-                if(Game1.randy.Next(0,10) ==5)
-                damage--;
+                if (Game1.randy.Next(0, 10) == 5)
+                    damage--;
         }
         public virtual void switchTeleporter(Boolean IsLava)
         {
         }
-        
-        public virtual Block ConvertGrass(int x, int y, int orientation)
+        public Item ItemBlock()
+        {
+            return new Item(this);
+        }
+        public virtual Block ConvertGrass(int x, int y, int orientation, float olddamage)
         {
             return new Block();
         }
-        public virtual void Draw(SpriteBatch batch, int startposX, int startposY)
+        public virtual void Draw(SpriteBatch batch)
         {
             if (index > 15)
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked?Color.Red:Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked ? Color.Red : Color.White);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
 
-            handleBlockDmg(batch,startposX, startposY);
+            handleBlockDmg(batch);
         }
-        public void handleBlockDmg(SpriteBatch batch, int startposX, int startposY)
+        public void handleBlockDmg(SpriteBatch batch)
         {
             if (damage > 0)
             {
@@ -113,7 +119,7 @@ namespace MineBlock
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Color.White);
+                    batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.menu.breakanimcolor);
 
                 }
             }

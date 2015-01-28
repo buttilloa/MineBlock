@@ -50,7 +50,7 @@ namespace MineBlock.Blocks
             }
             return 0;
         }
-        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch, int startposX , int startposY)
+        public override void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch)
         {
 
         }

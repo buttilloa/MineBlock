@@ -16,7 +16,7 @@ namespace MineBlock.Weapons
         }
         public override void Shoot(PlayerManager player, Boolean Flip)
         {
-            player.shots.Add(new Bullet(X, Y, Flip));
+            //layer.shots.Add(new Bullet(X, Y, Flip));
            
         }
         

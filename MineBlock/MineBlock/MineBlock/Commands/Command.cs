@@ -167,8 +167,8 @@ namespace MineBlock.Commands
             Block instance = (Block)ctor.Invoke(new object[] { (Convert.ToInt32(args[2]) * 40) + 16, 16 });
 
             //Game1.player.hotbar[Convert.ToInt32(args[2])] = new Block().returnBlock(Convert.ToInt32(args[1]), (Convert.ToInt32(args[2]) * 40) + 16, 16);
-            Game1.player.hotbar[Convert.ToInt32(args[2])] = instance;//.Reset((Convert.ToInt32(args[2]) * 40) + 16, 16);
-            Game1.player.count[Convert.ToInt32(args[2])] = Convert.ToInt32(args[3]);
+            Game1.player.hotbar[Convert.ToInt32(args[2])] = instance.ItemBlock();//.Reset((Convert.ToInt32(args[2]) * 40) + 16, 16);
+            Game1.player.hotbar[Convert.ToInt32(args[2])].Count = Convert.ToInt32(args[3]);
             return "Given player  " + Convert.ToInt32(args[3]) + " of " + instance;//.Reset(0,0); ;
         }
 
@@ -200,7 +200,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
+            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToInt32(args[1])*40, Convert.ToInt32(args[2])*40);
             return "Tp to " + new Microsoft.Xna.Framework.Vector2(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
         }
 

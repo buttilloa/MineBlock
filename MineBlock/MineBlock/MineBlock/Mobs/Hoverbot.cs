@@ -7,7 +7,7 @@ namespace MineBlock.Mobs
 {
     public class Hoverbot
     {
-        enum BotState { mine, place, follow, idle };
+        enum BotState { mine, place, follow, idle  };
         BotState botstate = BotState.follow;
         public Sprite Botsprite;
         Texture2D t;
@@ -16,6 +16,12 @@ namespace MineBlock.Mobs
         Block target2 = new Block();
         int startx;
         int minetimer;
+        bool drawinv = false;
+        Vector2 InvLocation;
+        Block[] Inv = new Block[9];
+        int[] count = new int[9];
+        bool canChangeState = true;
+        public Color lasercolor = Color.Red;
         public Hoverbot(GraphicsDevice g)
         {
             Botsprite = new Sprite(new Vector2(10, 10), Game1.hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
@@ -26,10 +32,38 @@ namespace MineBlock.Mobs
             t = new Texture2D(g, 1, 1);
             t.SetData<Color>(
                 new Color[] { Color.White });
+            for (int i = 0; i < 9; i++)
+            {
+                Inv[i] = new Air(((int)Botsprite.Location.X + (i * 20)) + 3, (int)Botsprite.Location.Y + 3);
+                count[i] = 0;
+            }
+           
         }
+        public Texture2D Texture{
+            get { return t; }
+            set { t = value; }
+        }
+        
         public void update(GameTime time)
         {
 
+            if (!drawinv)
+                if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * 40)) <= 40)
+                {
+                    drawinv = true;
+                    minetimer = 0;
+                }
+            if (drawinv)
+            {
+                if (minetimer <= 60)
+                    minetimer++;
+                if (minetimer > 60)
+                {
+                    minetimer = -1;
+                    if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * 40)) > 40)
+                    drawinv = false;
+                }
+            }
             if (target1.index != -1)
                 flytoLocation(new Vector2(target1.x * 40, target1.y * 40));
             else if (botstate != BotState.idle) flytoLocation(Game1.player.Player.Location);
@@ -41,12 +75,19 @@ namespace MineBlock.Mobs
                 getTarget1Block(false);
             if (HandleInputs.isKeyDown("K") && botstate == BotState.follow)
                 getTarget2Block(false);
-            /*if (HandleInputs.isKeyDown("C"))
+            if (HandleInputs.isKeyDown("C") && canChangeState)
+            {
+                canChangeState = false;
                 if (botstate != BotState.follow)
-                    botstate = BotState.follow;
+                { botstate = BotState.follow;
+                target1 = new Block(); target2 = new Block();
+                }
                 else if (botstate == BotState.follow)
                     botstate = BotState.idle;
-             */
+           }
+            if (botstate == BotState.idle) {Botsprite.Velocity = Vector2.Zero; Botsprite.Rotation = 0; }
+            if (!canChangeState)
+                if (HandleInputs.isKeyUp("C")) canChangeState = true;
             if (botstate == BotState.mine)
                 mineBlock();
             if (botstate == BotState.place)
@@ -58,7 +99,8 @@ namespace MineBlock.Mobs
         {
             Botsprite.Velocity = (location - Botsprite.Location) * 2f;
             Botsprite.Velocity.Normalize();
-
+            if (Botsprite.Velocity == new Vector2(0, 0)) Botsprite.Location = new Vector2(0, 0);
+            Botsprite.Velocity = new Vector2(MathHelper.Clamp(Botsprite.Velocity.X, -speed, speed), MathHelper.Clamp(Botsprite.Velocity.Y, -speed, speed));
             if (Botsprite.Velocity.X != 0)
             {
                 Botsprite.Rotation = .0f + (Botsprite.Velocity.X / 100);
@@ -68,8 +110,6 @@ namespace MineBlock.Mobs
 
             }
             else Botsprite.Rotation = 0f;
-            if (Botsprite.Velocity == new Vector2(0, 0)) Botsprite.Location = new Vector2(0, 0);
-            Botsprite.Velocity = new Vector2(MathHelper.Clamp(Botsprite.Velocity.X, -speed, speed), MathHelper.Clamp(Botsprite.Velocity.Y, -speed, speed));
         }
         public void getTarget1Block(Boolean mine)
         {
@@ -105,7 +145,7 @@ namespace MineBlock.Mobs
                 {
                     if (target1.index != 0)
                     {
-                        int minetime = target1.MineTime;
+                        float minetime = target1.MineTime;
                         if (minetimer == -1)
                             minetimer = 0;
                         float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * 40, target1.y * 40));
@@ -118,7 +158,7 @@ namespace MineBlock.Mobs
                         {
                             minetimer = -1;
                             if (target1.index != 0)
-                                Game1.player.addToInv(target1.Mine(target1.x, target1.y), 1);
+                               addToInv(target1.Mine(target1.x, target1.y), 1);
                             Game1.chunk[target1.x, target1.y] = new Air(0, 0);
                             target1 = Game1.chunk[target1.x + 1, target1.y];
 
@@ -144,16 +184,16 @@ namespace MineBlock.Mobs
                 if (target1.x < target1.x + xcount)
                 {
                     float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * 40, target1.y * 40));
-                    if (target1.index == 0 && Game1.player.count[Game1.player.selected] > 0)
+                    if (target1.index == 0 && Game1.player.hotbar[Game1.player.selected].Count > 0)
                     {
                         if (dist <= 4)
                         {
-                            if (Game1.player.count[Game1.player.selected] > 0)
-                                Game1.chunk[target1.x, target1.y] = Game1.player.hotbar[Game1.player.selected].Place(target1.x, target1.y);
+                            if (Game1.player.hotbar[Game1.player.selected].Count > 0)
+                                Game1.chunk[target1.x, target1.y] = Game1.player.hotbar[Game1.player.selected].ReturnBlock().Place(target1.x, target1.y);
                             target1 = Game1.chunk[target1.x + 1, target1.y];
-                            Game1.player.count[Game1.player.selected]--;
-                            if (Game1.player.count[Game1.player.selected] == 0)
-                                Game1.player.hotbar[Game1.player.selected] = new Air((Game1.player.selected * 40) + 16, 16);
+                            Game1.player.hotbar[Game1.player.selected].Count--;
+                            if (Game1.player.hotbar[Game1.player.selected].Count == 0)
+                                Game1.player.hotbar[Game1.player.selected] = new Air((Game1.player.selected * 40) + 16, 16).ItemBlock();
                         }
                     }
                     else target1 = Game1.chunk[target1.x + 1, target1.y];
@@ -162,14 +202,51 @@ namespace MineBlock.Mobs
             }
             else { target1 = new Block(); botstate = BotState.follow; }
         }
-
+        public void addToInv(Block newBlock, int BlockCount)
+        {
+            Boolean isInBar = false;
+            for (int i = 0; i < 9; i++)
+            {
+                if (newBlock.index == Inv[i].index)
+                {
+                    count[i]++;
+                    isInBar = true;
+                    break;
+                }
+            }
+            if (!isInBar)
+                for (int i = 0; i < 9; i++)
+                {
+                    if (Inv[i].index == 0)
+                    {
+                        Inv[i] = newBlock.Reset((i * 40) + 16, 16);
+                        count[i] += BlockCount;
+                        break;
+                    }
+                }
+        }
         public void draw(SpriteBatch batch)
         {
             if (target1.index >= 0 && botstate != BotState.follow)
                 DrawLine(batch, new Vector2((target1.x * 40) + 20, (target1.y * 40) + 20), new Vector2(Botsprite.Location.X + 6, Botsprite.Location.Y + 13));
             Botsprite.Draw(batch);
+            if (drawinv)
+            {
+             InvLocation = new Vector2(Botsprite.Location.X-85, Botsprite.Location.Y-30);
+                batch.Draw(Game1.hotbarsheet, new Rectangle((int)InvLocation.X, (int)InvLocation.Y, 181, 21), Color.White);
+                for (int i = 0; i < 9; i++)
+                {
+                    if (count[i] > 0)
+                    {
+                        float xPoss = (InvLocation.X + (i * 19.9f)) + 3;
+                        float yPoss = InvLocation.Y + 3;
+                        Inv[i].DrawInChest(batch, xPoss, yPoss);
+                        batch.DrawString(Game1.pericles1, "" + count[i], new Vector2(xPoss, yPoss), Color.White);
+                    }
+                }
+            }
         }
-        void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+        public void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
         {
             Vector2 edge = end - start;
             // calculate angle to rotate line
@@ -184,7 +261,7 @@ namespace MineBlock.Mobs
                     (int)edge.Length(), //sb will strech the texture to fill this rectangle
                     1), //width of line, change this to make thicker line
                 null,
-                Color.Red, //colour of line
+                lasercolor, //colour of line
                 angle,     //angle of line (calulated above)
                 new Vector2(0, 0), // point in line about which to rotate
                 SpriteEffects.None,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MineBlock.Blocks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,13 +10,22 @@ namespace MineBlock.Managers
 {
     public class MenuRef
     {
-        public Rectangle StartButton =new Rectangle(331, 260, 153, 43);
+        Rectangle StartButton = new Rectangle(331, 260, 153, 43);
+        Rectangle OptionsButton = new Rectangle(579, 291, 153, 43);
+        Rectangle plus = new Rectangle(200, 100, 40, 40);
+        Rectangle HoverBot = new Rectangle(200, 175, 16, 22); int hoverbotframe =0; bool botfloat = true;
+        Rectangle HotbarSelector = new Rectangle(200, 240, 48, 48);
+        Rectangle Breakanim = new Rectangle(200, 300, 40, 40); bool Animation = true;
+        Rectangle toggleAnim = new Rectangle(242, 320, 40, 20);
+        Rectangle MouseCursor = new Rectangle(200, 375, 12, 19);
+        Rectangle AllCycle = new Rectangle(390, 420, 20, 19);
+        Rectangle Easter = new Rectangle(290, 50, 12, 19);
 
-        public Rectangle Savestate1 = new Rectangle(19, 220, 153, 43);
-        public Rectangle Savestate2 = new Rectangle(161, 326, 152, 43);
-        public Rectangle Savestate3 = new Rectangle(330, 220, 152, 43);
-        public Rectangle Savestate4 = new Rectangle(488, 326, 152, 43);
-        public Rectangle Savestate5 = new Rectangle(628, 220, 152, 43);
+        Rectangle Savestate1 = new Rectangle(19, 220, 153, 43);
+        Rectangle Savestate2 = new Rectangle(161, 326, 152, 43);
+        Rectangle Savestate3 = new Rectangle(330, 220, 152, 43);
+        Rectangle Savestate4 = new Rectangle(488, 326, 152, 43);
+        Rectangle Savestate5 = new Rectangle(628, 220, 152, 43);
 
         public Boolean Savestate1exists = false;
         public Boolean Savestate2exists = false;
@@ -23,16 +33,27 @@ namespace MineBlock.Managers
         public Boolean Savestate4exists = false;
         public Boolean Savestate5exists = false;
 
-        public Rectangle Paused1 = new Rectangle(19, 220, 153, 43);
-        public Rectangle Paused2 = new Rectangle(330, 220, 153, 43);
-        public Rectangle Paused3 = new Rectangle(628, 220, 153, 43);
-        public int CursorTouching = 0;
+        Rectangle Paused1 = new Rectangle(19, 220, 153, 43);
+        Rectangle Paused2 = new Rectangle(330, 220, 153, 43);
+        Rectangle Paused3 = new Rectangle(628, 220, 153, 43);
+        int CursorTouching = 0;
         Vector2 cursorPos = new Vector2(0, 0);
-        public enum GameStates { TitleScreen, SaveSelect, Playing, Paused };
+        public enum GameStates { TitleScreen, SaveSelect, Playing, Paused, Options };
         public GameStates state = GameStates.TitleScreen;
+       Color[] colors = new Color[24];
+        public Color breakanimcolor = Color.White;
+        bool toggleanimation = true;
+        Air temp = new Air(200, 300); 
+        int HighlightcurrentColor;
+        int HoverBotcolor;
+        int hotbatSelectorColor;
+        int breakanim;
+        int cursorcolor;
+        int allColor;
+        bool canclick = true;
         string[] Splashs;
-        int currentSplash =1;
-        float size = 1;
+        int currentSplash = 1;
+        float Splashsize = 1;
         bool increase = true;
         public void loadContent()
         {
@@ -43,25 +64,66 @@ namespace MineBlock.Managers
             Splashs[3] = "Hold up grab the wall";
             Splashs[4] = "Now with blocks!";
             Splashs[5] = "What a wonderful time to be alive!";
-           
+
             currentSplash = Game1.randy.Next(0, Splashs.Count());
+            getcolors();
+            
+        }
+        public void getcolors()
+        {
+            colors[0] = Color.White;
+            colors[1] = Color.DarkGray;
+            colors[2] = Color.Blue;
+            colors[3] = Color.Green;
+            colors[4] = Color.Red;
+            colors[5] = Color.Pink;
+            colors[6] = Color.Gray;
+            colors[7] = Color.Yellow;
+            colors[8] = Color.Orange;
+            colors[9] = Color.Navy;
+            colors[10] = Color.Purple;
+            colors[11] = Color.Silver; 
+            colors[12] = Color.Brown;
+            colors[13] = Color.SkyBlue;
+            colors[14] = Color.LightGray;
+            colors[15] = Color.LightSalmon;
+            colors[16] = Color.LightSeaGreen;
+            colors[17] = Color.LightPink;
+            colors[18] = Color.LightSteelBlue;
+            colors[19] = Color.MediumPurple;
+            colors[20] = Color.LightGoldenrodYellow;
+            colors[21] = Color.LightCoral;
+            colors[22] = Color.LightCyan;
+            colors[23] = Color.Firebrick;
+        }
+        int incrementColor(ref int color)
+        {
+            canclick = false;
+            int Max = colors.Length - 1;
+
+            if (color >= Max)
+                color = 0;
+            else
+                color++;
+            return color;
+
         }
         public void update(Game1 game1)
         {
-            
+
             if (state == GameStates.TitleScreen)
             {
 
 #if WINDOWS
-                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X * 40, HandleInputs.moveHighlighter(cursorPos).Y * 40);
-
-                Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
+                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X, HandleInputs.moveHighlighter(cursorPos).Y);
+                 Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
+                
                 if (Cursor.Intersects(StartButton))
                     if (HandleInputs.LeftTrigger())
-                    {
                         state = GameStates.SaveSelect;
-
-                    }
+                if (Cursor.Intersects(OptionsButton))
+                    if (HandleInputs.LeftTrigger())
+                        state = GameStates.Options;
 #endif
 #if XBOX
                 cursorPos = HandleInputs.moveHighlighter(cursorPos);
@@ -71,10 +133,65 @@ namespace MineBlock.Managers
                         state = GameStates.SaveSelect;
 #endif
             }
+            else if (state == GameStates.Options)
+            {
+                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X, HandleInputs.moveHighlighter(cursorPos).Y);
+                Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
+                  if (hoverbotframe == 88) hoverbotframe = 0; 
+                if (hoverbotframe == 61) hoverbotframe = 88;
+                if (hoverbotframe == 32) hoverbotframe = 61;
+                if (hoverbotframe == 0) hoverbotframe = 32;
+               if(!botfloat)
+                    HoverBot = new Rectangle(HoverBot.X, HoverBot.Y - 1, HoverBot.Width, HoverBot.Height);
+               if (HoverBot.Y == 165) botfloat = true;
+                if(botfloat) HoverBot = new Rectangle(HoverBot.X, HoverBot.Y + 1, HoverBot.Width, HoverBot.Height);
+                if (HoverBot.Y == 185) botfloat = false;
+                
+                 if (Cursor.Intersects(plus) && HandleInputs.LeftTrigger() && canclick)
+                    Game1.player.highlightcolor = colors[incrementColor(ref HighlightcurrentColor)];
+
+                 if (Cursor.Intersects(HoverBot) && HandleInputs.LeftTrigger() && canclick)
+                    Game1.mobManager.bot.lasercolor = colors[incrementColor(ref HoverBotcolor)];
+                     
+                if (Cursor.Intersects(HotbarSelector) && HandleInputs.LeftTrigger() && canclick)
+                    Game1.player.hotbarSelector = colors[incrementColor(ref hotbatSelectorColor)];
+
+                if (Cursor.Intersects(Breakanim) && HandleInputs.LeftTrigger() && canclick)
+                    breakanimcolor = colors[incrementColor(ref breakanim)];
+
+                if (Cursor.Intersects(toggleAnim) && HandleInputs.LeftTrigger() && canclick)
+                {
+                    canclick = false;
+                    toggleanimation = !toggleanimation;
+                }
+                if (Cursor.Intersects(MouseCursor) && HandleInputs.LeftTrigger() && canclick)
+                    Game1.cursorColor = colors[incrementColor(ref cursorcolor)];
+                if (Cursor.Intersects(AllCycle) && HandleInputs.LeftTrigger() && canclick)
+                {
+                    Game1.player.highlightcolor = colors[incrementColor(ref allColor)];
+                    Game1.mobManager.bot.lasercolor = colors[allColor];
+                    Game1.player.hotbarSelector = colors[allColor];
+                    breakanimcolor = colors[allColor];
+                    Game1.cursorColor = colors[allColor];
+                }
+                if (Cursor.Intersects(Easter) && HandleInputs.LeftTrigger() && canclick)
+                {
+                    canclick = false;
+                    Game1.player.highlightcolor = colors[Game1.randy.Next(0,colors.Length)];
+                    Game1.mobManager.bot.lasercolor = colors[Game1.randy.Next(0, colors.Length)];
+                    Game1.player.hotbarSelector = colors[Game1.randy.Next(0, colors.Length)];
+                    breakanimcolor = colors[Game1.randy.Next(0, colors.Length)];
+                    Game1.cursorColor = colors[Game1.randy.Next(0, colors.Length)];
+                    
+                }
+
+                if (!canclick && Microsoft.Xna.Framework.Input.Mouse.GetState().LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
+                    canclick = true;
+            }
             else if (state == GameStates.SaveSelect)
             {
 #if WINDOWS
-                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X * 40, HandleInputs.moveHighlighter(cursorPos).Y * 40);
+                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X, HandleInputs.moveHighlighter(cursorPos).Y);
 
                 Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
 
@@ -98,7 +215,7 @@ namespace MineBlock.Managers
                     {
                         Game1.selectedSave = 1;
                         Game1.chunk = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
-                        state =GameStates.Playing;
+                        state = GameStates.Playing;
                     }
                 }
                 else if (Cursor.Intersects(Savestate2))
@@ -146,7 +263,7 @@ namespace MineBlock.Managers
             else if (state == GameStates.Paused)
             {
 #if WINDOWS
-                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X * 40, HandleInputs.moveHighlighter(cursorPos).Y * 40);
+                cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X, HandleInputs.moveHighlighter(cursorPos).Y);
 
                 Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
 
@@ -188,35 +305,34 @@ namespace MineBlock.Managers
                     if (HandleInputs.LeftTrigger())
                     {
                         ;
-                        state = GameStates.Paused;
+                        state = GameStates.Options;
                     }
                 }
             }
         }
-        public void Draw( Game1 game1,SpriteBatch spriteBatch)
+        public void Draw(Game1 game1, SpriteBatch spriteBatch)
         {
-            if (state ==GameStates.TitleScreen)
+            if (state == GameStates.TitleScreen)
             {
 #if WINDOWS
                 spriteBatch.Draw(game1.TitleScreen, new Rectangle(0, 0, game1.Window.ClientBounds.Width, game1.Window.ClientBounds.Height), Color.White);
-                spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Color.White);
+                spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
 #endif
 #if XBOX 
                  spriteBatch.Draw(game1.TitleScreen, new Rectangle(0, 0, 800,480), Color.White);
                 spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X * 40, (int)cursorPos.Y * 40, 12, 19), Color.White);
 #endif
-                if (increase && size <= 1.1f) size += .005f;
-                if (size > 1.1f) increase = false;
-                if (!increase && size >= .9f) size -= .005f;
-                if (size < .9f) increase = true;
-                spriteBatch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White,-.3f,new Vector2(0,0),size,SpriteEffects.None,0f);
+                if (increase && Splashsize <= 1.1f) Splashsize += .005f;
+                if (Splashsize > 1.1f) increase = false;
+                if (!increase && Splashsize >= .9f) Splashsize -= .005f;
+                if (Splashsize < .9f) increase = true;
+                spriteBatch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(0, 0), Splashsize, SpriteEffects.None, 0f);
             }
             else if (state == GameStates.SaveSelect)
             {
 #if WINDOWS
                 spriteBatch.Draw(game1.SaveSelect, new Rectangle(0, 0, game1.Window.ClientBounds.Width, game1.Window.ClientBounds.Height), Color.White);
-                spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Color.White);
-#endif
+#endif             
 #if XBOX 
                  spriteBatch.Draw(game1.TitleScreen, new Rectangle(0, 0, 800,480), Color.White);
                 spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X * 40, (int)cursorPos.Y * 40, 12, 19), Color.White);
@@ -239,12 +355,13 @@ namespace MineBlock.Managers
                 else if (CursorTouching == 3) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate3, Color.White);
                 else if (CursorTouching == 4) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate4, Color.White);
                 else if (CursorTouching == 5) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate5, Color.White);
+                spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
             }
             else if (state == GameStates.Paused)
             {
 #if WINDOWS
                 spriteBatch.Draw(game1.Paused, new Rectangle(0, 0, game1.Window.ClientBounds.Width, game1.Window.ClientBounds.Height), Color.White);
-                spriteBatch.Draw(game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Color.White);
+                spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
 #endif
 #if XBOX 
                  spriteBatch.Draw(game1.Paused, new Rectangle(0, 0, 800,480), Color.White);
@@ -257,6 +374,68 @@ namespace MineBlock.Managers
                 else if (CursorTouching == 2) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused2, Color.White);
                 else if (CursorTouching == 3) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused3, Color.White);
             }
+            else if(state == GameStates.Options)
+            {
+                spriteBatch.Draw(game1.options, new Rectangle(0, 0, 800, 520),Color.White);
+                spriteBatch.DrawString(Game1.pericles14, "Click to cycle colors", new Vector2(400 - 110, 50), intersects(Easter, cursorPos));
+
+                spriteBatch.DrawString(Game1.pericles14, "Block Highlighter", new Vector2(5, plus.Y + 8), intersects(plus, cursorPos));
+                spriteBatch.Draw(Game1.cursor, plus, Game1.player.highlightcolor);
+                
+                Game1.mobManager.bot.DrawLine(spriteBatch, new Vector2(HoverBot.X + 6, HoverBot.Y + 13), new Vector2(HoverBot.X + 56, 175 + 13));
+                spriteBatch.Draw(Game1.hoverbot, HoverBot, new Rectangle(hoverbotframe, 0, 16, 22), Color.White);
+                spriteBatch.DrawString(Game1.pericles14, "Hoverbot's laser", new Vector2(5, 175 + 2), intersects(HoverBot, cursorPos));
+
+                spriteBatch.Draw(game1.hotbarselector, HotbarSelector, Game1.player.hotbarSelector);
+                spriteBatch.DrawString(Game1.pericles14, "HotBar Selector", new Vector2(5, HotbarSelector.Y + 13), intersects(HotbarSelector, cursorPos));
+                
+               
+                temp.DrawBlank(spriteBatch);
+                if (toggleanimation)
+                {
+                    if(Animation) temp.damage += 2;
+                    if (temp.damage > 100) Animation = false;
+                    if (!Animation)temp.damage -= 2;
+                    if (temp.damage < 0) Animation = true;
+                } 
+                
+                spriteBatch.DrawString(Game1.pericles14, "Break Animation", new Vector2(5, Breakanim.Y + 13), intersects(Breakanim, cursorPos));
+                spriteBatch.DrawString(Game1.pericles1, "Toggle", new Vector2(toggleAnim.X, toggleAnim.Y), intersects(toggleAnim, cursorPos));
+
+                spriteBatch.Draw(Game1.Pointer, MouseCursor, Game1.cursorColor);
+                spriteBatch.DrawString(Game1.pericles14, "Mouse Pointer", new Vector2(5, MouseCursor.Y + 2), intersects(MouseCursor, cursorPos));
+                     
+                //spriteBatch.Draw(, AllCycle, intersects(AllCycle,cursorPos));
+                spriteBatch.DrawString(Game1.pericles14, "All", new Vector2(AllCycle.X, AllCycle.Y + 2),intersects(AllCycle,cursorPos));
+                spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
+            }
+        }
+        Color intersects(Rectangle square,Vector2 mouse)
+        {
+            if (square.Intersects(new Rectangle((int)mouse.X, (int)mouse.Y, 1, 1))) return Color.MediumPurple;
+            return Color.White;
+        }
+        Texture2D ReplaceColor(Texture2D text,Color old,Color newColor)
+        {
+            Color[] data = new Color[text.Width * text.Height];
+            text.GetData(data);
+            for (int i = 0; i < data.Length; i++)
+                if (data[i] == old)
+                    data[i] = newColor;
+
+            text.SetData(data);
+            return text;
+        }
+        Texture2D ReplaceColor(Texture2D text,Color newColor)
+        {
+            Color[] data = new Color[text.Width * text.Height];
+            text.GetData(data);
+            for (int i = 0; i < data.Length; i++)
+                if (data[i].G >100 &&data[i].R ==0 &&data[i].B == 0 )
+                    data[i] = newColor;
+
+            text.SetData(data);
+            return text;
         }
     }
 }

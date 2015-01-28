@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MineBlock.Blocks;
 using MineBlock.Weapons;
+using MineBlock.Managers;
+using MineBlock.Items;
 
 namespace MineBlock
 {
@@ -15,17 +17,18 @@ namespace MineBlock
         public Sprite Player;
         Texture2D Guy, hotboarSheet, HotBoarSelector;
 
-        Block[,] blocks = new Block[20, 15];
-        public Block[] hotbar = new Block[9];
-        public int[] count = new int[9];
-        Weapon currentWeapon = new Handgun();
-        public List<Bullet> shots = new List<Bullet>();
+        Block[,] blocks;
+        public Item[] hotbar = new Item[9];
+        //Weapon currentWeapon = new Handgun();
+        //public List<Bullet> shots = new List<Bullet>();
         public int selected = 0;
         public Vector2 highlighted = new Vector2(0, 0);
         readonly Vector2 gravity = new Vector2(0, 259.8f);
         public Boolean WantsToChangeTP = false;
         public Boolean WantsToChange = false;
         public Boolean drawTeleporterMessage;
+        public Color highlightcolor = Color.White;
+        public Color hotbarSelector = Color.White;
         public int Health = 100;
 
         Rectangle Bar = new Rectangle(0, 0, 62, 20);
@@ -36,6 +39,7 @@ namespace MineBlock
         int[] chestInvCount = new int[9];
         String teleporterMessage;
         public String ChunkTp = "";
+        public Inventory playerinv;
 
         public PlayerManager(Texture2D sheet, Texture2D hotbatsheet, Texture2D hotbarselector)
         {
@@ -44,22 +48,26 @@ namespace MineBlock
             HotBoarSelector = hotbarselector;
             for (int i = 0; i < 9; i++)
             {
-                hotbar[i] = new Air((i * 40) + 16, 16);
-                count[i] = 0;
+                hotbar[i] = new Air((i * 40) + 16, 16).ItemBlock();
+                
             }
-            hotbar[0] = new Ladder(16, 16);
-            count[0] = 16;
-            hotbar[1] = new Chest((1 * 40) + 16, 16);
-            count[1] = 1;
-            hotbar[2] = new PigBlock((2 * 40) + 16, 16);
-            count[2] = 1;
+            hotbar[0] = new Ladder(16, 16).ItemBlock();
+            hotbar[0].Count = 16;
+            hotbar[1] = new Chest((1 * 40) + 16, 16).ItemBlock();
+            hotbar[1].Count = 1;
+            hotbar[2] = new PigBlock((2 * 40) + 16, 16).ItemBlock();
+            hotbar[2].Count = 1;
+            hotbar[3] = new Pick(5);
+            hotbar[4] = new Shovel(5);
+            
 
             Player = new Sprite(new Vector2(30, 30), Guy, new Rectangle(2, 122, 102, 120), Vector2.Zero);
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
-
+            playerinv = new Inventory(hotbatsheet);
+            //playerinv.displayinv();
 
         }
         public void updateBlocks(Block[,] block)
@@ -72,7 +80,7 @@ namespace MineBlock
         }
         public void update(GameTime time)
         {
-            Health = (int)MathHelper.Clamp(Health, 0, 100);
+            //Health = (int)MathHelper.Clamp(Health, 0, 100);
             // if (Health < 100)
             //{
 
@@ -131,16 +139,14 @@ namespace MineBlock
                 Player.frames[4] = new Rectangle(2, 122, 102, 120);
             }
 
-            if (Player.Location.X <= 2 && Player.Velocity.X <= -1)
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-            if (Player.Location.X >= 798 && Player.Velocity.X >= -1)
-                Player.Velocity = new Vector2(0, Player.Velocity.Y);
-
-            highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location/40)- new Vector2(8,3));
-            
-
-
-
+            /* if (Player.Location.X <= 2 && Player.Velocity.X <= -1)
+                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+             if (Player.Location.X >= 798 && Player.Velocity.X >= -1)
+                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
+             */
+            if (playerinv.isdisplayed)
+                highlighted = HandleInputs.getMousepos();
+            else highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location / 40) - new Vector2(8, 3));
             try
             {
                 if (HandleInputs.isKeyDown("D") && (RightBlock() == 0 || RightBlock() == 14 || RightBlock() == 83)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
@@ -182,44 +188,47 @@ namespace MineBlock
                 }
             }
             selected = HandleInputs.HotBar(selected);
-            if (drawChestInv)
-            {
-                if (HandleInputs.NumPadKeys() != 10)
-                    takeFromChest(HandleInputs.NumPadKeys());
-                if (HandleInputs.isKeyDown("Enter"))
-                    addToChest((Chest)blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40], selected);
-                if (HandleInputs.isKeyDown("Back"))
-                {
-                    drawChestInv = false;
-                    blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40].index = 26;
-                }
-            }
-            if (HandleInputs.isKeyDown("Space"))
-                currentWeapon.Shoot(this, Player.Flip);
-            foreach (Bullet shot in shots)
-            {
-                shot.update(time);
+            /* if (drawChestInv)
+             {
+                 if (HandleInputs.NumPadKeys() != 10)
+                     takeFromChest(HandleInputs.NumPadKeys());
+                 if (HandleInputs.isKeyDown("Enter"))
+                     addToChest((Chest)blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40], selected);
+                 if (HandleInputs.isKeyDown("Back"))
+                 {
+                     drawChestInv = false;
+                     blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40].index = 26;
+                 }
+             }
+             if (HandleInputs.isKeyDown("Space"))
+                 currentWeapon.Shoot(this, Player.Flip);
+            /* foreach (Bullet shot in shots)
+             {
+                 shot.update(time);
 
-            }
-            foreach (Bullet shot in shots)
-            {
-                shot.update(time);
-                if (shot.shot.Location.X >= 770 || shot.shot.Location.X <= -30)
-                {
-                    shots.Remove(shot);
-                    break;
-                }
-            }
+             }
+             /*foreach (Bullet shot in shots)
+             {
+                 shot.update(time);
+                 if (shot.shot.Location.X >= 770 || shot.shot.Location.X <= -30)
+                 {
+                     shots.Remove(shot);
+                     break;
+                 }
+             }
+             */
+            if(playerinv.isdisplayed)
+            playerinv.handlemovement();
             Player.Update(time);
 
         }
         public void addToChest(Chest chest, int HotBarslot)
         {
-            if (count[HotBarslot] > 0)
-                chest.addToInv(hotbar[HotBarslot], 1);
-            count[HotBarslot]--;
-            if (count[HotBarslot] <= 0)
-                hotbar[HotBarslot] = new Air((HotBarslot * 40) + 16, 16);
+            if (hotbar[HotBarslot].Count > 0)
+                chest.addToInv(hotbar[HotBarslot].ReturnBlock(), 1);
+            hotbar[HotBarslot].Count--;
+            if (hotbar[HotBarslot].Count <= 0)
+                hotbar[HotBarslot] = new Air((HotBarslot * 40) + 16, 16).ItemBlock();
 
         }
         public void takeFromChest(int slot)
@@ -260,9 +269,9 @@ namespace MineBlock
             Boolean isInBar = false;
             for (int i = 0; i < 9; i++)
             {
-                if (newBlock.index == hotbar[i].index)
+                if (newBlock.index == hotbar[i].Blockindex)
                 {
-                    count[i]++;
+                    hotbar[i].Count++;
                     isInBar = true;
                     break;
                 }
@@ -270,21 +279,21 @@ namespace MineBlock
             if (!isInBar)
                 for (int i = 0; i < 9; i++)
                 {
-                    if (hotbar[i].index == 0)
+                    if (hotbar[i].Blockindex == 0)
                     {
-                        hotbar[i] = newBlock.Reset((i * 40) + 16, 16);
-                        count[i] += BlockCount;
+                        hotbar[i] = newBlock.Reset((i * 40) + 16, 16).ItemBlock();
+                        hotbar[i].Count += BlockCount;
                         break;
                     }
                 }
+            playerinv.addToInv(newBlock, BlockCount);
         }
         public void clearinv()
         {
             for (int i = 0; i < 9; i++)
-            {
-                hotbar[i] = new Air((i * 40) + 16, 16);
-                count[i] = 0;
-            }
+                hotbar[i] = new Air((i * 40) + 16, 16).ItemBlock();
+
+
         }
         public void useChest(Chest chest)
         {
@@ -302,31 +311,37 @@ namespace MineBlock
             batch.Draw(hotboarSheet, new Rectangle(10, 10, 362, 42), Color.White);
             for (int i = 0; i < 9; i++)
             {
-                if (count[i] == 0) hotbar[i] = new Air((i * 40) + 16, 16);
-                if (count[i] > 0)
+                //if (count[i] == 0) hotbar[i] = new Air((i * 40) + 16, 16);
+                if (hotbar[i].Count > 0)
                 {
-                    hotbar[i].DrawMini(batch);
-                    batch.DrawString(Game1.pericles14, "" + count[i], new Vector2(hotbar[i].x + 5, hotbar[i].y + 3), Color.White);
+                    hotbar[i].DrawMini(batch, (i * 40) + 16, 16);
+                   if(hotbar[i].hasCount) batch.DrawString(Game1.pericles14, "" + hotbar[i].Count, new Vector2((i * 40) + 21, 19), Color.White);
                 }
             }
-            batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), Color.White);
+            batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), hotbarSelector);
 
             if (drawTeleporterMessage)
                 batch.DrawString(Game1.pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
             //batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             //currentWeapon.DrawInInv(batch, 400, 12);
+            if (playerinv.isdisplayed)
+            {
+                playerinv.draw(batch);
+                batch.Draw(Game1.Pointer, new Rectangle((int)highlighted.X, (int)highlighted.Y, 12, 19), Game1.cursorColor);
+            }
         }
         public void Draw(SpriteBatch batch)
         {
             Player.Draw(batch);
+           
             Bar = new Rectangle((int)Player.Location.X + 23, (int)Player.Location.Y + 10, 60, 10);
             Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
             batch.Draw(Game1.HealthBar, Bar, Color.White);
             batch.Draw(Game1.Weather, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
             batch.DrawString(Game1.pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
             //currentWeapon.DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
-            batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), Color.White);
+            hotbar[selected].DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
             //foreach (Bullet shot in shots)
             //    shot.Draw(batch);
 
@@ -344,6 +359,7 @@ namespace MineBlock
                     }
                 }
             }
+            if (!playerinv.isdisplayed) batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), highlightcolor);
 
         }
     }

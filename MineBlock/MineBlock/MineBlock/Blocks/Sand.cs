@@ -18,6 +18,7 @@ namespace MineBlock.Blocks
             y = yPos;
             index = 18;
             MineTime = 60;
+            preferedTool = new MineBlock.Items.Shovel(0);
         }
         public override void update(Block[,] blocks)
         {
@@ -55,7 +56,7 @@ namespace MineBlock.Blocks
 
             return new Sand(x, y);
         }
-        public override void Draw(SpriteBatch batch, int startposX, int startposY)
+        public override void Draw(SpriteBatch batch)
         {
             if (index > 15)
             {
@@ -64,18 +65,18 @@ namespace MineBlock.Blocks
                     int indexY = index / 16;
                     int indexX = index % 16;
 
-                    batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + ydub), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                    batch.Draw(Game1.terrainsheet, new Vector2( (x * 40),   ydub), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
                 }
                 else
                 {
                     int indexY = index / 16;
                     int indexX = index % 16;
-                    batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                    batch.Draw(Game1.terrainsheet, new Vector2(  (x * 40),  (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
                 }
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(startposX + (x * 40), startposY + (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
-            handleBlockDmg(batch, startposX, startposY);
+                batch.Draw(Game1.terrainsheet, new Vector2(  (x * 40),   (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
+            handleBlockDmg(batch);
         }
     }
 }

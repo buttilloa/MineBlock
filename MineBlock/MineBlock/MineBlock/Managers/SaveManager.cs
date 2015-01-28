@@ -194,9 +194,9 @@ namespace MineBlock
             SaveData.WriteByte((byte)player.Player.Location.Y);
 
             for (int i = 0; i < 9; i++)
-                SaveData.WriteByte((byte)player.hotbar[i].index);
+                SaveData.WriteByte((byte)player.hotbar[i].Blockindex);
             for (int i = 0; i < 9; i++)
-                SaveData.WriteByte((byte)player.count[i]);
+                SaveData.WriteByte((byte)player.hotbar[i].Count);
 
             SaveData.WriteByte((byte)player.Health);
 
@@ -226,9 +226,9 @@ namespace MineBlock
             player.updateBlocks(Game1.chunk);
 
             for (int i = 0; i < 9; i++)
-                player.hotbar[i] = new Block().returnBlock((int)SaveData.ReadByte(), (i * 40) + 16, 16);
+                player.hotbar[i] = new Block().returnBlock((int)SaveData.ReadByte(), (i * 40) + 16, 16).ItemBlock();
             for (int i = 0; i < 9; i++)
-                player.count[i] = SaveData.ReadByte();
+                player.hotbar[i].Count = SaveData.ReadByte();
             player.Health = SaveData.ReadByte();
             //SaveData.WriteByte((byte)Game1.currentChunkNumber);
 

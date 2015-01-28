@@ -14,6 +14,7 @@ namespace MineBlock.Blocks
             y = yPos;
             index = 46;
             MineTime = 240;
+            preferedTool = new MineBlock.Items.Pick(0);
         }
         public override void update(Block[,] blocks)
         {

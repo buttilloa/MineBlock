@@ -32,8 +32,17 @@ namespace MineBlock
 
             //if(Game1.menu.state == Managers.MenuRef.GameStates.Playing)
             //return Vector2.Transform(new Vector2(ms.X,ms.Y), Matrix.Invert(Game1.cameraTransform));
-            Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, 800), (int)MathHelper.Clamp(ms.Y, -10, 500));
-            return new Vector2(ms.X / 40, ms.Y / 40);
+            if (Game1.menu.state == Managers.MenuRef.GameStates.Playing)
+            {
+                Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, 800), (int)MathHelper.Clamp(ms.Y, -10, 500));
+                return new Vector2(ms.X / 40, ms.Y / 40);
+            }
+            return new Vector2(ms.X, ms.Y);
+        }
+        public static Vector2 getMousepos()
+        {
+            MouseState ms = Mouse.GetState();
+            return new Vector2(ms.X/40, ms.Y/40);
         }
         public static String SimNumPad(String chunk)
         {

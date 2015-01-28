@@ -29,6 +29,7 @@ namespace MineBlock.Blocks
         public override Block Mine(int x, int y)
         {
             Console.WriteLine("THE CAKE IS A LIE!");
+            SoundEffects.RickRoll.Play();
             return new Dirt(x, y);
         }
     }
