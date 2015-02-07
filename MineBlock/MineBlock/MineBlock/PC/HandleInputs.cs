@@ -17,7 +17,7 @@ namespace MineBlock
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown((Keys)Enum.Parse(typeof(Keys), key))) return true;
              return false;
-
+           
         }
         public static Boolean isKeyUp(String key)
         {
@@ -29,7 +29,7 @@ namespace MineBlock
         public static Vector2 moveHighlighter(Vector2 high)
         {
             MouseState ms = Mouse.GetState();
-
+            
             //if(Game1.menu.state == Managers.MenuRef.GameStates.Playing)
             //return Vector2.Transform(new Vector2(ms.X,ms.Y), Matrix.Invert(Game1.cameraTransform));
             if (Game1.menu.state == Managers.MenuRef.GameStates.Playing)

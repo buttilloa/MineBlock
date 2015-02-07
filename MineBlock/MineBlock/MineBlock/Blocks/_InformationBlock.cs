@@ -5,13 +5,13 @@ using System.Text;
 
 namespace MineBlock.Blocks
 {
-    public class _InformationBlock : Block
+     class _InformationBlock : Block
     {
         public Boolean isSpawnChunk = false;
         public Boolean ShouldSnow = false;
         public String Biome = "";
         public int chunk =0;
-        public _InformationBlock(int x, int y)
+         _InformationBlock(int x, int y)
         {
             if (x != 19 && y != 12)
                 Console.WriteLine("Information block placed at " + x + " " + y + " Is this Correct?");

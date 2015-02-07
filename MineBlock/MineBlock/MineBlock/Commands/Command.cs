@@ -5,6 +5,7 @@ using System.Text;
 using MineBlock.Blocks;
 using System.Runtime.Remoting;
 using System.Reflection;
+using System.Threading;
 
 namespace MineBlock.Commands
 {
@@ -295,7 +296,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            if (!Game1.weather.isPercipitationing())
+           if (!Game1.weather.isPercipitationing())
                 Game1.toggleDownfall();
             else Game1.weather.Stop();
             return "Toggled Downfall";
@@ -346,23 +347,39 @@ namespace MineBlock.Commands
     }
     class Fuckoff : Command
     {
-
+        Thread fuck;
         public Fuckoff()
         {
             Desc = "Fucken god: usage : fuckoff";
             index = 16;
             usage = "fuckoff";
         }
+        public void stuff()
+        {
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                {
+                    Game1.chunk[i, j] = Game1.chunk[Game1.randy.Next(0, 200), Game1.randy.Next(0, 130)].Reset(i, j);
+                    Thread.Sleep(00001);
+                }
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                {
+                    Game1.chunk[i, j].x = i;
+                    Game1.chunk[i, j].y = j;
+                    Game1.chunk[i, j].isfucked = true;
+
+                }
+            
+            Game1.player.updateBlocks(Game1.chunk);
+        }
         public override String Execute(String[] args)
         {
+            Game1.console.isShown = false;
             SoundEffects.Fuck.Play();
-            foreach (Block block in Game1.chunk)
-            {
-                block.x = Game1.randy.Next(0, 200);
-                block.y = Game1.randy.Next(0, 130);
-                block.isfucked = true;
-            }
-            Game1.player.updateBlocks(Game1.chunk);
+            fuck = new Thread(new ThreadStart(this.stuff));
+            fuck.Start();
+                
             return "No you fuck off";
         }
 

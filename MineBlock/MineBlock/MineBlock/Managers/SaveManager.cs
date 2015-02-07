@@ -21,14 +21,14 @@ namespace MineBlock
         }
         public bool hasSaved()
         {
-            if (container.FileExists("saveData" + "0"))
+            if (container.FileExists("saveData"))
                 return true;
             return false;
         }
         public bool hasSaved(int saveState)
         {
             GetContainer("MineBlock" + saveState);
-            if (container.FileExists("saveData" + "0"))
+            if (container.FileExists("saveData"))
             {
                 container.Dispose();
                 return true;
@@ -115,15 +115,15 @@ namespace MineBlock
                 {
 
                     SaveData.WriteByte((byte)block[i, j].index);
-                    if (block[i, j].index == 255)
+                    /*if (block[i, j].index == 255)
                     {
                         _InformationBlock Info = (_InformationBlock)block[i, j];
                         SaveData.WriteByte((byte)Info.getindexfromBiome(Info.Biome));
                         if (Info.ShouldSnow) SaveData.WriteByte(1);
                         else SaveData.WriteByte(0);
                     }
-                    //Console.WriteLine("Wrote: " + (byte)blocks[i, j].index + " in position " + SaveData.Position+" for chunk "+ chunk);
-
+                    Console.WriteLine("Wrote: " + (byte)blocks[i, j].index + " in position " + SaveData.Position+" for chunk "+ chunk);
+                    */
                 }
             Console.WriteLine("Chunk " + chunk + " Succesfully saved");
             SaveData.Close();
@@ -154,7 +154,7 @@ namespace MineBlock
                     blocks[i, j] = blocks[i, j].returnBlock(SaveData.ReadByte(), i, j);
                     //Console.WriteLine("Read: " + (byte)blocks[i, j].index + " in position " + SaveData.Position + " for chunk " + chunk);
                 }
-            if (blocks[19, 12].index != 255)
+            /*if (blocks[19, 12].index != 255)
             {
                 blocks[19, 12] = new _InformationBlock(19, 12);
             }
@@ -163,7 +163,7 @@ namespace MineBlock
             if (SaveData.ReadByte() == 1) Info.ShouldSnow = true;
             else Info.ShouldSnow = false;
             blocks[19, 12] = Info;
-
+            */
 
             Console.WriteLine("Chunk " + chunk + " Succesfully loaded");
             SaveData.Close();
@@ -171,7 +171,75 @@ namespace MineBlock
             return blocks;
 
         }
+        
+        public void SaveInoneChunk()
+        {
+            Stream SaveData = null;
+            if (container.FileExists("saveData"))
+            {
+                //Load number here.
+                SaveData = container.OpenFile("saveData", FileMode.Open);
 
+            }
+            else
+            {
+                SaveData = container.CreateFile("saveData");
+            }
+             SaveData.Position = 0;
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                { SaveData.WriteByte((byte)Game1.chunk[i, j].index);
+                    /*if (block[i, j].index == 255)
+                    {
+                        _InformationBlock Info = (_InformationBlock)block[i, j];
+                        SaveData.WriteByte((byte)Info.getindexfromBiome(Info.Biome));
+                        if (Info.ShouldSnow) SaveData.WriteByte(1);
+                        else SaveData.WriteByte(0);
+                    }
+                    Console.WriteLine("Wrote: " + (byte)blocks[i, j].index + " in position " + SaveData.Position+" for chunk "+ chunk);
+                    */
+                }
+            Console.WriteLine("Chunks Succesfully saved");
+            SaveData.Close();
+            SaveData.Dispose();
+        }
+        public Block[,] LoadInoneChunk(Block[,] chunk)
+        {
+            Stream SaveData = null;
+            if (container.FileExists("saveData" ))
+            {
+                //Load number here.
+                SaveData = container.OpenFile("saveData" , FileMode.Open);
+
+            }
+            else
+            {
+                SaveData = container.CreateFile("saveData" );
+            }
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                {
+                    chunk[i, j] = new Block().returnBlock(SaveData.ReadByte(), i, j);
+                   //Console.WriteLine("Read: " + (byte)chunk[i, j].index + " in position " + SaveData.Position + " for chunk " + chunk);
+                }
+            /*if (blocks[19, 12].index != 255)
+            {
+                blocks[19, 12] = new _InformationBlock(19, 12);
+            }
+            _InformationBlock Info = (_InformationBlock)blocks[19, 12];
+            Info.getBiomefromIndex((int)SaveData.ReadByte());
+            if (SaveData.ReadByte() == 1) Info.ShouldSnow = true;
+            else Info.ShouldSnow = false;
+            blocks[19, 12] = Info;
+            */
+
+            Console.WriteLine("Chunks Succesfully loaded");
+            SaveData.Close();
+            SaveData.Dispose();
+            return chunk;
+
+        }
+        
         public void SavePlayer(PlayerManager player)
         {
             Stream SaveData = null;
@@ -189,7 +257,7 @@ namespace MineBlock
 
 
             SaveData.Position = 0;
-            SaveData.WriteByte((byte)Game1.currentChunkNumber);
+            //SaveData.WriteByte((byte)Game1.currentChunkNumber);
             SaveData.WriteByte((byte)player.Player.Location.X);
             SaveData.WriteByte((byte)player.Player.Location.Y);
 
@@ -326,7 +394,8 @@ namespace MineBlock
             {
                 //chunks[currentChunkNumber] = LoadChunk(currentChunkNumber);
                 //chunks.Add(currentChunk);
-                 chunks = loadTerrainCollum(chunks);
+                Game1.chunk = LoadInoneChunk(chunks);
+                //chunks = loadTerrainCollum(chunks);
                 LoadPlayer(player);
                 mobManager.RemoveMobs();
                 LoadMobs(mobManager);
@@ -370,10 +439,12 @@ namespace MineBlock
             GetDevice();
             GetContainer("MineBlock" + selectedSave);
 #endif
-           for (int i = 0; i < 100; i++)
+           /*for (int i = 0; i < 100; i++)
             {
                 SaveChunk(i);
            }
+            */
+            SaveInoneChunk();
             SaveMobs(mobManager);
             SavePlayer(player);
         }

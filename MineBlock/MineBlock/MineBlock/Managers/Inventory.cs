@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MineBlock.Blocks;
+using MineBlock.Items;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace MineBlock.Managers
     public class Inventory
     {
         public bool isdisplayed = false;
-        Block[,] slots = new Block[9,3];
-        int[,] count = new int[9,3];
-        Block holding = new Block();
-        int holdcount = 0;
+        Item[,] slots = new Item[9,3];
+        //int[,] count = new int[9,3];
+        Item holding = new Item();
+        
         Texture2D hotboarSheet;
         Boolean canclick = true;
         public Inventory(Texture2D hotbarsheet)
@@ -24,8 +25,8 @@ namespace MineBlock.Managers
             for (int j = 0; j < 3; j++)
                 for (int i = 0; i < 9; i++)
                 {
-                    slots[i, j] = new Blocks.Ladder((i * 40) + 16, ((j+1) * 42) + 16);
-                    count[i, j] = Game1.randy.Next(1,100);
+                    slots[i, j] = new Blocks.Ladder((i * 40) + 16, ((j+1) * 42) + 16).ItemBlock();
+                    slots[i, j].Count = Game1.randy.Next(1,100);
                 }
         }
 
@@ -41,7 +42,7 @@ namespace MineBlock.Managers
                 for (int i = 0; i < 9; i++)
                     if (newBlock.index == slots[i, j].index)
                     {
-                        count[i, j]++;
+                        slots[i, j].Count++;
                         isInBar = true;
                         break;
                     }
@@ -51,8 +52,8 @@ namespace MineBlock.Managers
                     for (int i = 0; i < 9; i++)
                         if (slots[i, j].index == 0)
                         {
-                            slots[i, j] = newBlock.Reset((i * 40) + 16, ((j+1) * 42)+16);
-                            count[i, j] += BlockCount;
+                            slots[i, j] = newBlock.Reset((i * 40) + 16, ((j+1) * 42)+16).ItemBlock();
+                            slots[i, j].Count += BlockCount;
                             break;
                         }
         }
@@ -68,9 +69,9 @@ namespace MineBlock.Managers
                             {
                                 canclick = false;
                                 holding = slots[i, j];
-                                holdcount = count[i, j];
-                                slots[i, j] = new Air((i * 40) + 16, ((j + 1) * 42) + 16);
-                                count[i, j] = 0;
+                                holding.Count = slots[i, j].Count;
+                                slots[i, j] = new Air((i * 40) + 16, ((j + 1) * 42) + 16).ItemBlock();
+                                slots[i, j].Count = 0;
                             }
                         }
             if (ms.LeftButton == ButtonState.Released&&!canclick)canclick = true;
@@ -122,18 +123,18 @@ namespace MineBlock.Managers
                     batch.Draw(hotboarSheet, new Rectangle(10, ((j + 1) * 42) + 10, 362, 42), Color.White);
                     for (int i = 0; i < 9; i++)
                     {
-                        //if (count[i] == 0) hotbar[i] = new Air((i * 40) + 16, 16);
-                        if (count[i, j] > 0)
+                        
+                        if (slots[i, j].Count > 0)
                         {
-                            slots[i, j].DrawMini(batch);
-                            batch.DrawString(Game1.pericles14, "" + count[i, j], new Vector2(slots[i, j].x + 5, slots[i, j].y + 3), Color.White);
+                            slots[i, j].DrawMini(batch, (i * 40) + 16, ((j + 1) * 42) + 16);
+                            batch.DrawString(Game1.pericles14, "" + slots[i, j].Count, new Vector2(slots[i, j].x + 5, slots[i, j].y + 3), Color.White);
                         }
                     }
                 }
-                if (holdcount > 0)
+                if (holding.Count > 0)
                 {
-                    holding.DrawMini(batch);
-                    batch.DrawString(Game1.pericles14, "" + holdcount, new Vector2(holding.x + 5, holding.y + 3), Color.White);
+                    holding.DrawMini(batch, holding.x,holding.y);
+                    batch.DrawString(Game1.pericles14, "" + holding.Count, new Vector2(holding.x + 5, holding.y + 3), Color.White);
 
                 }
             }

@@ -72,10 +72,10 @@ namespace MineBlock
                     blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new CobbleStone(Math.Abs(genheight - height) + i, height - i);
                     blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new CobbleStone(Math.Abs(genheight - height) - i, height + i);
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
+           /* /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone";
-            Info.chunk = chunk;
+            Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Stone" + " Chunk at " + chunk);
             return blocks;
         }
@@ -137,10 +137,10 @@ namespace MineBlock
                         blocks[i, j] = new Gravel(i, j);
                     }
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
-            _InformationBlock Info = (_InformationBlock)blocks[19, 12];
-            Info.Biome = "Stone/gravel";
-            Info.chunk = chunk;
+            ///*blocks[19, 12] = new _InformationBlock(19, 12);
+            //_InformationBlock Info = (_InformationBlock)blocks[19, 12];
+            //Info.Biome = "Stone/gravel";
+            //Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
             return blocks;
         }
@@ -202,11 +202,11 @@ namespace MineBlock
                         blocks[i, j] = new Gravel(i, j);
                     }
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*/*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone/gravel";
-            Info.chunk = chunk;
-            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
+            Info.chunk = chunk; */
+           Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
             return blocks;
         }
         public static Block[,] genDirt(Block[,] blocks, int chunk)
@@ -234,16 +234,17 @@ namespace MineBlock
                 for (int j = height + 1; j < 13; j++)
                 {
 
-                    blocks[i, j] = new Dirt(i, j);
+                    blocks[i, j] = new Dirt(i, j); 
                 }
             
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Dirt";
-            Info.chunk = chunk;
+            Info.chunk = chunk; */
             Game1.mobManager.AddMob(new Mobs.Pig(10, (height - 1), chunk));
             Game1.mobManager.AddMob(new Mobs.Cow(2, (height - 1), chunk));
             Game1.mobManager.AddMob(new Mobs.Chicken(17, (height - 1), chunk));
+            genTree(blocks);
             Console.WriteLine("Succesfully Generated a " + "Dirt" + " Chunk at " + chunk);
             return blocks;
         }
@@ -266,11 +267,11 @@ namespace MineBlock
 
                     blocks[i, j] = new Dirt(i, j);
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Snow";
-            Info.chunk = chunk;
-            Info.ShouldSnow = true;
+            Info.chunk = chunk; 
+            Info.ShouldSnow = true;*/
             Console.WriteLine("Succesfully Generated a " + "Snow" + " Chunk at " + chunk);
             return blocks;
         }
@@ -299,10 +300,10 @@ namespace MineBlock
 
                     blocks[i, j] = new Dirt(i, j);
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Mycelium";
-            Info.chunk = chunk;
+            Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Mycelium" + " Chunk at " + chunk);
             return blocks;
         }
@@ -366,10 +367,10 @@ namespace MineBlock
                     }
 
                 }
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Beach";
-            Info.chunk = chunk;
+            Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Beach" + " Chunk at " + chunk);
             return blocks;
         }
@@ -398,18 +399,33 @@ namespace MineBlock
                 }
 
             blocks[10, 10] = new Teleporter(10, 10);
-            blocks[19, 12] = new _InformationBlock(19, 12);
+            /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.isSpawnChunk = true;
             Info.Biome = "Spawn";
-            Info.chunk = 0;
+            Info.chunk = 0; */
             mobManager.AddMob(new Mobs.Pig(2, height - 1, 0));
             mobManager.AddMob(new Mobs.Cow(17, height - 1, 0));
             mobManager.AddMob(new Mobs.Chicken(10, height - 1, 0));
-            //chunks.Add(blocks);
+            genTree(blocks);
+            //chunks.Add(blocks);-
             //currentChunk = blocks;
             player.updateBlocks(blocks);
             return blocks;
+        }
+        public static void genTree(Block[,] chunks)
+        {
+            int treeheight = Game1.randy.Next(genheight - 5, genheight-1);
+            int xcoord = Game1.randy.Next(2, 18);
+            for (int i = treeheight; i < genheight; i++) chunks[xcoord, i] = new Wood(xcoord, i);
+            chunks[xcoord, treeheight - 1] = new Leaf(xcoord, treeheight - 1);
+            chunks[xcoord + 1, treeheight - 1] = new Leaf(xcoord + 1, treeheight - 1);
+            chunks[xcoord - 1, treeheight - 1] = new Leaf(xcoord - 1, treeheight - 1);
+            chunks[xcoord + 1, treeheight] = new Leaf(xcoord + 1, treeheight);
+            chunks[xcoord - 1, treeheight] = new Leaf(xcoord - 1, treeheight);
+            chunks[xcoord , treeheight] = new Leaf(xcoord , treeheight);
+            chunks[xcoord + 2, treeheight] = new Leaf(xcoord + 2, treeheight);
+            chunks[xcoord - 2, treeheight] = new Leaf(xcoord - 2, treeheight);
         }
         public static Block[,] genTerrain(Block[,] chunks,int chunkcount)
         {

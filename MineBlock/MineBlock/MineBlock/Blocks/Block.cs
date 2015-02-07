@@ -55,10 +55,12 @@ namespace MineBlock
                 case 16: return new CobbleStone(X, Y);
                 case 18: return new Sand(X, Y);
                 case 19: return new Gravel(X, Y);
+                case 20: return new Wood(X, Y);
                 case 26: return new Chest(X, Y);
                 case 37: return new Obsidian(X, Y);
                 case 46: return new Teleporter(X, Y);
                 case 47: return new PigBlock(X, Y);
+                case 53: return new Leaf(X, Y);
                 case 66: return new Snow(X, Y);
                 case 68: return new SnowyGrass(X, Y);
                 case 77: return new Mycelium(X, Y);
@@ -66,7 +68,8 @@ namespace MineBlock
                 case 119: return new Pumpkin(X, Y);
                 case 122: return new Cake(X, Y);
                 case 158: return new Commandblock(X, Y);
-                case 255: return new _InformationBlock(X, Y);
+
+                //case 255: return new _InformationBlock(X, Y);
 
 
             }

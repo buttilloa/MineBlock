@@ -97,14 +97,16 @@ namespace MineBlock
                     if (rains[i].Y < 600)
                         rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
                     batch.Draw(Game1.Weather, rains[i], Color.Blue);
-                    foreach (Block block in Game1.chunk)
-                       if (block.index != 6 && block.index != 0)
-                       if (rains[i].Intersects(new Rectangle(block.x*40,block.y*40,40,40)))
-                    {
-                         rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
-                           if (rainTime > 1600)
-                           rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
-                    }
+                    for (int x = (int)(Game1.player.Player.Location.X / 40) - 11; x < (Game1.player.Player.Location.X / 40) + 11; x++)
+                       for (int y = (int)(Game1.player.Player.Location.Y / 40) - 11; y < (Game1.player.Player.Location.Y / 40) + 11;y++)
+                           if (Game1.chunk[x,y].index != 6 && Game1.chunk[x,y].index != 0)
+                                    if (rains[i].Intersects(new Rectangle(Game1.chunk[x,y].x * 40, Game1.chunk[x,y].y * 40, 40, 40)))
+                                    {
+                                        rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
+                                        if (rainTime > 1600)
+                                            rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
+                                    }
+                            
                     if (rains[i].Y > 600)
                     {
                         if (rainTime < 1600)

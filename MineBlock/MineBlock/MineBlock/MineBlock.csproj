@@ -113,6 +113,8 @@
     <Compile Include="Blocks\Cake.cs" />
     <Compile Include="Blocks\Chest.cs" />
     <Compile Include="Blocks\CobbleStone.cs" />
+    <Compile Include="Blocks\Leaf.cs" />
+    <Compile Include="Blocks\Wood.cs" />
     <Compile Include="Commands\Commandblock.cs" />
     <Compile Include="Blocks\Dirt.cs" />
     <Compile Include="Blocks\Grass.cs" />
@@ -130,6 +132,7 @@
     <Compile Include="Blocks\Teleporter.cs" />
     <Compile Include="Blocks\Water.cs" />
     <Compile Include="Blocks\_InformationBlock.cs" />
+    <Compile Include="FrameRateCounter.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\ConsoleManager.cs" />

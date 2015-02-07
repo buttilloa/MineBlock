@@ -38,7 +38,7 @@ namespace MineBlock.Managers
         Rectangle Paused3 = new Rectangle(628, 220, 153, 43);
         int CursorTouching = 0;
         Vector2 cursorPos = new Vector2(0, 0);
-        public enum GameStates { TitleScreen, SaveSelect, Playing, Paused, Options };
+        public enum GameStates { TitleScreen, SaveSelect, Playing, Paused, Options, Error};
         public GameStates state = GameStates.TitleScreen;
        Color[] colors = new Color[24];
         public Color breakanimcolor = Color.White;
@@ -55,6 +55,8 @@ namespace MineBlock.Managers
         int currentSplash = 1;
         float Splashsize = 1;
         bool increase = true;
+        String Exception , Stacktrace;
+        List<Rectangle> Stars = new List<Rectangle>();
         public void loadContent()
         {
             Splashs = new string[6];
@@ -67,6 +69,8 @@ namespace MineBlock.Managers
 
             currentSplash = Game1.randy.Next(0, Splashs.Count());
             getcolors();
+            for (int i = 0; i < 100; i++)
+                Stars.Add(new Rectangle(Game1.randy.Next(-1000,790), Game1.randy.Next(0,180), 1, 1));
             
         }
         public void getcolors()
@@ -110,10 +114,10 @@ namespace MineBlock.Managers
         }
         public void update(Game1 game1)
         {
-
+            
             if (state == GameStates.TitleScreen)
             {
-
+                
 #if WINDOWS
                 cursorPos = new Vector2(HandleInputs.moveHighlighter(cursorPos).X, HandleInputs.moveHighlighter(cursorPos).Y);
                  Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
@@ -314,6 +318,7 @@ namespace MineBlock.Managers
         {
             if (state == GameStates.TitleScreen)
             {
+                
 #if WINDOWS
                 spriteBatch.Draw(game1.TitleScreen, new Rectangle(0, 0, game1.Window.ClientBounds.Width, game1.Window.ClientBounds.Height), Color.White);
                 spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
@@ -327,6 +332,12 @@ namespace MineBlock.Managers
                 if (!increase && Splashsize >= .9f) Splashsize -= .005f;
                 if (Splashsize < .9f) increase = true;
                 spriteBatch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(0, 0), Splashsize, SpriteEffects.None, 0f);
+                for (int i = 0; i < Stars.Count; i++)
+                {
+                    Stars[i] = new Rectangle(Stars[i].X + 1, Stars[i].Y, 1, 1);
+                    if (Stars[i].X > 800) Stars[i] = new Rectangle(Game1.randy.Next(-800, 0), Game1.randy.Next(0, 180), 1, 1);
+                    spriteBatch.Draw(Game1.Weather, Stars[i], Stars[i].Y > 100 ? Color.Gray :Color.White);
+                }
             }
             else if (state == GameStates.SaveSelect)
             {
@@ -356,6 +367,12 @@ namespace MineBlock.Managers
                 else if (CursorTouching == 4) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate4, Color.White);
                 else if (CursorTouching == 5) spriteBatch.Draw(Game1.SaveSelectHighlight, Savestate5, Color.White);
                 spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
+                for (int i = 0; i < Stars.Count; i++)
+                {
+                    Stars[i] = new Rectangle(Stars[i].X, Stars[i].Y, 1, 1);
+                    if (Stars[i].X > 800) Stars[i] = new Rectangle(Game1.randy.Next(-800, 0), Game1.randy.Next(0, 180), 1, 1);
+                    spriteBatch.Draw(Game1.Weather, Stars[i], Stars[i].Y > 100 ? Color.Gray : Color.White);
+                }
             }
             else if (state == GameStates.Paused)
             {
@@ -373,6 +390,12 @@ namespace MineBlock.Managers
                 if (CursorTouching == 1) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused1, Color.White);
                 else if (CursorTouching == 2) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused2, Color.White);
                 else if (CursorTouching == 3) spriteBatch.Draw(Game1.SaveSelectHighlight, Paused3, Color.White);
+                for (int i = 0; i < Stars.Count; i++)
+                {
+                    Stars[i] = new Rectangle(Stars[i].X + 1, Stars[i].Y, 1, 1);
+                    if (Stars[i].X > 800) Stars[i] = new Rectangle(Game1.randy.Next(-800, 0), Game1.randy.Next(0, 180), 1, 1);
+                    spriteBatch.Draw(Game1.Weather, Stars[i], Stars[i].Y > 100 ? Color.Gray : Color.White);
+                }
             }
             else if(state == GameStates.Options)
             {
@@ -409,9 +432,18 @@ namespace MineBlock.Managers
                 spriteBatch.DrawString(Game1.pericles14, "All", new Vector2(AllCycle.X, AllCycle.Y + 2),intersects(AllCycle,cursorPos));
                 spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
             }
+            else if (state == GameStates.Error)
+            {
+                spriteBatch.Draw(game1.options, new Rectangle(0, 0, 800, 520), Color.White);
+                spriteBatch.DrawString(Game1.pericles14, "Unhandled Exception has occured", new Vector2(400 - 160, 50), intersects(Easter, cursorPos));
+                spriteBatch.Draw(Game1.Weather, new Rectangle(5,100,790,300),Color.White);
+                spriteBatch.DrawString(Game1.pericles1, Exception, new Vector2(5,100), Color.Black);
+                spriteBatch.DrawString(Game1.pericles1, Stacktrace, new Vector2(5, 115), Color.Black);
+            }
         }
         Color intersects(Rectangle square,Vector2 mouse)
         {
+            if(Easter.Intersects(new Rectangle((int)mouse.X, (int)mouse.Y, 1, 1))) return colors[Game1.randy.Next(0,colors.Length)];
             if (square.Intersects(new Rectangle((int)mouse.X, (int)mouse.Y, 1, 1))) return Color.MediumPurple;
             return Color.White;
         }
@@ -436,6 +468,11 @@ namespace MineBlock.Managers
 
             text.SetData(data);
             return text;
+        }
+        public void setError(String message, String Stacktrace)
+        {
+            this.Exception = message;
+            this.Stacktrace = Stacktrace;
         }
     }
 }
