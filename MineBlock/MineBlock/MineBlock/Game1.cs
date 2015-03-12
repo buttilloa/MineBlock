@@ -47,8 +47,8 @@ namespace MineBlock
             // Console.WriteLine("Height" + graphics.PreferredBackBufferHeight);
             // graphics.IsFullScreen = true;
             this.Window.Title = "Colonization";
-            this.graphics.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;
+           // this.graphics.SynchronizeWithVerticalRetrace = false;
+           // this.IsFixedTimeStep = false;
 
 #if XBOX
         Components.Add(new GamerServicesComponent(this)); // Xbox Specific Player Manager

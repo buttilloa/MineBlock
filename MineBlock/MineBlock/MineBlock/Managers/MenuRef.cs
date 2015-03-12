@@ -271,12 +271,7 @@ namespace MineBlock.Managers
 
                 Rectangle Cursor = new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 3, 3);
 
-                // if (Cursor.Intersects(StartButton))
-                //   if (HandleInputs.LeftTrigger())
-                //{
-                //     state = GameStates.SaveSelect;
-
-                //}
+               
 #endif
 #if XBOX
                 cursorPos = HandleInputs.moveHighlighter(cursorPos);
@@ -331,7 +326,7 @@ namespace MineBlock.Managers
                 if (Splashsize > 1.1f) increase = false;
                 if (!increase && Splashsize >= .9f) Splashsize -= .005f;
                 if (Splashsize < .9f) increase = true;
-                spriteBatch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(0, 0), Splashsize, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(5, Splashs[currentSplash].Length/2), Splashsize, SpriteEffects.None, 0f);
                 for (int i = 0; i < Stars.Count; i++)
                 {
                     Stars[i] = new Rectangle(Stars[i].X + 1, Stars[i].Y, 1, 1);
@@ -369,7 +364,7 @@ namespace MineBlock.Managers
                 spriteBatch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
                 for (int i = 0; i < Stars.Count; i++)
                 {
-                    Stars[i] = new Rectangle(Stars[i].X, Stars[i].Y, 1, 1);
+                    Stars[i] = new Rectangle(Stars[i].X + 1, Stars[i].Y, 1, 1);
                     if (Stars[i].X > 800) Stars[i] = new Rectangle(Game1.randy.Next(-800, 0), Game1.randy.Next(0, 180), 1, 1);
                     spriteBatch.Draw(Game1.Weather, Stars[i], Stars[i].Y > 100 ? Color.Gray : Color.White);
                 }
