@@ -32,9 +32,9 @@ namespace MineBlock
             
             //if(Game1.menu.state == Managers.MenuRef.GameStates.Playing)
             //return Vector2.Transform(new Vector2(ms.X,ms.Y), Matrix.Invert(Game1.cameraTransform));
-            if (Game1.menu.state == Managers.MenuRef.GameStates.Playing)
+            if (Managers.MenuRef.state == Managers.MenuRef.GameStates.Playing)
             {
-                Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, 800), (int)MathHelper.Clamp(ms.Y, -10, 500));
+                Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, Game1.Instance.Window.ClientBounds.Width), (int)MathHelper.Clamp(ms.Y, -10, Game1.Instance.Window.ClientBounds.Height));
                 return new Vector2(ms.X / 40, ms.Y / 40);
             }
             return new Vector2(ms.X, ms.Y);

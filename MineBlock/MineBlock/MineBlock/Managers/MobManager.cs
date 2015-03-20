@@ -20,9 +20,9 @@ namespace MineBlock
             mobs.Add(mob); 
            
         }
-        public void addBot(GraphicsDevice g)
+        public void addBot()
         {
- bot = new Hoverbot(g);
+ bot = new Hoverbot();
         }
         public void RemoveMobs()
         {

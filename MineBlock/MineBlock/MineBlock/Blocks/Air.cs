@@ -49,7 +49,7 @@ namespace MineBlock.Blocks
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(Game1.terrainsheet, new Vector2((x), (y )), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.menu.breakanimcolor);
+                    batch.Draw(Game1.terrainsheet, new Vector2((x), (y )), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
 
                 }
             }

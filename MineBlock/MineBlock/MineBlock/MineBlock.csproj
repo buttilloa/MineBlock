@@ -140,6 +140,12 @@
     <Compile Include="Items\Tool.cs" />
     <Compile Include="Managers\Inventory.cs" />
     <Compile Include="Managers\MenuRef.cs" />
+    <Compile Include="Menus\BaseMenu.cs" />
+    <Compile Include="Menus\CrashMenu.cs" />
+    <Compile Include="Menus\Options.cs" />
+    <Compile Include="Menus\Paused.cs" />
+    <Compile Include="Menus\SaveSelect.cs" />
+    <Compile Include="Menus\TitleScreen.cs" />
     <Compile Include="Mobs\Hoverbot.cs" />
     <Compile Include="Mobs\Mob.cs" />
     <Compile Include="Managers\MobManager.cs" />

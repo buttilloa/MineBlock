@@ -15,11 +15,10 @@ namespace MineBlock
 
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
-        public static Texture2D terrainsheet, Tools, Pointer, cursor, Weather, hoverbot, Pigsheet, hotbarsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
+        public static Texture2D terrainsheet, Tools, Pointer, cursor, Weather, hoverbot,t, Pigsheet, hotbarsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
         public Texture2D playerSheet, hotbarselector; // Player Textures
-        public Texture2D TitleScreen, SaveSelect, Paused, options; // Textures acessed by Menu Class
+        public Texture2D TitleScreen, SaveSelect, Paused, options ; // Textures acessed by Menu Class
         public static MobManager mobManager = new MobManager(); // Manages Mobs
-        //public static List<Block[,]> chunks = new List<Block[,]>(); // List of all the chunks
         public static Block[,] chunk = new Block[200, 130];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
         public static SpriteFont pericles14, pericles1, pericles28; // Fonts
@@ -31,6 +30,9 @@ namespace MineBlock
         public static ConsoleManager console = new ConsoleManager(); // Manages the ingame Console
         public float zoom = 0.0f;
         public static Color cursorColor = Color.White;
+        public static Game1 Instance;
+        public static Color lasercolor = Color.Red;
+        public static  Color breakanimcolor = Color.White;
 #if XBOX
         bool GameSaveRequested = false;  // Xbox specific saving Variables
          IAsyncResult result;
@@ -42,22 +44,24 @@ namespace MineBlock
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.PreferMultiSampling = true;
-            //graphics.PreferredBackBufferHeight = 1050;
-            //graphics.PreferredBackBufferWidth = 1680;
+           // graphics.PreferredBackBufferHeight = 1080;
+           // graphics.PreferredBackBufferWidth = 1920;
             // Console.WriteLine("Height" + graphics.PreferredBackBufferHeight);
             // graphics.IsFullScreen = true;
             this.Window.Title = "Colonization";
-           // this.graphics.SynchronizeWithVerticalRetrace = false;
-           // this.IsFixedTimeStep = false;
+            // this.graphics.SynchronizeWithVerticalRetrace = false;
+            // this.IsFixedTimeStep = false;
+            Instance = this;
+          
 
 #if XBOX
         Components.Add(new GamerServicesComponent(this)); // Xbox Specific Player Manager
 #endif
             Components.Add(new FrameRateCounter(this));
-          
+
         }
         //Initialize Game
-       
+
         protected override void Initialize()
         {
 
@@ -80,6 +84,9 @@ namespace MineBlock
             chickensheet = Content.Load<Texture2D>(@"Mobs/Chicken");
             cowsheet = Content.Load<Texture2D>(@"Mobs/Cow");
             hoverbot = Content.Load<Texture2D>(@"Mobs/HoverBot");
+            t = new Texture2D(GraphicsDevice, 1, 1);
+            t.SetData<Color>(
+            new Color[] { Color.White });
             //Blocks
             grass = Content.Load<Texture2D>(@"Blocks/grass");
             terrainsheet = Content.Load<Texture2D>(@"Blocks/terrainsheet");
@@ -105,7 +112,8 @@ namespace MineBlock
 
             //Register Player
             player = new PlayerManager(playerSheet, hotbarsheet, hotbarselector);
-            menu.loadContent();
+            
+            
 #if WINDOWS
             saves.GetDevice(); // Get Save Device
 #endif
@@ -117,12 +125,8 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
                         PlayerIndex.One, null, null);
             }
 #endif
-            if (saves.hasSaved(1)) menu.Savestate1exists = true; // Check for Existing Saves
-            if (saves.hasSaved(2)) menu.Savestate2exists = true;
-            if (saves.hasSaved(3)) menu.Savestate3exists = true;
-            if (saves.hasSaved(4)) menu.Savestate4exists = true;
-            if (saves.hasSaved(5)) menu.Savestate5exists = true;
-            mobManager.addBot(GraphicsDevice);
+            menu.Init();     
+            mobManager.addBot();
         }
         //Unload Content
         protected override void UnloadContent()
@@ -149,10 +153,11 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
                 else if (HandleInputs.isKeyDown("OemTilde")) console.isShown = true;
                 if (HandleInputs.isKeyDown("Escape")) // Opens pause menu
                 {
-                    menu.state = MenuRef.GameStates.Paused;
+                    MenuRef.state = MenuRef.GameStates.Paused;
+                    MenuRef.SetMenu(new Menus.Paused());
                     //saves.SaveAll(selectedSave, player, mobManager);
                 }
-                if (menu.state == MenuRef.GameStates.Playing && !console.isShown)
+                if (MenuRef.state == MenuRef.GameStates.Playing && !console.isShown)
                 {
 #if XBOX
 
@@ -197,13 +202,13 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     //     manualTeleport();
                     checkClicks(gameTime);
                 }
-                else menu.update(this);
+                else menu.update();
                 base.Update(gameTime);
             }
             catch (Exception e)
             {
-                menu.setError(e.Message, e.StackTrace);
-                menu.state = MenuRef.GameStates.Error;
+              MenuRef.SetErrorMenu(e.Message, e.StackTrace);
+               MenuRef.state = MenuRef.GameStates.Error;
 
                 //Console.WriteLine(e.Data);
 
@@ -221,7 +226,28 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 Console.WriteLine("WEATHEREDING!");
             }
         }
-         
+        public static void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+        {
+            Vector2 edge = end - start;
+            // calculate angle to rotate line
+            float angle =
+                (float)Math.Atan2(edge.Y, edge.X);
+
+
+            sb.Draw(t,
+                new Rectangle(// rectangle defines shape of line and position of start of line
+                    (int)start.X,
+                    (int)start.Y,
+                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
+                    1), //width of line, change this to make thicker line
+                null,
+                lasercolor, //colour of line
+                angle,     //angle of line (calulated above)
+                new Vector2(0, 0), // point in line about which to rotate
+                SpriteEffects.None,
+                0);
+
+        }
         //Manualy Telport
         /* void manualTeleport()
          {
@@ -308,7 +334,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
             spriteBatch.Begin(SpriteSortMode.Immediate,
                   BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null,
                   cameraTransform); // moveable objects
-            if (menu.state == MenuRef.GameStates.Playing)
+            if (MenuRef.state == MenuRef.GameStates.Playing)
             {
 
                 foreach (Block block in chunk)
@@ -321,22 +347,22 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 //Draw Blocks
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
-               // weather.Draw(spriteBatch);// Draw Weather 
+                // weather.Draw(spriteBatch);// Draw Weather 
             }
 
             console.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin(); //static objects
-            if (menu.state == MenuRef.GameStates.Playing)
+            if (MenuRef.state == MenuRef.GameStates.Playing)
             {
                 player.Drawstatic(spriteBatch);
-                spriteBatch.DrawString(pericles14, "X: " + (((int)player.Player.Location.X / 40) + 1), new Vector2(690, 10), Color.White);// Draw Current Chunk int
-                spriteBatch.DrawString(pericles14, "Y: " + (((int)player.Player.Location.Y / 40) + 1), new Vector2(690, 24), Color.White); // Draw Current Biome
+                spriteBatch.DrawString(pericles14, "X: " + (((int)player.Player.Location.X / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 10), Color.White);// Draw Current Chunk int
+                spriteBatch.DrawString(pericles14, "Y: " + (((int)player.Player.Location.Y / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 24), Color.White); // Draw Current Biome
 
 
             }
-            else menu.Draw(this, spriteBatch);  // Draw Menus
+            else menu.Draw( spriteBatch);  // Draw Menus
             console.Drawstatic(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

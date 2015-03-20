@@ -10,7 +10,6 @@ namespace MineBlock.Mobs
         enum BotState { mine, place, follow, idle  };
         BotState botstate = BotState.follow;
         public Sprite Botsprite;
-        Texture2D t;
         int speed = 150;
         Block target1 = new Block();
         Block target2 = new Block();
@@ -21,17 +20,15 @@ namespace MineBlock.Mobs
         Block[] Inv = new Block[9];
         int[] count = new int[9];
         bool canChangeState = true;
-        public Color lasercolor = Color.Red;
-        public Hoverbot(GraphicsDevice g)
+      
+        public Hoverbot()
         {
             Botsprite = new Sprite(new Vector2(10, 10), Game1.hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
             Botsprite.scale = 1;
             Botsprite.AddFrame(new Rectangle(32, 0, 15, 21));
             Botsprite.AddFrame(new Rectangle(61, 0, 15, 21));
             Botsprite.AddFrame(new Rectangle(88, 0, 15, 21));
-            t = new Texture2D(g, 1, 1);
-            t.SetData<Color>(
-                new Color[] { Color.White });
+           
             for (int i = 0; i < 9; i++)
             {
                 Inv[i] = new Air(((int)Botsprite.Location.X + (i * 20)) + 3, (int)Botsprite.Location.Y + 3);
@@ -39,10 +36,7 @@ namespace MineBlock.Mobs
             }
            
         }
-        public Texture2D Texture{
-            get { return t; }
-            set { t = value; }
-        }
+       
         
         public void update(GameTime time)
         {
@@ -246,27 +240,9 @@ namespace MineBlock.Mobs
                 }
             }
         }
-        public void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
+        public static void DrawLine(SpriteBatch sb, Vector2 start, Vector2 end)
         {
-            Vector2 edge = end - start;
-            // calculate angle to rotate line
-            float angle =
-                (float)Math.Atan2(edge.Y, edge.X);
-
-
-            sb.Draw(t,
-                new Rectangle(// rectangle defines shape of line and position of start of line
-                    (int)start.X,
-                    (int)start.Y,
-                    (int)edge.Length(), //sb will strech the texture to fill this rectangle
-                    1), //width of line, change this to make thicker line
-                null,
-                lasercolor, //colour of line
-                angle,     //angle of line (calulated above)
-                new Vector2(0, 0), // point in line about which to rotate
-                SpriteEffects.None,
-                0);
-
+            Game1.DrawLine(sb, start, end);
         }
     }
 

@@ -18,7 +18,7 @@ namespace MineBlock
         public int drawdamage = 0;
         public bool isfucked = false;
         public Item preferedTool = null;
-        // Boolean isFlamible = false;
+        //Boolean isFlamible = false;
         public Boolean canMine = true;
 
         public Block()
@@ -122,7 +122,7 @@ namespace MineBlock
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.menu.breakanimcolor);
+                    batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
 
                 }
             }
