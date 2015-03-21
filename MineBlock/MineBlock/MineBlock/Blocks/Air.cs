@@ -9,7 +9,7 @@ namespace MineBlock.Blocks
     class Air : Block
     {
 
-        public Air(int XPos , int yPos)
+        public Air(int XPos , int yPos) : base()
         {
             x = XPos;
             y = yPos;
@@ -30,7 +30,7 @@ namespace MineBlock.Blocks
 
         public virtual void DrawBlank(SpriteBatch batch)
         {
-                batch.Draw(Game1.terrainsheet, new Vector2((x ), (y )), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(terrainsheet, new Vector2((x ), (y )), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
          handleBlankBlockDmg(batch);
         }
         public void handleBlankBlockDmg(SpriteBatch batch)
@@ -49,7 +49,7 @@ namespace MineBlock.Blocks
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(Game1.terrainsheet, new Vector2((x), (y )), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
+                    batch.Draw(terrainsheet, new Vector2((x), (y )), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
 
                 }
             }

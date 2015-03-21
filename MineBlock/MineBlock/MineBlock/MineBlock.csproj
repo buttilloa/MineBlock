@@ -140,6 +140,7 @@
     <Compile Include="Items\Tool.cs" />
     <Compile Include="Managers\Inventory.cs" />
     <Compile Include="Managers\MenuRef.cs" />
+    <Compile Include="Tm.cs" />
     <Compile Include="Menus\BaseMenu.cs" />
     <Compile Include="Menus\CrashMenu.cs" />
     <Compile Include="Menus\Options.cs" />
@@ -161,10 +162,7 @@
     <Compile Include="Stuff\sprite.cs" />
     <Compile Include="Managers\Terrain.cs" />
     <Compile Include="Weapons\Weapon.cs" />
-    <Compile Include="Weapons\Bullet.cs" />
-    <Compile Include="Weapons\Bow.cs" />
     <Compile Include="Weapons\Hand.cs" />
-    <Compile Include="Weapons\Handgun.cs" />
     <Compile Include="Managers\Weather.cs" />
   </ItemGroup>
   <ItemGroup>

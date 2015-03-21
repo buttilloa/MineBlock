@@ -12,7 +12,7 @@ namespace MineBlock.Blocks
         Boolean manualDraw = false;
         int ydub;
         int added =0;
-        public Sand(int XPos, int yPos)
+        public Sand(int XPos, int yPos) : base()
         {
             x = XPos;
             y = yPos;
@@ -65,17 +65,17 @@ namespace MineBlock.Blocks
                     int indexY = index / 16;
                     int indexX = index % 16;
 
-                    batch.Draw(Game1.terrainsheet, new Vector2( (x * 40),   ydub), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                    batch.Draw(terrainsheet, new Vector2( (x * 40),   ydub), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
                 }
                 else
                 {
                     int indexY = index / 16;
                     int indexX = index % 16;
-                    batch.Draw(Game1.terrainsheet, new Vector2(  (x * 40),  (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
+                    batch.Draw(terrainsheet, new Vector2(  (x * 40),  (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
                 }
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(  (x * 40),   (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
+                batch.Draw(terrainsheet, new Vector2(  (x * 40),   (y * 40)), new Rectangle(index * 40, 0, 40, 40), Color.White);
             handleBlockDmg(batch);
         }
     }

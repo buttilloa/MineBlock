@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MineBlock.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,16 @@ namespace MineBlock.Items
         public int upgrade = -1;
         public int damage = 0;
         public int StartDamage = 0;
-
+        private Texture2D ToolSheet, Blank;
         public Tool()
         {
-
+            Blank = Tm.getTexture(Tm.Texture.Blank);
+            ToolSheet = Tm.getTexture(Tm.Texture.Tools);
         }
         public override void DrawMini(SpriteBatch batch, int Xpos, int Ypos)
         {
-            batch.Draw(Game1.Tools, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, index * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
-            batch.Draw(Game1.Weather, new Rectangle(Xpos, Ypos + 25, handleDamage(), 3), damage > StartDamage / 2 ? Color.Green : damage > StartDamage / 4 ? Color.Orange : Color.Red);
+            batch.Draw(ToolSheet, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, index * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+            batch.Draw(Blank, new Rectangle(Xpos, Ypos + 25, handleDamage(), 3), damage > StartDamage / 2 ? Color.Green : damage > StartDamage / 4 ? Color.Orange : Color.Red);
 
         }
         public int handleDamage() // max ==30
@@ -38,13 +40,13 @@ namespace MineBlock.Items
             if (!Flip)
             {
                 int X = x + 67; int Y = y + 55;
-                batch.Draw(Game1.Tools, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
 
             }
             else
             {
                 int X = x + 15; int Y = y + 55;
-                batch.Draw(Game1.Tools, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0f);
             }
         }
     }

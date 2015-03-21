@@ -15,7 +15,7 @@ namespace MineBlock
     public class PlayerManager
     {
         public Sprite Player;
-        Texture2D Guy, hotboarSheet, HotBoarSelector;
+        Texture2D Guy, hotboarSheet, HotBoarSelector, pointer, HealthBar, Blank, Cursor;
 
         Block[,] blocks;
         public Item[] hotbar = new Item[9];
@@ -40,6 +40,7 @@ namespace MineBlock
         String teleporterMessage;
         public String ChunkTp = "";
         public Inventory playerinv;
+        private SpriteFont pericles14, pericles1;
 
         public PlayerManager(Texture2D sheet, Texture2D hotbatsheet, Texture2D hotbarselector)
         {
@@ -68,6 +69,13 @@ namespace MineBlock
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             playerinv = new Inventory(hotbatsheet);
             //playerinv.displayinv();
+            pericles14 = Tm.getFont(Tm.Font.f14);
+            pericles1 = Tm.getFont(Tm.Font.f1);
+            pointer = Tm.getTexture(Tm.Texture.Pointer);
+            Cursor = Tm.getTexture(Tm.Texture.cursor);
+            Blank = Tm.getTexture(Tm.Texture.Blank);
+            HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
+
 
         }
         public void updateBlocks(Block[,] block)
@@ -315,20 +323,20 @@ namespace MineBlock
                 if (hotbar[i].Count > 0)
                 {
                     hotbar[i].DrawMini(batch, (i * 40) + 16, 16);
-                   if(hotbar[i].hasCount) batch.DrawString(Game1.pericles14, "" + hotbar[i].Count, new Vector2((i * 40) + 21, 19), Color.White);
+                   if(hotbar[i].hasCount) batch.DrawString(pericles14, "" + hotbar[i].Count, new Vector2((i * 40) + 21, 19), Color.White);
                 }
             }
             batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), hotbarSelector);
 
             if (drawTeleporterMessage)
-                batch.DrawString(Game1.pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
+                batch.DrawString(pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
             //batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             //currentWeapon.DrawInInv(batch, 400, 12);
             if (playerinv.isdisplayed)
             {
                 playerinv.draw(batch);
-                batch.Draw(Game1.Pointer, new Rectangle((int)highlighted.X, (int)highlighted.Y, 12, 19), Game1.cursorColor);
+                batch.Draw(pointer, new Rectangle((int)highlighted.X, (int)highlighted.Y, 12, 19), Game1.cursorColor);
             }
         }
         public void Draw(SpriteBatch batch)
@@ -337,9 +345,9 @@ namespace MineBlock
            
             Bar = new Rectangle((int)Player.Location.X + 23, (int)Player.Location.Y + 10, 60, 10);
             Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
-            batch.Draw(Game1.HealthBar, Bar, Color.White);
-            batch.Draw(Game1.Weather, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
-            batch.DrawString(Game1.pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
+            batch.Draw(HealthBar, Bar, Color.White);
+            batch.Draw(Blank, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
+            batch.DrawString(pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
             //currentWeapon.DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
             hotbar[selected].DrawInHand(batch, (int)Player.Location.X, (int)Player.Location.Y, Player.Flip);
             //foreach (Bullet shot in shots)
@@ -355,11 +363,11 @@ namespace MineBlock
                         float xPoss = (chestInvLocation.X + (i * 19.9f)) + 3;
                         float yPoss = chestInvLocation.Y + 3;
                         chestInv[i].DrawInChest(batch, xPoss, yPoss);
-                        batch.DrawString(Game1.pericles1, "" + chestInvCount[i], new Vector2(xPoss, yPoss), Color.White);
+                        batch.DrawString(pericles1, "" + chestInvCount[i], new Vector2(xPoss, yPoss), Color.White);
                     }
                 }
             }
-            if (!playerinv.isdisplayed) batch.Draw(Game1.cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), highlightcolor);
+            if (!playerinv.isdisplayed) batch.Draw(Cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), highlightcolor);
 
         }
     }

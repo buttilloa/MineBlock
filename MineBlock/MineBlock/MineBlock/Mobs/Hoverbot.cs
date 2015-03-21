@@ -20,10 +20,13 @@ namespace MineBlock.Mobs
         Block[] Inv = new Block[9];
         int[] count = new int[9];
         bool canChangeState = true;
+        SpriteFont pericles1;
+        Texture2D hoverbot, hotbarsheet;
       
         public Hoverbot()
         {
-            Botsprite = new Sprite(new Vector2(10, 10), Game1.hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
+             hoverbot = Tm.getTexture(Tm.Texture.hoverbot);
+            Botsprite = new Sprite(new Vector2(10, 10), hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
             Botsprite.scale = 1;
             Botsprite.AddFrame(new Rectangle(32, 0, 15, 21));
             Botsprite.AddFrame(new Rectangle(61, 0, 15, 21));
@@ -35,6 +38,8 @@ namespace MineBlock.Mobs
                 count[i] = 0;
             }
            
+              hotbarsheet = Tm.getTexture(Tm.Texture.hotbarsheet);
+              pericles1 = Tm.getFont(Tm.Font.f1);
         }
        
         
@@ -227,7 +232,7 @@ namespace MineBlock.Mobs
             if (drawinv)
             {
              InvLocation = new Vector2(Botsprite.Location.X-85, Botsprite.Location.Y-30);
-                batch.Draw(Game1.hotbarsheet, new Rectangle((int)InvLocation.X, (int)InvLocation.Y, 181, 21), Color.White);
+                batch.Draw(hotbarsheet, new Rectangle((int)InvLocation.X, (int)InvLocation.Y, 181, 21), Color.White);
                 for (int i = 0; i < 9; i++)
                 {
                     if (count[i] > 0)
@@ -235,7 +240,7 @@ namespace MineBlock.Mobs
                         float xPoss = (InvLocation.X + (i * 19.9f)) + 3;
                         float yPoss = InvLocation.Y + 3;
                         Inv[i].DrawInChest(batch, xPoss, yPoss);
-                        batch.DrawString(Game1.pericles1, "" + count[i], new Vector2(xPoss, yPoss), Color.White);
+                        batch.DrawString(pericles1, "" + count[i], new Vector2(xPoss, yPoss), Color.White);
                     }
                 }
             }

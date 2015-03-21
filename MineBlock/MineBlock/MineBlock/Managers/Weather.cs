@@ -18,6 +18,7 @@ namespace MineBlock
 #if WINDOWS
         int rainCount = 600;   
         int snowCount = 500;
+        Texture2D Blank;
 #endif
 #if XBOX
          int rainCount = 200;
@@ -26,7 +27,7 @@ namespace MineBlock
         int rainTime = 0;
         public Weather()
         {
-           
+            Blank = Tm.getTexture(Tm.Texture.Blank);  
         }
 
         public void Rain()
@@ -71,7 +72,7 @@ namespace MineBlock
                 {
                     if (snows[i].Y < 600)
                         snows[i] = new Rectangle(snows[i].X, snows[i].Y + Game1.randy.Next(1, 4), 3, 3);
-                    batch.Draw(Game1.Weather, snows[i], Color.White);
+                    batch.Draw(Blank, snows[i], Color.White);
                     foreach (Block block in Game1.chunk)
                         if (block.index != 6 && block.index != 0)
                             if (snows[i].Intersects(new Rectangle(block.x * 40, block.y * 40, 40, 40)))
@@ -96,7 +97,7 @@ namespace MineBlock
                 {
                     if (rains[i].Y < 600)
                         rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
-                    batch.Draw(Game1.Weather, rains[i], Color.Blue);
+                    batch.Draw(Blank, rains[i], Color.Blue);
                     for (int x = (int)(Game1.player.Player.Location.X / 40) - 11; x < (Game1.player.Player.Location.X / 40) + 11; x++)
                        for (int y = (int)(Game1.player.Player.Location.Y / 40) - 11; y < (Game1.player.Player.Location.Y / 40) + 11;y++)
                            if (Game1.chunk[x,y].index != 6 && Game1.chunk[x,y].index != 0)

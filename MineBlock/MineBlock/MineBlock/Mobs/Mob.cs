@@ -25,9 +25,13 @@ namespace MineBlock
        
         Rectangle Bar = new Rectangle(0, 0, 62, 20);
         Rectangle Bar2;
+        Texture2D HealthBar, Blank;
+        SpriteFont pericles1;
         public Mob()
         {
-
+            HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
+            Blank = Tm.getTexture(Tm.Texture.Blank);
+            pericles1 = Tm.getFont(Tm.Font.f1);
         }
         public Mob returnMob(int index, int X, int Y, int chunk)
         {
@@ -143,9 +147,9 @@ namespace MineBlock
             {
                 Bar = new Rectangle((int)(((Position.X * 40) + subPixel.X)) - 30, (int)((Position.Y * 40) + subPixel.Y) - 10, 60, 10);
                 Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
-                batch.Draw(Game1.HealthBar, Bar, Color.White);
-                batch.Draw(Game1.Weather, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
-                batch.DrawString(Game1.pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
+                batch.Draw(HealthBar, Bar, Color.White);
+                batch.Draw(Blank, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);
+                batch.DrawString(pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
             }
            }
         public int getY()

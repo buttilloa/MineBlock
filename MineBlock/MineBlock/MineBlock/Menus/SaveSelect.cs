@@ -32,7 +32,7 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Game1.Instance.SaveSelect;
+            Background = Tm.getTexture(Tm.Texture.SaveSelect);
             base.getTextures();
         }
         public override void Update()

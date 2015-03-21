@@ -2,6 +2,7 @@ Content\Sounds\Chest.xnb
 Content\Sounds\Rain.xnb
 Content\Sounds\RickRoll.xnb
 Content\Sounds\Snow.xnb
+Content\Sounds\fuck.xnb
 Content\Mobs\Chicken.xnb
 Content\Mobs\Cow.xnb
 Content\Misc\cursor.xnb
@@ -20,11 +21,9 @@ Content\Misc\Weather.xnb
 Content\Player\HealthBar.xnb
 Content\Weapons\HandGun1.xnb
 Content\Menus\Blur.xnb
-Content\Fonts\Pericles1.xnb
-Content\Fonts\Pericles14.xnb
-Content\Fonts\Pericles28.xnb
-Content\Sounds\fuck.xnb
 Content\Mobs\HoverBot.xnb
 Content\Menus\options.xnb
 Content\Items\tools.xnb
-Content\LkntmiC.xnb
+Content\Fonts\Pericles1.xnb
+Content\Fonts\Pericles14.xnb
+Content\Fonts\Pericles28.xnb

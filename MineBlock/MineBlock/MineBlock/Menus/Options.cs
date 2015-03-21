@@ -41,10 +41,10 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Game1.Instance.options;
-            cursor = Game1.cursor;
-            hoverbotTexture = Game1.hoverbot;
-            hotbarSelector = Game1.Instance.hotbarselector;
+            Background = Tm.getTexture(Tm.Texture.options);
+            cursor = Tm.getTexture(Tm.Texture.cursor);
+            hoverbotTexture = Tm.getTexture(Tm.Texture.hoverbot);
+            hotbarSelector = Tm.getTexture(Tm.Texture.hotbarselector);
             base.getTextures();
         }
         public void getcolors()

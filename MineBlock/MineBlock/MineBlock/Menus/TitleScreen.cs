@@ -33,8 +33,8 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Game1.Instance.TitleScreen;
-            //base.getTextures();
+            Background = Tm.getTexture(Tm.Texture.TitleScreen);
+            base.getTextures();
         }
         public override void Update()
         {
@@ -57,13 +57,13 @@ namespace MineBlock.Menus
            
 
             batch.Draw(Background, new Rectangle(0, 0, GameWindow.Width, GameWindow.Height), Color.White);
-            batch.Draw(Game1.Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
+            batch.Draw(Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
 
             if (increase && Splashsize <= 1.1f) Splashsize += .005f;
             if (Splashsize > 1.1f) increase = false;
             if (!increase && Splashsize >= .9f) Splashsize -= .005f;
             if (Splashsize < .9f) increase = true;
-            batch.DrawString(Game1.pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(5, Splashs[currentSplash].Length / 2), Splashsize, SpriteEffects.None, 0f);
+            batch.DrawString(pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(5, Splashs[currentSplash].Length / 2), Splashsize, SpriteEffects.None, 0f);
             base.Draw(batch);
         }
     }

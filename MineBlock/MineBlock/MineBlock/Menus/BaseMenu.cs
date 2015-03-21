@@ -15,7 +15,7 @@ namespace MineBlock.Menus
         List<Rectangle> Stars = new List<Rectangle>();
         protected Rectangle GameWindow;
         protected int CursorTouching = 0;
-        protected Texture2D Background, Pointer, SaveSelectHighlight;
+        protected Texture2D Background, Pointer, SaveSelectHighlight, Blank;
         protected SpriteFont pericles14, pericles1;
         public BaseMenu()
         {
@@ -28,10 +28,11 @@ namespace MineBlock.Menus
         }
         public virtual void getTextures()
         {
-            Pointer = Game1.Pointer;
-            pericles1 = Game1.pericles1;
-            pericles14 = Game1.pericles14;
-            SaveSelectHighlight = Game1.SaveSelectHighlight;
+            Pointer = Tm.getTexture(Tm.Texture.Pointer);
+            pericles1 = Tm.getFont(Tm.Font.f1);
+            pericles14 = Tm.getFont(Tm.Font.f14);
+            SaveSelectHighlight = Tm.getTexture(Tm.Texture.SaveSelectHighlight);
+            Blank = Tm.getTexture(Tm.Texture.Blank);
         }
         public virtual void Update()
         {
@@ -50,7 +51,7 @@ namespace MineBlock.Menus
                 {
                     Stars[i] = new Rectangle(Stars[i].X + 1, Stars[i].Y, 1, 1);
                     if (Stars[i].X > 800) Stars[i] = new Rectangle(Game1.randy.Next(-800, 0), Game1.randy.Next(0, 180), 1, 1);
-                    batch.Draw(Game1.Weather, Stars[i], Stars[i].Y > 100 ? Color.Gray : Color.White);
+                    batch.Draw(Blank, Stars[i], Stars[i].Y > 100 ? Color.Gray : Color.White);
                 }
             }
         }

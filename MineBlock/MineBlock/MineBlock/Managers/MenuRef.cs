@@ -26,6 +26,7 @@ namespace MineBlock.Managers
         }
         public static void SetErrorMenu(String Exception, String stacktrace)
         {
+            state = GameStates.Error;
             CurrentMenu.disposeMenu();
             CurrentMenu = new CrashMenu(Exception, stacktrace);
         }

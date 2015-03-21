@@ -15,13 +15,17 @@ namespace MineBlock.Items
         public int Count = 0;
         public bool hasCount = true;
         Block ItemBlock;
-        public Item() { }
+        protected Texture2D terrainsheet;
+        public Item() {
+            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
+        }
         public Item(Block itemBlock)
         {
             ItemBlock = itemBlock;
             Blockindex = ItemBlock.index;
             int x = ItemBlock.x;
             int y = ItemBlock.y;
+            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
         }
 
         public Block ReturnBlock()
@@ -34,10 +38,10 @@ namespace MineBlock.Items
             {
                 int indexY = Blockindex / 16;
                 int indexX = Blockindex % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(Xpos, Ypos), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(Xpos, Ypos), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
             }
             else if (Blockindex > 0)
-                batch.Draw(Game1.terrainsheet, new Vector2(Xpos, Ypos), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(Xpos, Ypos), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
             //else batch.Draw(Game1.Tools, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, index *40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
         }
 
@@ -52,10 +56,10 @@ namespace MineBlock.Items
                 {
                     int indexY = Blockindex / 16;
                     int indexX = Blockindex % 16;
-                    batch.Draw(Game1.terrainsheet, new Vector2(X, Y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
+                    if(terrainsheet != null)batch.Draw(terrainsheet, new Vector2(X, Y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
                 }
                 else if (Blockindex > 0)
-                    batch.Draw(Game1.terrainsheet, new Vector2(X, Y), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, rotation, new Vector2(20,20), 0.3f, SpriteEffects.None, 0f);
+                    batch.Draw(terrainsheet, new Vector2(X, Y), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, rotation, new Vector2(20,20), 0.3f, SpriteEffects.None, 0f);
                 //batch.Draw(Game1.terrainsheet, new Vector2(X, Y), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
             }
             else
@@ -65,10 +69,10 @@ namespace MineBlock.Items
                 {
                     int indexY = Blockindex / 16;
                     int indexX = Blockindex % 16;
-                    batch.Draw(Game1.terrainsheet, new Vector2(X, Y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
+                    batch.Draw(terrainsheet, new Vector2(X, Y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
                 }
                 else if (Blockindex > 0)
-                    batch.Draw(Game1.terrainsheet, new Vector2(X, Y), new Rectangle(Blockindex * 40, 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
+                    batch.Draw(terrainsheet, new Vector2(X, Y), new Rectangle(Blockindex * 40, 40, 40, 40), Color.White, rotation, new Vector2(20, 20), 0.3f, SpriteEffects.None, 0f);
             }
         }
 

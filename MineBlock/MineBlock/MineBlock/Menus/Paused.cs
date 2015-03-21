@@ -23,7 +23,7 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Game1.Instance.Paused;
+            Background = Tm.getTexture(Tm.Texture.Paused);
 
             base.getTextures();
         }
@@ -34,7 +34,8 @@ namespace MineBlock.Menus
                 CursorTouching = 1;
                 if (HandleInputs.LeftTrigger())
                 {
-
+                    Game1.mobManager = new MobManager();
+                    Game1.player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
                     MenuRef.state = MenuRef.GameStates.TitleScreen;
                     MenuRef.SetMenu(new TitleScreen());
                 }

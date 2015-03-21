@@ -8,6 +8,7 @@ namespace MineBlock.Blocks
 {
     class Grass : Block
     {
+        Texture2D grass;
         public Grass(int XPos, int yPos)
         {
             x = XPos;
@@ -16,6 +17,7 @@ namespace MineBlock.Blocks
             special = 0;
             MineTime = 60;
             preferedTool = new MineBlock.Items.Shovel(0);
+            grass = Tm.getTexture(Tm.Texture.grass);
         }
         public Grass(int XPos, int yPos, int orientation , float olddamage)
         {
@@ -51,7 +53,7 @@ namespace MineBlock.Blocks
         }
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(Game1.grass, new Vector2( (x * 40),  (y * 40)), new Rectangle((special * 40), 0, 40, 40), Color.White);
+            batch.Draw(grass, new Vector2( (x * 40),  (y * 40)), new Rectangle((special * 40), 0, 40, 40), Color.White);
             handleBlockDmg(batch);
         }
         public override Block Reset(int X, int Y)

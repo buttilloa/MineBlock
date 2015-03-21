@@ -10,29 +10,27 @@ using System;
 namespace MineBlock
 {
 
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class Game1 : Microsoft.Xna.Framework.Game 
     {
 
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
-        public static Texture2D terrainsheet, Tools, Pointer, cursor, Weather, hoverbot,t, Pigsheet, hotbarsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight; // Textures that im too lasy to assign to a Manager 8P
-        public Texture2D playerSheet, hotbarselector; // Player Textures
-        public Texture2D TitleScreen, SaveSelect, Paused, options ; // Textures acessed by Menu Class
-        public static MobManager mobManager = new MobManager(); // Manages Mobs
+        public static MobManager mobManager; // Manages Mobs
         public static Block[,] chunk = new Block[200, 130];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
-        public static SpriteFont pericles14, pericles1, pericles28; // Fonts
         public static PlayerManager player; // Manages Player
-        public static Weather weather = new Weather(); // Manages Weather
+        public static Weather weather ; // Manages Weather
         public static int selectedSave = 0; // Save Slot
-        public static MenuRef menu = new MenuRef(); // Manages Menus
+        public static MenuRef menu;  // Manages Menus
         public static SaveManager saves = new SaveManager(); // Manages Saves
-        public static ConsoleManager console = new ConsoleManager(); // Manages the ingame Console
+        public static ConsoleManager console; // Manages the ingame Console
         public float zoom = 0.0f;
         public static Color cursorColor = Color.White;
         public static Game1 Instance;
         public static Color lasercolor = Color.Red;
-        public static  Color breakanimcolor = Color.White;
+        public static Color breakanimcolor = Color.White;
+        private SpriteFont pericles14;
+        private static Texture2D t;
 #if XBOX
         bool GameSaveRequested = false;  // Xbox specific saving Variables
          IAsyncResult result;
@@ -42,29 +40,26 @@ namespace MineBlock
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+           
             Content.RootDirectory = "Content";
             graphics.PreferMultiSampling = true;
-           // graphics.PreferredBackBufferHeight = 1080;
-           // graphics.PreferredBackBufferWidth = 1920;
-            // Console.WriteLine("Height" + graphics.PreferredBackBufferHeight);
+            // graphics.PreferredBackBufferHeight = 1080;
+            // graphics.PreferredBackBufferWidth = 1920;
             // graphics.IsFullScreen = true;
             this.Window.Title = "Colonization";
             // this.graphics.SynchronizeWithVerticalRetrace = false;
             // this.IsFixedTimeStep = false;
             Instance = this;
-          
-
+            Components.Add(new FrameRateCounter(this));
 #if XBOX
         Components.Add(new GamerServicesComponent(this)); // Xbox Specific Player Manager
 #endif
-            Components.Add(new FrameRateCounter(this));
-
-        }
+            
+  }
         //Initialize Game
-
         protected override void Initialize()
         {
-
+          
             base.Initialize();
 
         }
@@ -72,48 +67,20 @@ namespace MineBlock
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            //Menus
-            Blur = Content.Load<Texture2D>(@"Menus/Blur");
-            Paused = Content.Load<Texture2D>(@"Menus/Paused");
-            SaveSelect = Content.Load<Texture2D>(@"Menus/SaveSelect");
-            SaveSelectHighlight = Content.Load<Texture2D>(@"Menus/SaveSelectHighlight");
-            TitleScreen = Content.Load<Texture2D>(@"Menus/TitleScreen");
-            options = Content.Load<Texture2D>(@"Menus/options");
-            //Mobs  
-            Pigsheet = Content.Load<Texture2D>(@"Mobs/Pig");
-            chickensheet = Content.Load<Texture2D>(@"Mobs/Chicken");
-            cowsheet = Content.Load<Texture2D>(@"Mobs/Cow");
-            hoverbot = Content.Load<Texture2D>(@"Mobs/HoverBot");
-            t = new Texture2D(GraphicsDevice, 1, 1);
-            t.SetData<Color>(
-            new Color[] { Color.White });
-            //Blocks
-            grass = Content.Load<Texture2D>(@"Blocks/grass");
-            terrainsheet = Content.Load<Texture2D>(@"Blocks/terrainsheet");
-            //Items
-            Tools = Content.Load<Texture2D>(@"Items/tools");
-            //Weapons
-            HandGun = Content.Load<Texture2D>(@"Weapons/HandGun1");
-            //Player
-            HealthBar = Content.Load<Texture2D>(@"Player/HealthBar");
-            hotbarsheet = Content.Load<Texture2D>(@"Player/Hotbar");
-            hotbarselector = Content.Load<Texture2D>(@"Player/Hotbar_selector");
-            playerSheet = Content.Load<Texture2D>(@"Player/Player");
-            //Fonts
-            pericles28 = Content.Load<SpriteFont>(@"Fonts/Pericles28");
-            pericles14 = Content.Load<SpriteFont>(@"Fonts/Pericles14");
-            pericles1 = Content.Load<SpriteFont>(@"Fonts/Pericles1");
-            //Misc
-            Weather = Content.Load<Texture2D>(@"Misc/Weather");
-            Pointer = Content.Load<Texture2D>(@"Misc/Pointer");
-            cursor = Content.Load<Texture2D>(@"Misc/cursor");
+           //Textures
+            Tm.loadContent(Content, GraphicsDevice);
             //Sounds
             SoundEffects.LoadSounds(Content);
 
             //Register Player
-            player = new PlayerManager(playerSheet, hotbarsheet, hotbarselector);
-            
-            
+            menu = new MenuRef();
+            mobManager = new MobManager();
+            console = new ConsoleManager();
+            weather = new Weather();
+            player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
+            pericles14 = Tm.getFontFromString("f14");
+            t = Tm.getTextureFromString("t");
+           
 #if WINDOWS
             saves.GetDevice(); // Get Save Device
 #endif
@@ -125,8 +92,8 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
                         PlayerIndex.One, null, null);
             }
 #endif
-            menu.Init();     
-            mobManager.addBot();
+            menu.Init();
+           
         }
         //Unload Content
         protected override void UnloadContent()
@@ -134,20 +101,12 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
 
 
         }
-        // Get this chunks information Block
-        /*public _InformationBlock getInfoBlock()// depricated
-        {
-            //int chunkx = ((int)player.Player.Location.X/40) % 10;
-            //int chunky = ((int)player.Player.Location.Y / 40) / 10; 
-            return (_InformationBlock)chunk[19, 12];
-        } 
-         */
+     
         //Update the Games Logic
         protected override void Update(GameTime gameTime)
         {
             try
             {
-                // if (HandleInputs.isKeyDown("P")) this.Exit();
                 if (console.isShown)
                     console.getKeyStrokes();
                 else if (HandleInputs.isKeyDown("OemTilde")) console.isShown = true;
@@ -207,12 +166,8 @@ if ((GameSaveRequested) && (result.IsCompleted))
             }
             catch (Exception e)
             {
-              MenuRef.SetErrorMenu(e.Message, e.StackTrace);
-               MenuRef.state = MenuRef.GameStates.Error;
-
-                //Console.WriteLine(e.Data);
-
-
+                MenuRef.SetErrorMenu(e.Message, e.StackTrace);
+                MenuRef.state = MenuRef.GameStates.Error;
             }
         }
         public static void toggleDownfall()
@@ -248,23 +203,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 0);
 
         }
-        //Manualy Telport
-        /* void manualTeleport()
-         {
-             player.WantsToChangeTP = false;
-             player.drawTeleporterMessage = false;
 
-             player.Player.Location = new Vector2(380, 0);
-
-             currentChunkNumber = Convert.ToInt32(player.ChunkTp);
-
-             player.ChunkTp = "";
-             Console.WriteLine("Changing to " + currentChunkNumber);
-             chunks[currentChunkNumber] = chunks[currentChunkNumber];
-             player.updateBlocks(chunks[currentChunkNumber]);
-         }
-         */
-        //Checks if mouse was clicked
         float minetimer = -1;
         void checkClicks(GameTime gametime)
         {
@@ -362,7 +301,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
 
 
             }
-            else menu.Draw( spriteBatch);  // Draw Menus
+            else menu.Draw(spriteBatch);  // Draw Menus
             console.Drawstatic(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);

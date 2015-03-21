@@ -16,6 +16,7 @@ namespace MineBlock.Managers
         Item[,] slots = new Item[9,3];
         //int[,] count = new int[9,3];
         Item holding = new Item();
+        SpriteFont pericles14;
         
         Texture2D hotboarSheet;
         Boolean canclick = true;
@@ -28,6 +29,7 @@ namespace MineBlock.Managers
                     slots[i, j] = new Blocks.Ladder((i * 40) + 16, ((j+1) * 42) + 16).ItemBlock();
                     slots[i, j].Count = Game1.randy.Next(1,100);
                 }
+            pericles14 = Tm.getFont(Tm.Font.f14);
         }
 
         public void displayinv()
@@ -127,14 +129,14 @@ namespace MineBlock.Managers
                         if (slots[i, j].Count > 0)
                         {
                             slots[i, j].DrawMini(batch, (i * 40) + 16, ((j + 1) * 42) + 16);
-                            batch.DrawString(Game1.pericles14, "" + slots[i, j].Count, new Vector2(slots[i, j].x + 5, slots[i, j].y + 3), Color.White);
+                            batch.DrawString(pericles14, "" + slots[i, j].Count, new Vector2(slots[i, j].x + 5, slots[i, j].y + 3), Color.White);
                         }
                     }
                 }
                 if (holding.Count > 0)
                 {
                     holding.DrawMini(batch, holding.x,holding.y);
-                    batch.DrawString(Game1.pericles14, "" + holding.Count, new Vector2(holding.x + 5, holding.y + 3), Color.White);
+                    batch.DrawString(pericles14, "" + holding.Count, new Vector2(holding.x + 5, holding.y + 3), Color.White);
 
                 }
             }

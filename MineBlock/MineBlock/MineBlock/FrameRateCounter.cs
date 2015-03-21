@@ -21,17 +21,19 @@ namespace MineBlock
         int frameRate = 0;
         int frameCounter = 0;
         TimeSpan elapsedTime = TimeSpan.Zero;
-
+        SpriteFont pericles1;
 
         public FrameRateCounter(Game game)
             : base(game)
         {
-
+         
         }
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            base.LoadContent();
+            spriteBatch = new SpriteBatch(GraphicsDevice);  
+            pericles1 = Tm.getFont(Tm.Font.f1);
         }
 
         public override void Update(GameTime gameTime)
@@ -44,19 +46,20 @@ namespace MineBlock
                 frameRate = frameCounter;
                 frameCounter = 0;
             }
+            if (pericles1 == null) pericles1 = Tm.getFont(Tm.Font.f1);
         }
 
 
         public override void Draw(GameTime gameTime)
         {
             frameCounter++;
-
+           
             string fps = string.Format("fps: {0}", frameRate);
 
             spriteBatch.Begin();
 
-            spriteBatch.DrawString(Game1.pericles1, fps, new Vector2(1, -1), Color.Black);
-            spriteBatch.DrawString(Game1.pericles1, fps, new Vector2(0, -2), Color.White);
+            if(pericles1 != null)spriteBatch.DrawString(pericles1, fps, new Vector2(1, -1), Color.Black);
+            if (pericles1 != null) spriteBatch.DrawString(pericles1, fps, new Vector2(0, -2), Color.White);
            
             spriteBatch.End();
         }

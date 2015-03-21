@@ -12,7 +12,7 @@ namespace MineBlock
         public List<Mob> mobs = new List<Mob>();
         public Hoverbot bot;
         public MobManager(){
-           
+            addBot();
         }
 
         public void AddMob(Mob mob)

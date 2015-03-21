@@ -38,6 +38,15 @@
       <Time>2015-01-22T15:05:16.5708394-05:00</Time>
     </Item>
     <Item>
+      <Source>Sounds\fuck.wav</Source>
+      <Name>Sounds\fuck</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb</Output>
+      <Time>2015-01-22T15:05:16.5958407-05:00</Time>
+    </Item>
+    <Item>
       <Source>Mobs\Chicken.png</Source>
       <Name>Mobs\Chicken</Name>
       <Importer>TextureImporter</Importer>
@@ -200,42 +209,6 @@
       <Time>2015-01-22T15:05:16.3268257-05:00</Time>
     </Item>
     <Item>
-      <Source>Fonts\Pericles1.spritefont</Source>
-      <Name>Fonts\Pericles1</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb</Output>
-      <Time>2015-01-22T15:05:16.3218248-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Pericles14.spritefont</Source>
-      <Name>Fonts\Pericles14</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb</Output>
-      <Time>2015-01-22T15:05:16.3228256-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Fonts\Pericles28.spritefont</Source>
-      <Name>Fonts\Pericles28</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
-      <Time>2015-01-22T15:05:16.3248251-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Sounds\fuck.wav</Source>
-      <Name>Sounds\fuck</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb</Output>
-      <Time>2015-01-22T15:05:16.5958407-05:00</Time>
-    </Item>
-    <Item>
       <Source>Mobs\HoverBot.png</Source>
       <Name>Mobs\HoverBot</Name>
       <Importer>TextureImporter</Importer>
@@ -261,6 +234,33 @@
       <Options>None</Options>
       <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb</Output>
       <Time>2015-01-27T15:16:33.3171566-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Pericles1.spritefont</Source>
+      <Name>Fonts\Pericles1</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb</Output>
+      <Time>2015-01-22T15:05:16.3218248-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Pericles14.spritefont</Source>
+      <Name>Fonts\Pericles14</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb</Output>
+      <Time>2015-01-22T15:05:16.3228256-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Fonts\Pericles28.spritefont</Source>
+      <Name>Fonts\Pericles28</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
+      <Time>2015-01-22T15:05:16.3248251-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

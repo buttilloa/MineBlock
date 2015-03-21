@@ -20,10 +20,10 @@ namespace MineBlock
         public Item preferedTool = null;
         //Boolean isFlamible = false;
         public Boolean canMine = true;
-
+        protected Texture2D terrainsheet;
         public Block()
         {
-
+            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
         }
 
         public virtual Block Reset(int x, int y)
@@ -99,10 +99,10 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked ? Color.Red : Color.White);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
 
             handleBlockDmg(batch);
         }
@@ -122,7 +122,7 @@ namespace MineBlock
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(Game1.terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
+                    batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
 
                 }
             }
@@ -133,10 +133,10 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(x, y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(x, y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(x, y), new Rectangle(index * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(x, y), new Rectangle(index * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
 
         }
         public void DrawInChest(SpriteBatch batch, float xPos, float yPos)
@@ -145,10 +145,10 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(Game1.terrainsheet, new Vector2(xPos, yPos), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.389f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(xPos, yPos), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.389f, SpriteEffects.None, 0f);
             }
             else
-                batch.Draw(Game1.terrainsheet, new Vector2(xPos, yPos), new Rectangle(index * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.389f, SpriteEffects.None, 0f);
+                batch.Draw(terrainsheet, new Vector2(xPos, yPos), new Rectangle(index * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.389f, SpriteEffects.None, 0f);
 
         }
 
