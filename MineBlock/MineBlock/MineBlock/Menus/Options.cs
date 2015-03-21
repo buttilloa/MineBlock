@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MineBlock.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,27 +18,28 @@ namespace MineBlock.Menus
         int cursorcolor;
         int allColor;
         bool canclick = true;
+        Rectangle Back = new Rectangle(10, 30, 50, 20);
         Rectangle plus = new Rectangle(200, 100, 40, 40);
         Rectangle HoverBot = new Rectangle(200, 175, 16, 22); int hoverbotframe = 0; bool botfloat = true;
         Rectangle HotbarSelector = new Rectangle(200, 240, 48, 48);
         Rectangle Breakanim = new Rectangle(200, 300, 40, 40); bool Animation = true;
         Rectangle toggleAnim = new Rectangle(242, 320, 40, 20);
         Rectangle MouseCursor = new Rectangle(200, 375, 12, 19);
-        Rectangle AllCycle = new Rectangle(390, 420, 20, 19);
+        Rectangle AllCycle = new Rectangle(390, 420, 40, 19);
         Rectangle Easter = new Rectangle(290, 50, 12, 19);
         Color[] colors = new Color[24];
-       
+
         bool toggleanimation = true;
         MineBlock.Blocks.Air temp = new MineBlock.Blocks.Air(200, 300);
-        Texture2D cursor,hoverbotTexture,hotbarSelector;
-      
+        Texture2D cursor, hoverbotTexture, hotbarSelector;
+
         #endregion
         public Options()
             : base()
         {
             getcolors();
             DrawStars = false;
-           
+
         }
         public override void getTextures()
         {
@@ -115,6 +117,10 @@ namespace MineBlock.Menus
                 canclick = false;
                 toggleanimation = !toggleanimation;
             }
+            if (Cursor.Intersects(Back))
+                if (HandleInputs.LeftTrigger())
+                    MenuRef.SetMenu(new TitleScreen());
+
             if (Cursor.Intersects(MouseCursor) && HandleInputs.LeftTrigger() && canclick)
                 Game1.cursorColor = colors[incrementColor(ref cursorcolor)];
             if (Cursor.Intersects(AllCycle) && HandleInputs.LeftTrigger() && canclick)
@@ -143,10 +149,11 @@ namespace MineBlock.Menus
         }
         public override void Draw(SpriteBatch batch)
         {
-           
+
 
             batch.Draw(Background, new Rectangle(0, 0, 800, 520), Color.White);
             batch.DrawString(pericles14, "Click to cycle colors", new Vector2(400 - 110, 50), intersects(Easter, cursorPos));
+            batch.DrawString(pericles14, "Back", new Vector2(Back.X, Back.Y), intersects(Back, cursorPos));
 
             batch.DrawString(pericles14, "Block Highlighter", new Vector2(5, plus.Y + 8), intersects(plus, cursorPos));
             batch.Draw(cursor, plus, Game1.player.highlightcolor);

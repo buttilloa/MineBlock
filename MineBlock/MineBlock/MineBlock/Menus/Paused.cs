@@ -19,7 +19,7 @@ namespace MineBlock.Menus
         public Paused()
             : base()
         {
-
+            MenuRef.state = MenuRef.GameStates.Paused;
         }
         public override void getTextures()
         {
@@ -36,7 +36,6 @@ namespace MineBlock.Menus
                 {
                     Game1.mobManager = new MobManager();
                     Game1.player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
-                    MenuRef.state = MenuRef.GameStates.TitleScreen;
                     MenuRef.SetMenu(new TitleScreen());
                 }
             }
@@ -45,9 +44,10 @@ namespace MineBlock.Menus
                 CursorTouching = 2;
                 if (HandleInputs.LeftTrigger())
                 {
-
-                    MenuRef.state = MenuRef.GameStates.Playing;
-                    MenuRef.SetMenu(new TitleScreen());
+                    if (MenuRef.state != MenuRef.GameStates.Playing)
+                        MenuRef.SetMenu(MenuRef.getLastMenu());
+                    //MenuRef.state = MenuRef.GameStates.Playing;
+                    //MenuRef.SetMenu(new TitleScreen());
                 }
             }
             else if (Cursor.Intersects(Paused3))
@@ -55,8 +55,6 @@ namespace MineBlock.Menus
                 CursorTouching = 3;
                 if (HandleInputs.LeftTrigger())
                 {
-                    
-                    MenuRef.state = MenuRef.GameStates.Options;
                     MenuRef.SetMenu(new Options());
                 }
             }

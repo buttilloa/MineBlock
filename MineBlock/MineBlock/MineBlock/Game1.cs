@@ -110,7 +110,7 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
                 if (console.isShown)
                     console.getKeyStrokes();
                 else if (HandleInputs.isKeyDown("OemTilde")) console.isShown = true;
-                if (HandleInputs.isKeyDown("Escape")) // Opens pause menu
+                if (HandleInputs.isKeyDown("Escape")&& MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
                 {
                     MenuRef.state = MenuRef.GameStates.Paused;
                     MenuRef.SetMenu(new Menus.Paused());

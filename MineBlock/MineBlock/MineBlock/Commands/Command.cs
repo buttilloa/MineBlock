@@ -384,4 +384,20 @@ namespace MineBlock.Commands
         }
 
     }
+    class TmCalls : Command
+    {
+
+        public TmCalls()
+        {
+            Desc = "Prints number of Texture manager Calls: usage : tmcalls";
+            index = 16;
+            usage = "tmcalls";
+        }
+        
+        public override String Execute(String[] args)
+        {
+          return Tm.getCalls().ToString();
+        }
+
+    }
 }

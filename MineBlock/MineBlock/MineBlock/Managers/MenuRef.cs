@@ -15,12 +15,18 @@ namespace MineBlock.Managers
         public static GameStates state = GameStates.TitleScreen;
 
         private static BaseMenu CurrentMenu;
+        private static BaseMenu LastMenu;
         public void Init()
         {
             CurrentMenu = new TitleScreen();
         }
+        public static BaseMenu getLastMenu()
+        {
+            return LastMenu;
+        }
         public static void SetMenu(BaseMenu newMenu)
         {
+            LastMenu = CurrentMenu;
             CurrentMenu.disposeMenu();
             CurrentMenu = newMenu;
         }

@@ -12,7 +12,7 @@ namespace MineBlock.Menus
     {
         Rectangle StartButton = new Rectangle(331, 260, 153, 43);
         Rectangle OptionsButton = new Rectangle(579, 291, 153, 43);
-        
+
         string[] Splashs;
         int currentSplash = 1;
         float Splashsize = 1;
@@ -20,6 +20,9 @@ namespace MineBlock.Menus
         public TitleScreen()
             : base()
         {
+            Game1.mobManager = new MobManager();
+            Game1.player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
+            MenuRef.state = MenuRef.GameStates.TitleScreen;
             Splashs = new string[6];
             Splashs[0] = "You looked different through your window";
             Splashs[1] = "I really wish you would stop reading and play";
@@ -29,7 +32,6 @@ namespace MineBlock.Menus
             Splashs[5] = "What a wonderful time to be alive!";
 
             currentSplash = Game1.randy.Next(0, Splashs.Count());
-           
         }
         public override void getTextures()
         {
@@ -41,20 +43,18 @@ namespace MineBlock.Menus
             if (Cursor.Intersects(StartButton))
                 if (HandleInputs.LeftTrigger())
                 {
-                    MenuRef.state = MenuRef.GameStates.SaveSelect;
                     MenuRef.SetMenu(new SaveSelect());
                 }
             if (Cursor.Intersects(OptionsButton))
                 if (HandleInputs.LeftTrigger())
                 {
-                    MenuRef.state = MenuRef.GameStates.Options;
-                 MenuRef.SetMenu(new Options());
+                   MenuRef.SetMenu(new Options());
                 }
             base.Update();
         }
         public override void Draw(SpriteBatch batch)
         {
-           
+
 
             batch.Draw(Background, new Rectangle(0, 0, GameWindow.Width, GameWindow.Height), Color.White);
             batch.Draw(Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);

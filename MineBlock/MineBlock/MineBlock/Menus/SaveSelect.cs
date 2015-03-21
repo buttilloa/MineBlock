@@ -29,6 +29,7 @@ namespace MineBlock.Menus
             if (Game1.saves.hasSaved(3)) Savestate3exists = true;
             if (Game1.saves.hasSaved(4)) Savestate4exists = true;
             if (Game1.saves.hasSaved(5)) Savestate5exists = true;
+            MenuRef.state = MenuRef.GameStates.SaveSelect;
         }
         public override void getTextures()
         {

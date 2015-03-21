@@ -54,11 +54,21 @@ namespace MineBlock
                 default: { re = t; break; };
 
             }
-            if (re == null) Console.WriteLine("wasnt loaded" + texture);
+            if (re == null) { Console.WriteLine(texture + " wasnt loaded...using default"); return CreateMissingTexture(); } 
             return re;
 
         }
-        
+        public static Texture2D CreateMissingTexture(){
+
+            t = new Texture2D(Game1.Instance.GraphicsDevice, 1, 1);
+            t.SetData<Color>(
+            new Color[] { Color.White });
+            return t;
+        }
+        public static int getCalls()
+        {
+         return calls;
+        }
         public static SpriteFont getFont(Font font)
         {
             return getFontFromString(font.ToString());
