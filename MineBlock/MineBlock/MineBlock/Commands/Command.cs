@@ -390,13 +390,31 @@ namespace MineBlock.Commands
         public TmCalls()
         {
             Desc = "Prints number of Texture manager Calls: usage : tmcalls";
-            index = 16;
+            index = 17;
             usage = "tmcalls";
         }
         
         public override String Execute(String[] args)
         {
-          return Tm.getCalls().ToString();
+           
+            return Tm.getCalls().ToString();
+        }
+
+    }
+    class RenderDistance : Command
+    {
+
+        public RenderDistance()
+        {
+            Desc = "Edits the amount of blocks drawn: usage : RenderDistance <#>";
+            index = 18;
+            usage = "renderdistance";
+        }
+
+        public override String Execute(String[] args)
+        {
+            Game1.RenderDistance = Convert.ToInt32(args[1]);
+            return "Render Distance set to " + Game1.RenderDistance;
         }
 
     }

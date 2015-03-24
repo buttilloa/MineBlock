@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
 namespace MineBlock
 {
     public class Tm
@@ -20,13 +21,12 @@ namespace MineBlock
 
         public static Texture2D getTexture(Texture texture)
         {
-          
             return getTextureFromString(texture.ToString());
         }
         public static Texture2D getTextureFromString(String texture)
         {
             calls++;
-            if(options == null) Console.WriteLine("TEXTURES NOT LOADED!");
+            if (options == null) Console.WriteLine("TEXTURES NOT LOADED!");
             Texture2D re;
             switch (texture.ToLower())
             {
@@ -54,11 +54,12 @@ namespace MineBlock
                 default: { re = t; break; };
 
             }
-            if (re == null) { Console.WriteLine(texture + " wasnt loaded...using default"); return CreateMissingTexture(); } 
+            if (re == null) { Console.WriteLine(texture + " wasnt loaded...using default"); return CreateMissingTexture(); }
             return re;
 
         }
-        public static Texture2D CreateMissingTexture(){
+        public static Texture2D CreateMissingTexture()
+        {
 
             t = new Texture2D(Game1.Instance.GraphicsDevice, 1, 1);
             t.SetData<Color>(
@@ -67,7 +68,7 @@ namespace MineBlock
         }
         public static int getCalls()
         {
-         return calls;
+            return calls;
         }
         public static SpriteFont getFont(Font font)
         {
@@ -81,13 +82,13 @@ namespace MineBlock
                 case "f14": { return pericles14; };
                 case "f1": { return pericles1; };
                 case "f28": { return pericles28; };
-               
+
                 default: { return pericles14; };
 
             }
 
         }
-        
+
         public static void loadContent(ContentManager Content, GraphicsDevice g)
         {
             Blur = Content.Load<Texture2D>(@"Menus/Blur");
@@ -95,6 +96,7 @@ namespace MineBlock
             SaveSelect = Content.Load<Texture2D>(@"Menus/SaveSelect");
             SaveSelectHighlight = Content.Load<Texture2D>(@"Menus/SaveSelectHighlight");
             TitleScreen = Content.Load<Texture2D>(@"Menus/TitleScreen");
+
             options = Content.Load<Texture2D>(@"Menus/options");
             //Mobs  
             Pigsheet = Content.Load<Texture2D>(@"Mobs/Pig");
@@ -124,6 +126,8 @@ namespace MineBlock
             Weather = Content.Load<Texture2D>(@"Misc/Weather");
             Pointer = Content.Load<Texture2D>(@"Misc/Pointer");
             cursor = Content.Load<Texture2D>(@"Misc/cursor");
+
+
         }
     }
 }

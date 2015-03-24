@@ -43,6 +43,7 @@ namespace MineBlock.Commands
             cmds.Add(new DeleteSave());
             cmds.Add(new Fuckoff());
             cmds.Add(new TmCalls());
+            cmds.Add(new RenderDistance());
             pericles1 = Tm.getFont(Tm.Font.f1);
             pericles14 = Tm.getFont(Tm.Font.f14);
             Blur = Tm.getTexture(Tm.Texture.Blur);
@@ -88,6 +89,8 @@ namespace MineBlock.Commands
 
                     if (key.ToString() == "OemTilde")
                         isShown = false;
+                    else if (key.ToString() == "Delete")
+                        Command = "";
                     else if (key.ToString() == "Space")
                         Command += " ";
                     else if (key.ToString() == "Up")
@@ -95,7 +98,7 @@ namespace MineBlock.Commands
                         if (currentcmd != 0)
                         {
                             currentcmd--;
-                            Command = history[currentcmd].Split(' ')[0];
+                            Command = history[currentcmd].Split(' ')[0].ToLower();
                         }
                     }
                     else if (key.ToString() == "Down")
@@ -103,7 +106,7 @@ namespace MineBlock.Commands
                         if (currentcmd != history.Count - 1)
                         {
                             currentcmd++;
-                            Command = history[currentcmd].Split(' ')[0];
+                            Command = history[currentcmd].Split(' ')[0].ToLower();
                         }
                         else Command = "";
                     }

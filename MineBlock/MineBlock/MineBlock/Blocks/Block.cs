@@ -77,7 +77,6 @@ namespace MineBlock
         }
         public virtual void update(Block[,] blocks)
         {
-
             if (damage > 0)
                 if (Game1.randy.Next(0, 10) == 5)
                     damage--;

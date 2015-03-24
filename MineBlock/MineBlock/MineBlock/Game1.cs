@@ -7,19 +7,20 @@ using MineBlock.Managers;
 using System;
 
 
+
 namespace MineBlock
 {
 
-    public class Game1 : Microsoft.Xna.Framework.Game 
+    public class Game1 : Microsoft.Xna.Framework.Game
     {
 
         GraphicsDeviceManager graphics; // Graphics
-        SpriteBatch spriteBatch; // SpriteBatch
+        public SpriteBatch spriteBatch; // SpriteBatch
         public static MobManager mobManager; // Manages Mobs
         public static Block[,] chunk = new Block[200, 130];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
         public static PlayerManager player; // Manages Player
-        public static Weather weather ; // Manages Weather
+        public static Weather weather; // Manages Weather
         public static int selectedSave = 0; // Save Slot
         public static MenuRef menu;  // Manages Menus
         public static SaveManager saves = new SaveManager(); // Manages Saves
@@ -30,17 +31,20 @@ namespace MineBlock
         public static Color lasercolor = Color.Red;
         public static Color breakanimcolor = Color.White;
         private SpriteFont pericles14;
+        public static int RenderDistance = 11;
         private static Texture2D t;
+
 #if XBOX
         bool GameSaveRequested = false;  // Xbox specific saving Variables
          IAsyncResult result;
 #endif
+
         public static int currentChunkNumber = 0; // Current Chunk
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-           
+
             Content.RootDirectory = "Content";
             graphics.PreferMultiSampling = true;
             // graphics.PreferredBackBufferHeight = 1080;
@@ -51,15 +55,16 @@ namespace MineBlock
             // this.IsFixedTimeStep = false;
             Instance = this;
             Components.Add(new FrameRateCounter(this));
+
 #if XBOX
         Components.Add(new GamerServicesComponent(this)); // Xbox Specific Player Manager
 #endif
-            
-  }
+
+        }
         //Initialize Game
         protected override void Initialize()
         {
-          
+
             base.Initialize();
 
         }
@@ -67,7 +72,7 @@ namespace MineBlock
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           //Textures
+            //Textures
             Tm.loadContent(Content, GraphicsDevice);
             //Sounds
             SoundEffects.LoadSounds(Content);
@@ -80,7 +85,7 @@ namespace MineBlock
             player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
             pericles14 = Tm.getFontFromString("f14");
             t = Tm.getTextureFromString("t");
-           
+
 #if WINDOWS
             saves.GetDevice(); // Get Save Device
 #endif
@@ -93,7 +98,7 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
             }
 #endif
             menu.Init();
-           
+
         }
         //Unload Content
         protected override void UnloadContent()
@@ -101,16 +106,17 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
 
 
         }
-     
+
         //Update the Games Logic
         protected override void Update(GameTime gameTime)
         {
             try
             {
+
                 if (console.isShown)
                     console.getKeyStrokes();
                 else if (HandleInputs.isKeyDown("OemTilde")) console.isShown = true;
-                if (HandleInputs.isKeyDown("Escape")&& MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
+                if (HandleInputs.isKeyDown("Escape") && MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
                 {
                     MenuRef.state = MenuRef.GameStates.Paused;
                     MenuRef.SetMenu(new Menus.Paused());
@@ -151,14 +157,12 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     mobManager.update(gameTime);
                     //   if (player.Player.Location.Y > 400 || player.WantsToChange)
                     //       shouldSwitch();
-                    foreach (Block block in chunk)
-                        if (block.x > (player.Player.Location.X / 40) - 11 && block.x < (player.Player.Location.X / 40) + 12)
-                            if (block.y > (player.Player.Location.Y / 40) - 11 && block.y < (player.Player.Location.Y / 40) + 11)
-                                block.update(chunk);
+                    for (int i = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance + 1, 0f, 199); i <= (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance + 1, 0, 199); i++)
+                        for (int j = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance + 1, 0f, 129); j <= (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance + 1, 0, 129); j++)
+                            chunk[i, j].update(chunk);
                     //if (randy.Next(0, 2000) == 4)
                     //   toggleDownfall();
-                    // if (player.WantsToChangeTP && player.ChunkTp != "")
-                    //     manualTeleport();
+
                     checkClicks(gameTime);
                 }
                 else menu.update();
@@ -261,29 +265,23 @@ if ((GameSaveRequested) && (result.IsCompleted))
         }
         //Render on Screen
         Matrix cameraTransform;
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-
             //spriteBatch.Begin();
             cameraTransform = Matrix.CreateTranslation(-(Convert.ToInt32(player.Player.Location.X) - 350), -(Convert.ToInt32(player.Player.Location.Y) - 130), zoom);
             //cameraTransform = Matrix.CreateTranslation(-(player.Player.Location.X - 350), -(player.Player.Location.Y - 130), zoom);
             cameraTransform.Translation.Normalize();
+
             spriteBatch.Begin(SpriteSortMode.Immediate,
                   BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null,
                   cameraTransform); // moveable objects
             if (MenuRef.state == MenuRef.GameStates.Playing)
             {
-
-                foreach (Block block in chunk)
-                {
-
-                    if (block.x > (player.Player.Location.X / 40) - 11 && block.x < (player.Player.Location.X / 40) + 12)
-                        if (block.y > (player.Player.Location.Y / 40) - 11 && block.y < (player.Player.Location.Y / 40) + 11)
-                            block.Draw(spriteBatch);
-                }
-                //Draw Blocks
+                for (int i = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance+1, 0f, 199); i <= (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance+1, 0, 199); i++)
+                    for (int j = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance+1, 0f, 129); j <= (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance+1, 0, 129); j++)
+                        chunk[i, j].Draw(spriteBatch);
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
                 // weather.Draw(spriteBatch);// Draw Weather 
@@ -298,13 +296,13 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 player.Drawstatic(spriteBatch);
                 spriteBatch.DrawString(pericles14, "X: " + (((int)player.Player.Location.X / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 10), Color.White);// Draw Current Chunk int
                 spriteBatch.DrawString(pericles14, "Y: " + (((int)player.Player.Location.Y / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 24), Color.White); // Draw Current Biome
-
-
             }
+
             else menu.Draw(spriteBatch);  // Draw Menus
             console.Drawstatic(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
     }
 }

@@ -15,7 +15,7 @@ namespace MineBlock.Menus
         int HoverBotcolor;
         int hotbatSelectorColor;
         int breakanim;
-        int cursorcolor;
+        int cursorcolor; 
         int allColor;
         bool canclick = true;
         Rectangle Back = new Rectangle(10, 30, 50, 20);
