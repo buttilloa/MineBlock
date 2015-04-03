@@ -15,6 +15,7 @@ namespace MineBlock.Blocks
             index = 53;
             MineTime = 40;
             preferedTool = new MineBlock.Items.Pick(0);
+            isSolid = false;
         }
       
         public override Block Reset(int X, int Y)

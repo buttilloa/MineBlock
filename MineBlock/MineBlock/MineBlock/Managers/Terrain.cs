@@ -69,8 +69,8 @@ namespace MineBlock
 
                 for (int i = 0; i < Math.Abs(genheight - height); i++)
                 {
-                    blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new CobbleStone(Math.Abs(genheight - height) + i, height - i);
-                    blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new CobbleStone(Math.Abs(genheight - height) - i, height + i);
+                    blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new Trampoline(Math.Abs(genheight - height) + i, height - i);
+                    blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new Trampoline(Math.Abs(genheight - height) - i, height + i);
                 }
            /* /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];

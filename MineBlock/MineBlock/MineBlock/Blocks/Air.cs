@@ -8,12 +8,13 @@ namespace MineBlock.Blocks
 {
     class Air : Block
     {
-
+    
         public Air(int XPos , int yPos) : base()
         {
             x = XPos;
             y = yPos;
              index = 0;
+             isSolid = false;
         }
 
         public override Block Place(int x, int y)

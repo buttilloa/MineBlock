@@ -20,12 +20,18 @@ namespace MineBlock
         public Item preferedTool = null;
         //Boolean isFlamible = false;
         public Boolean canMine = true;
+        public bool isSolid = true;
         protected Texture2D terrainsheet;
+        Rectangle boundingBox;
         public Block()
         {
-            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
+            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet); 
+            boundingBox = new Rectangle(x * 40, y * 40, 40, 40);
         }
+        public virtual void EntityStandingEvent(Object caller)
+        {
 
+        } 
         public virtual Block Reset(int x, int y)
         {
             return new Block();
@@ -52,7 +58,7 @@ namespace MineBlock
                 case 6: return new BedRock(X, Y);
                 case 11: return new Lava(X, Y);
                 case 14: return new Water(X, Y);
-                case 16: return new CobbleStone(X, Y);
+                case 16: return new Trampoline(X, Y);
                 case 18: return new Sand(X, Y);
                 case 19: return new Gravel(X, Y);
                 case 20: return new Wood(X, Y);

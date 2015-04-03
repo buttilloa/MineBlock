@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MineBlock.Managers;
+using MineBlock.Mobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MineBlock.Menus
     {
         Rectangle StartButton = new Rectangle(331, 260, 153, 43);
         Rectangle OptionsButton = new Rectangle(579, 291, 153, 43);
-
+        List<Pig> mobs = new List<Pig>();
         string[] Splashs;
         int currentSplash = 1;
         float Splashsize = 1;
@@ -32,11 +33,19 @@ namespace MineBlock.Menus
             Splashs[5] = "What a wonderful time to be alive!";
 
             currentSplash = Game1.randy.Next(0, Splashs.Count());
+
+            mobs.Add(new Pig(0, 9, true));
         }
         public override void getTextures()
         {
             Background = Tm.getTexture(Tm.Texture.TitleScreen);
             base.getTextures();
+        }
+        public override void disposeMenu()
+        {
+            for (int i = mobs.Count - 1; i > 0; i--)
+                mobs.RemoveAt(i);
+            base.disposeMenu();
         }
         public override void Update()
         {
@@ -48,8 +57,14 @@ namespace MineBlock.Menus
             if (Cursor.Intersects(OptionsButton))
                 if (HandleInputs.LeftTrigger())
                 {
-                   MenuRef.SetMenu(new Options());
+                    MenuRef.SetMenu(new Options());
                 }
+            foreach (Pig pig in mobs)
+            {
+                pig.update(new GameTime());
+                if (mobs.Count < 15 && pig.addMore) { mobs.Add(new Pig(0, 9, true)); pig.addMore = false; break; }
+
+            }
             base.Update();
         }
         public override void Draw(SpriteBatch batch)
@@ -64,7 +79,10 @@ namespace MineBlock.Menus
             if (!increase && Splashsize >= .9f) Splashsize -= .005f;
             if (Splashsize < .9f) increase = true;
             batch.DrawString(pericles14, Splashs[currentSplash], new Vector2(10, 150), Color.White, -.3f, new Vector2(5, Splashs[currentSplash].Length / 2), Splashsize, SpriteEffects.None, 0f);
+            foreach (Pig pig in mobs)
+                pig.Draw(batch);
             base.Draw(batch);
+
         }
     }
 }

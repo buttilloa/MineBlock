@@ -116,7 +116,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Pig.xnb</Output>
-      <Time>2015-01-22T15:05:16.3758285-05:00</Time>
+      <Time>2015-04-03T13:37:31.1299939-04:00</Time>
     </Item>
     <Item>
       <Source>Player\Player.png</Source>
@@ -261,6 +261,15 @@
       <Options>None</Options>
       <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
       <Time>2015-01-22T15:05:16.3248251-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Mobs\PigLeg.png</Source>
+      <Name>Mobs\PigLeg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb</Output>
+      <Time>2015-04-03T13:36:22.7783921-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

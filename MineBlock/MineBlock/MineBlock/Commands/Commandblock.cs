@@ -24,6 +24,14 @@ namespace MineBlock.Blocks
                 if (Game1.randy.Next(0, 80) == 4)
                     index = 158;
         }
+        public override void EntityStandingEvent(object caller)
+        {
+            if (caller is PlayerManager)
+            {
+                Activate();
+                this.index = 159;
+            }
+        }
         public virtual void Activate()
         {
          if(index == 158)

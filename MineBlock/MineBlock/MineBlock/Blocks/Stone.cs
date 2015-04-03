@@ -37,7 +37,7 @@ namespace MineBlock.Blocks
         public override Block Mine(int x, int y)
         {
 
-            return new CobbleStone(x, y);
+            return new Trampoline(x, y);
         }
     }
 }

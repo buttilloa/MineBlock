@@ -13,7 +13,7 @@ namespace MineBlock
         //public Sprite sprite;
         public int CurrentChunk;
         bool isWalking = false;
-        int Dir = 0; // 1 = left 2 = right
+        protected int Dir = 0; // 1 = left 2 = right
         public Vector2 subPixel = new Vector2(0, 0);
         public Vector2 Position = new Vector2(0, 0);
         Vector2 Velocity = new Vector2(0, 0);
@@ -32,6 +32,7 @@ namespace MineBlock
             HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
             Blank = Tm.getTexture(Tm.Texture.Blank);
             pericles1 = Tm.getFont(Tm.Font.f1);
+            blocks = Game1.chunk;
         }
         public Mob returnMob(int index, int X, int Y, int chunk)
         {
@@ -51,7 +52,8 @@ namespace MineBlock
             {
                 float elapsed = (float)time.ElapsedGameTime.TotalSeconds;
                 subPixel += (Velocity * elapsed);
-              
+                 blocks = Game1.chunk;
+               blocks[(int)Position.X, (int)Position.Y + 1].EntityStandingEvent(this);
                 if (subPixel.X > 39)
                 {
                     subPixel = new Vector2(0, subPixel.Y);
@@ -72,7 +74,7 @@ namespace MineBlock
                     subPixel = new Vector2(subPixel.X, 39);
                     Position.Y--;
                 }
-                blocks = Game1.chunk;
+              
                 //sprite.Location = Position;  
                 try
                 {
@@ -152,6 +154,12 @@ namespace MineBlock
                 batch.DrawString(pericles1, "" + Health, new Vector2(Bar2.X + 16, Bar2.Y - 20), Color.White);
             }
            }
+        public void Jump()
+        {
+            Dir = -2;
+            Velocity = new Vector2(0, -175);
+            subPixel = new Vector2(subPixel.X, subPixel.Y - 10);
+        }
         public int getY()
         {
             return (int)Position.Y ;

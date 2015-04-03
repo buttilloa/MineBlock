@@ -8,7 +8,7 @@ namespace MineBlock.Blocks
 {
     class Dirt : Block
     {
-        public Dirt(int XPos, int yPos)
+        public Dirt(int XPos, int yPos) : base()
         {
             x = XPos;
             y = yPos;

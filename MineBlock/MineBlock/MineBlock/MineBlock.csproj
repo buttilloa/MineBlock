@@ -112,6 +112,7 @@
     <Compile Include="Blocks\Bedrock.cs" />
     <Compile Include="Blocks\Cake.cs" />
     <Compile Include="Blocks\Chest.cs" />
+    <Compile Include="Blocks\Trampoline.cs" />
     <Compile Include="Blocks\CobbleStone.cs" />
     <Compile Include="Blocks\Leaf.cs" />
     <Compile Include="Blocks\Wood.cs" />

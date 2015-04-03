@@ -66,10 +66,10 @@ namespace MineBlock.Commands
         }
 
     }
-    class ShowOutline : Command
+    class BlockOutline : Command
     {
 
-        public ShowOutline()
+        public BlockOutline()
         {
             Desc = "Shows block outline: usuage: blockoutline <Boolean> ";
             index = 2;
@@ -82,10 +82,10 @@ namespace MineBlock.Commands
         }
 
     }
-    class ShowMob : Command
+    class MobCoords : Command
     {
 
-        public ShowMob()
+        public MobCoords()
         {
             Desc = "Shows mob coordinates: usuage: mobcoords <Boolean> ";
             index = 3;

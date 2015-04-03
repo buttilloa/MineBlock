@@ -26,8 +26,8 @@ namespace MineBlock.Commands
         {
             cmds.Add(new Setblock());
             cmds.Add(new DisplayCoords());
-            cmds.Add(new ShowOutline());
-            cmds.Add(new ShowMob());
+            cmds.Add(new BlockOutline());
+            cmds.Add(new MobCoords());
             cmds.Add(new Save());
             cmds.Add(new Load());
             cmds.Add(new Exit());
@@ -98,7 +98,7 @@ namespace MineBlock.Commands
                         if (currentcmd != 0)
                         {
                             currentcmd--;
-                            Command = history[currentcmd].Split(' ')[0].ToLower();
+                            Command = history[currentcmd].Split(' ')[0].ToUpper();
                         }
                     }
                     else if (key.ToString() == "Down")
@@ -106,7 +106,7 @@ namespace MineBlock.Commands
                         if (currentcmd != history.Count - 1)
                         {
                             currentcmd++;
-                            Command = history[currentcmd].Split(' ')[0].ToLower();
+                            Command = history[currentcmd].Split(' ')[0].ToUpper();
                         }
                         else Command = "";
                     }
@@ -133,12 +133,12 @@ namespace MineBlock.Commands
         public void Draw(SpriteBatch batch)
         {
             if (display)
-                for (int i = 0; i < 200; i++)
-                    for (int j = 0; j < 130; j++)
+                for (int i = Game1.renderXStart; i <= Game1.renderXEnd; i++)
+                    for (int j = Game1.renderYStart; j <= Game1.renderYEnd; j++)
                         batch.DrawString(pericles1, "" + i + "," + j, new Vector2((i * 40) + 2, (j * 40) + 2), Color.White);
             if (outlined)
-                for (int i = 0; i < 200; i++)
-                    for (int j = 0; j < 130; j++)
+                for (int i = Game1.renderXStart; i <= Game1.renderXEnd; i++)
+                        for (int j = Game1.renderYStart; j <= Game1.renderYEnd; j++)
                         batch.Draw(saveSelectHighlight, new Rectangle(i * 40, j * 40, 40, 40), Color.Wheat);
             if (mobCooords)
                 foreach (Mob mob in Game1.mobManager.mobs)
@@ -155,7 +155,6 @@ namespace MineBlock.Commands
                 batch.Draw(Blur, new Rectangle(0, 458, 800, 25), Color.White);
                 batch.DrawString(pericles14, Command + "_", new Vector2(2, 458), Color.Gray);
                 String[] temp = history.ToArray();
-
                 Array.Reverse(temp);
 
                 for (int i = 0; i < temp.Length; i++)

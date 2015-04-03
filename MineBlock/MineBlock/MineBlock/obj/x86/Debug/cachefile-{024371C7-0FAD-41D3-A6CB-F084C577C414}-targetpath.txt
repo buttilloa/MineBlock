@@ -27,3 +27,4 @@ Content\Items\tools.xnb
 Content\Fonts\Pericles1.xnb
 Content\Fonts\Pericles14.xnb
 Content\Fonts\Pericles28.xnb
+Content\Mobs\PigLeg.xnb

@@ -10,7 +10,7 @@ namespace MineBlock.Blocks
     {
         public Block[] items = new Block[9];
         public int[] count = new int[9];
-        public Chest(int XPos, int yPos)
+        public Chest(int XPos, int yPos) :base()
         {
             x = XPos;
             y = yPos;

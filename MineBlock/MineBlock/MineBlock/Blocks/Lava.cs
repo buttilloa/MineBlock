@@ -14,6 +14,7 @@ namespace MineBlock.Blocks
             y = yPos;
             index = 11;
             canMine = false;
+            isSolid = false;
         }
         public override void update(Block[,] blocks)
         {

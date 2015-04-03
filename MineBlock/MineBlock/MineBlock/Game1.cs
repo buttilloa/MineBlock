@@ -15,7 +15,7 @@ namespace MineBlock
     {
 
         GraphicsDeviceManager graphics; // Graphics
-        public SpriteBatch spriteBatch; // SpriteBatch
+        SpriteBatch spriteBatch; // SpriteBatch
         public static MobManager mobManager; // Manages Mobs
         public static Block[,] chunk = new Block[200, 130];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
@@ -32,6 +32,7 @@ namespace MineBlock
         public static Color breakanimcolor = Color.White;
         private SpriteFont pericles14;
         public static int RenderDistance = 11;
+        public static int renderXStart, renderYStart, renderXEnd,renderYEnd;
         private static Texture2D t;
 
 #if XBOX
@@ -157,8 +158,12 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     mobManager.update(gameTime);
                     //   if (player.Player.Location.Y > 400 || player.WantsToChange)
                     //       shouldSwitch();
-                    for (int i = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance + 1, 0f, 199); i <= (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance + 1, 0, 199); i++)
-                        for (int j = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance + 1, 0f, 129); j <= (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance + 1, 0, 129); j++)
+                    renderXStart = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance + 1, 0f, 199);
+                    renderYStart = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance + 1, 0f, 129);
+                    renderXEnd = (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance + 1, 0, 199);
+                    renderYEnd = (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance + 1, 0, 129);
+                    for (int i = renderXStart; i <= renderXEnd; i++)
+                        for (int j = renderYStart; j <= renderYEnd; j++)
                             chunk[i, j].update(chunk);
                     //if (randy.Next(0, 2000) == 4)
                     //   toggleDownfall();
@@ -279,8 +284,8 @@ if ((GameSaveRequested) && (result.IsCompleted))
                   cameraTransform); // moveable objects
             if (MenuRef.state == MenuRef.GameStates.Playing)
             {
-                for (int i = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance+1, 0f, 199); i <= (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance+1, 0, 199); i++)
-                    for (int j = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance+1, 0f, 129); j <= (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance+1, 0, 129); j++)
+                for (int i = renderXStart; i <= renderXEnd; i++)
+                    for (int j = renderYStart; j <= renderYEnd; j++) 
                         chunk[i, j].Draw(spriteBatch);
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs

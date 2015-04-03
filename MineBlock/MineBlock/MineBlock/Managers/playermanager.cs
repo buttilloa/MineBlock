@@ -54,7 +54,7 @@ namespace MineBlock
             }
             hotbar[0] = new Ladder(16, 16).ItemBlock();
             hotbar[0].Count = 16;
-            hotbar[1] = new Chest((1 * 40) + 16, 16).ItemBlock();
+            hotbar[1] = new Trampoline((1 * 40) + 16, 16).ItemBlock();
             hotbar[1].Count = 1;
             hotbar[2] = new PigBlock((2 * 40) + 16, 16).ItemBlock();
             hotbar[2].Count = 1;
@@ -82,25 +82,19 @@ namespace MineBlock
         {
             blocks = block;
         }
-        int bottomBlock()
+        Block bottomBlock()
         {
-            return blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].index;
+            return blocks[(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1];
         }
         public void update(GameTime time)
         {
-            //Health = (int)MathHelper.Clamp(Health, 0, 100);
-            // if (Health < 100)
-            //{
-
-            //  Health++;
-            //}
+            Health = (int)MathHelper.Clamp(Health, 0, 100);
+         
             try
             {
-
-                if (bottomBlock() == 0 || bottomBlock() == 14 || bottomBlock() == 11 || (bottomBlock() == 83 && HandleInputs.isKeyDown("S")))
+               if ((bottomBlock().index == 83 && HandleInputs.isKeyDown("S")) || !bottomBlock().isSolid)
                 {
                     float timed = (float)time.ElapsedGameTime.TotalSeconds;
-
                     Player.Velocity += gravity * timed;
 
                 }
@@ -109,17 +103,10 @@ namespace MineBlock
                     if (Player.Velocity.Y > 178)
                         if (Health > 0)
                             Health -= (int)Player.Velocity.Y / 20;
-
-
                     Player.Velocity = new Vector2(Player.Velocity.X, 0);
                 }
-                if (bottomBlock() == 158)
-                {
-                    Commandblock block = (Commandblock)blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1];
-                    block.Activate();
-                    block.index = 159;
-
-                }
+                
+                bottomBlock().EntityStandingEvent(this);
             }
             catch (System.IndexOutOfRangeException) { Console.WriteLine("ERROR: NO BLOCK BELOW YOU"); }
             if (Player.Velocity.X > 0)
@@ -146,26 +133,21 @@ namespace MineBlock
                 Player.frames[3] = new Rectangle(2, 122, 102, 120);
                 Player.frames[4] = new Rectangle(2, 122, 102, 120);
             }
-
-            /* if (Player.Location.X <= 2 && Player.Velocity.X <= -1)
-                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
-             if (Player.Location.X >= 798 && Player.Velocity.X >= -1)
-                 Player.Velocity = new Vector2(0, Player.Velocity.Y);
-             */
+           
             if (playerinv.isdisplayed)
                 highlighted = HandleInputs.getMousepos();
             else highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location / 40) - new Vector2(8, 3));
             try
             {
-                if (HandleInputs.isKeyDown("D") && (RightBlock() == 0 || RightBlock() == 14 || RightBlock() == 83)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
-                else if (HandleInputs.isKeyDown("A") && (LeftBlock() == 0 || LeftBlock() == 14 || LeftBlock() == 83)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
+                if (HandleInputs.isKeyDown("D") && (!RightBlock().isSolid)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
+                else if (HandleInputs.isKeyDown("A") && (!LeftBlock().isSolid)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
                 else Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
             catch (System.IndexOutOfRangeException) { }
 
             if (HandleInputs.isKeyDown("W") && (isonGround() || isOnLadder()) && Player.Location.Y > 0)
             {
-                if (BlockAbove() == 0 || BlockAbove() == 14 || BlockAbove() == 83)
+                if (!BlockAbove().isSolid)
                     Player.Velocity = new Vector2(0, -175);
             }
             if (HandleInputs.isKeyUp("T") && ChunkTp != "")
@@ -175,7 +157,7 @@ namespace MineBlock
                     teleporterMessage = "Yes Sir";
                     WantsToChangeTP = true;
                 }
-            if (bottomBlock() == 46)
+            if (bottomBlock().index == 46)
             {
                 blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].switchTeleporter(false);
             }
@@ -196,35 +178,7 @@ namespace MineBlock
                 }
             }
             selected = HandleInputs.HotBar(selected);
-            /* if (drawChestInv)
-             {
-                 if (HandleInputs.NumPadKeys() != 10)
-                     takeFromChest(HandleInputs.NumPadKeys());
-                 if (HandleInputs.isKeyDown("Enter"))
-                     addToChest((Chest)blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40], selected);
-                 if (HandleInputs.isKeyDown("Back"))
-                 {
-                     drawChestInv = false;
-                     blocks[((int)chestInvLocation.X + 70) / 40, ((int)chestInvLocation.Y + 40) / 40].index = 26;
-                 }
-             }
-             if (HandleInputs.isKeyDown("Space"))
-                 currentWeapon.Shoot(this, Player.Flip);
-            /* foreach (Bullet shot in shots)
-             {
-                 shot.update(time);
-
-             }
-             /*foreach (Bullet shot in shots)
-             {
-                 shot.update(time);
-                 if (shot.shot.Location.X >= 770 || shot.shot.Location.X <= -30)
-                 {
-                     shots.Remove(shot);
-                     break;
-                 }
-             }
-             */
+           
             if(playerinv.isdisplayed)
             playerinv.handlemovement();
             Player.Update(time);
@@ -248,17 +202,17 @@ namespace MineBlock
             }
             if (chestInvCount[slot] <= 0) chestInv[slot] = new Air(0, 0);
         }
-        int RightBlock()
+        Block RightBlock()
         {
-            return blocks[(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40)].index;
+            return blocks[(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40)];
         }
-        int LeftBlock()
+        Block LeftBlock()
         {
-            return blocks[(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40)].index;
+            return blocks[(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40)];
         }
-        int BlockAbove()
+        Block BlockAbove()
         {
-            return blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1].index;
+            return blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1];
         }
         Boolean isOnLadder()
         {
@@ -271,6 +225,10 @@ namespace MineBlock
             if (blocks[(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2].index != 0)
                 return true;
             return false;
+        }
+        public void Jump()
+        {
+            Player.Velocity = new Vector2(0, - (175 + Game1.randy.Next(0,10)));
         }
         public void addToInv(Block newBlock, int BlockCount)
         {
