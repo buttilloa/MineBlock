@@ -188,3 +188,41 @@ C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debu
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.csprojResolveAssemblyReference.cache
 C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Chest.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Rain.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\RickRoll.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Snow.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Chicken.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Cow.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\cursor.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\grass.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar_selector.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Paused.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Pig.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Player.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\pointer.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelect.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelectHighlight.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\terrainsheet.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\TitleScreen.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\Weather.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\HealthBar.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Weapons\HandGun1.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Blur.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\HoverBot.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\options.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\ChickenLeg.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\MineBlock.exe
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\MineBlock.pdb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.csprojResolveAssemblyReference.cache
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.exe
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.pdb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb

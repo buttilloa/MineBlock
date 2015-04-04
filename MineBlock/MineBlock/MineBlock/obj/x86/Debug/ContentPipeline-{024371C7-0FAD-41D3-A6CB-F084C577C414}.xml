@@ -7,7 +7,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Chest.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Chest.xnb</Output>
       <Time>2015-01-22T15:05:16.3858292-05:00</Time>
     </Item>
     <Item>
@@ -16,7 +16,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Rain.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Rain.xnb</Output>
       <Time>2015-01-22T15:05:16.4518326-05:00</Time>
     </Item>
     <Item>
@@ -25,7 +25,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\RickRoll.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\RickRoll.xnb</Output>
       <Time>2015-01-22T15:05:16.4958351-05:00</Time>
     </Item>
     <Item>
@@ -34,7 +34,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Snow.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\Snow.xnb</Output>
       <Time>2015-01-22T15:05:16.5708394-05:00</Time>
     </Item>
     <Item>
@@ -43,7 +43,7 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Sounds\fuck.xnb</Output>
       <Time>2015-01-22T15:05:16.5958407-05:00</Time>
     </Item>
     <Item>
@@ -52,8 +52,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Chicken.xnb</Output>
-      <Time>2015-01-22T15:05:16.3738284-05:00</Time>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Chicken.xnb</Output>
+      <Time>2015-04-04T15:36:43.0338036-04:00</Time>
     </Item>
     <Item>
       <Source>Mobs\Cow.png</Source>
@@ -61,8 +61,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Cow.xnb</Output>
-      <Time>2015-01-22T15:05:16.3738284-05:00</Time>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Cow.xnb</Output>
+      <Time>2015-04-04T15:54:42.1852925-04:00</Time>
     </Item>
     <Item>
       <Source>Misc\cursor.png</Source>
@@ -70,7 +70,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\cursor.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\cursor.xnb</Output>
       <Time>2015-01-25T14:45:40.015562-05:00</Time>
     </Item>
     <Item>
@@ -79,7 +79,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\grass.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\grass.xnb</Output>
       <Time>2015-01-22T15:05:16.311828-05:00</Time>
     </Item>
     <Item>
@@ -88,7 +88,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar.xnb</Output>
       <Time>2015-01-22T15:05:16.3768282-05:00</Time>
     </Item>
     <Item>
@@ -97,7 +97,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar_selector.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Hotbar_selector.xnb</Output>
       <Time>2015-01-26T08:14:13.0857172-05:00</Time>
     </Item>
     <Item>
@@ -106,7 +106,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Paused.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Paused.xnb</Output>
       <Time>2015-01-22T15:05:16.3278264-05:00</Time>
     </Item>
     <Item>
@@ -115,7 +115,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Pig.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\Pig.xnb</Output>
       <Time>2015-04-03T13:37:31.1299939-04:00</Time>
     </Item>
     <Item>
@@ -124,7 +124,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Player.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\Player.xnb</Output>
       <Time>2015-01-25T12:16:45.5922715-05:00</Time>
     </Item>
     <Item>
@@ -133,7 +133,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\pointer.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\pointer.xnb</Output>
       <Time>2015-01-25T14:31:45.7620087-05:00</Time>
     </Item>
     <Item>
@@ -142,7 +142,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelect.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelect.xnb</Output>
       <Time>2015-01-22T15:05:16.3288257-05:00</Time>
     </Item>
     <Item>
@@ -151,7 +151,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelectHighlight.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\SaveSelectHighlight.xnb</Output>
       <Time>2015-01-22T15:05:16.329826-05:00</Time>
     </Item>
     <Item>
@@ -160,7 +160,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\terrainsheet.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Blocks\terrainsheet.xnb</Output>
       <Time>2015-03-23T20:35:55.8055393-04:00</Time>
     </Item>
     <Item>
@@ -169,8 +169,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\TitleScreen.xnb</Output>
-      <Time>2015-01-22T15:05:16.3558275-05:00</Time>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\TitleScreen.xnb</Output>
+      <Time>2015-04-03T18:31:59.5687899-04:00</Time>
     </Item>
     <Item>
       <Source>Misc\Weather.bmp</Source>
@@ -178,7 +178,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\Weather.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Misc\Weather.xnb</Output>
       <Time>2015-01-22T15:05:16.3698278-05:00</Time>
     </Item>
     <Item>
@@ -187,7 +187,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\HealthBar.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Player\HealthBar.xnb</Output>
       <Time>2015-01-22T15:05:16.3758285-05:00</Time>
     </Item>
     <Item>
@@ -196,7 +196,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Weapons\HandGun1.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Weapons\HandGun1.xnb</Output>
       <Time>2015-01-22T15:05:16.596841-05:00</Time>
     </Item>
     <Item>
@@ -205,7 +205,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Blur.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Blur.xnb</Output>
       <Time>2015-01-22T15:05:16.3268257-05:00</Time>
     </Item>
     <Item>
@@ -214,7 +214,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\HoverBot.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\HoverBot.xnb</Output>
       <Time>2015-01-25T13:43:47.9501196-05:00</Time>
     </Item>
     <Item>
@@ -223,7 +223,7 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\options.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\options.xnb</Output>
       <Time>2015-01-25T13:34:46.9944142-05:00</Time>
     </Item>
     <Item>
@@ -232,8 +232,26 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb</Output>
       <Time>2015-01-27T15:16:33.3171566-05:00</Time>
+    </Item>
+    <Item>
+      <Source>Mobs\PigLeg.png</Source>
+      <Name>Mobs\PigLeg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb</Output>
+      <Time>2015-04-03T13:36:22.7783921-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Mobs\ChickenLeg.png</Source>
+      <Name>Mobs\ChickenLeg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\ChickenLeg.xnb</Output>
+      <Time>2015-04-04T15:44:35.748967-04:00</Time>
     </Item>
     <Item>
       <Source>Fonts\Pericles1.spritefont</Source>
@@ -241,7 +259,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb</Output>
       <Time>2015-01-22T15:05:16.3218248-05:00</Time>
     </Item>
     <Item>
@@ -250,7 +268,7 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb</Output>
       <Time>2015-01-22T15:05:16.3228256-05:00</Time>
     </Item>
     <Item>
@@ -259,17 +277,17 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
       <Time>2015-01-22T15:05:16.3248251-05:00</Time>
     </Item>
     <Item>
-      <Source>Mobs\PigLeg.png</Source>
-      <Name>Mobs\PigLeg</Name>
+      <Source>Mobs\CowLeg.png</Source>
+      <Name>Mobs\CowLeg</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb</Output>
-      <Time>2015-04-03T13:36:22.7783921-04:00</Time>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb</Output>
+      <Time>2015-04-04T15:52:58.6586879-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -278,10 +296,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlockContent\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Anthony\Desktop\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlockContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>

@@ -11,18 +11,18 @@ namespace MineBlock
 {
     public class Tm
     {
-        private static Texture2D terrainsheet, Tools, Pointer, cursor, Weather, hoverbot, t, Pigsheet,PigLeg, hotbarsheet, cowsheet, chickensheet, grass, HealthBar, HandGun, Blur, SaveSelectHighlight;
+        private static Texture2D terrainsheet, Tools, Pointer, cursor, Weather, hoverbot, t, Pigsheet, PigLeg, hotbarsheet, cowsheet, cowleg, chickensheet, chickenLeg, grass, HealthBar, HandGun, Blur, SaveSelectHighlight;
         private static Texture2D playerSheet, hotbarselector; // Player Textures
         private static Texture2D TitleScreen, SaveSelect, Paused, options; // Textures acessed by Menu Class
         private static SpriteFont pericles14, pericles1, pericles28; // Fonts
-        public enum Texture { terrainsheet, Tools, Pointer, cursor, Blank, hoverbot, t, Pigsheet,PigLeg, hotbarsheet, cowsheet, chickensheet, grass, HealthBar, Blur, SaveSelectHighlight, playerSheet, hotbarselector, TitleScreen, SaveSelect, Paused, options };
+        public enum Texture { terrainsheet, Tools, Pointer, cursor, Blank, hoverbot, t, Pigsheet, PigLeg, hotbarsheet, cowsheet, cowleg, chickensheet, chickenLeg, grass, HealthBar, Blur, SaveSelectHighlight, playerSheet, hotbarselector, TitleScreen, SaveSelect, Paused, options };
         public enum Font { f14, f1, f28 };
         static int calls;
 
         public static Texture2D getTexture(Texture texture)
         {
             return getTextureFromString(texture.ToString());
-       }
+        }
         public static Texture2D getTextureFromString(String texture)
         {
             calls++;
@@ -41,7 +41,9 @@ namespace MineBlock
                 case "pigleg": { re = PigLeg; break; };
                 case "hotbarsheet": { re = hotbarsheet; break; };
                 case "cowsheet": { re = cowsheet; break; };
+                case "cowleg": { re = cowleg; break; };
                 case "chickensheet": { re = chickensheet; break; };
+                case "chickenleg": { re = chickenLeg; break; };
                 case "grass": { re = grass; break; };
                 case "healthbar": { re = HealthBar; break; };
                 case "blur": { re = Blur; break; };
@@ -62,7 +64,7 @@ namespace MineBlock
         public static Texture2D CreateMissingTexture()
         {
 
-           Texture2D temp = new Texture2D(Game1.Instance.GraphicsDevice, 2, 2);
+            Texture2D temp = new Texture2D(Game1.Instance.GraphicsDevice, 2, 2);
             temp.SetData<Color>(
             new Color[] { Color.White, Color.Purple, Color.White, Color.Purple });
             return temp;
@@ -103,7 +105,9 @@ namespace MineBlock
             Pigsheet = Content.Load<Texture2D>(@"Mobs/Pig");
             PigLeg = Content.Load<Texture2D>(@"Mobs/PigLeg");
             chickensheet = Content.Load<Texture2D>(@"Mobs/Chicken");
+            chickenLeg = Content.Load<Texture2D>(@"Mobs/ChickenLeg");
             cowsheet = Content.Load<Texture2D>(@"Mobs/Cow");
+            cowleg = Content.Load<Texture2D>(@"Mobs/CowLeg");
             hoverbot = Content.Load<Texture2D>(@"Mobs/HoverBot");
             t = new Texture2D(g, 1, 1);
             t.SetData<Color>(
