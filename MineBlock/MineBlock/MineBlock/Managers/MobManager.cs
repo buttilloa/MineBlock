@@ -11,18 +11,19 @@ namespace MineBlock
     {
         public List<Mob> mobs = new List<Mob>();
         public Hoverbot bot;
-        public MobManager(){
+        public MobManager()
+        {
             addBot();
         }
 
         public void AddMob(Mob mob)
         {
-            mobs.Add(mob); 
-           
+            mobs.Add(mob);
+
         }
         public void addBot()
         {
- bot = new Hoverbot();
+            bot = new Hoverbot();
         }
         public void RemoveMobs()
         {
@@ -33,7 +34,7 @@ namespace MineBlock
             foreach (Mob mob in mobs)
                 mob.update(time);
             bot.update(time);
-            
+
         }
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch batch)
         {

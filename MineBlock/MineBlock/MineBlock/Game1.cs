@@ -32,7 +32,7 @@ namespace MineBlock
         public static Color breakanimcolor = Color.White;
         private SpriteFont pericles14;
         public static int RenderDistance = 11;
-        public static int renderXStart, renderYStart, renderXEnd,renderYEnd;
+        public static int renderXStart, renderYStart, renderXEnd, renderYEnd;
         private static Texture2D t;
 
 #if XBOX
@@ -156,17 +156,19 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
                     player.update(gameTime);
                     mobManager.update(gameTime);
-                    //   if (player.Player.Location.Y > 400 || player.WantsToChange)
-                    //       shouldSwitch();
-                    renderXStart = (int)MathHelper.Clamp((player.Player.Location.X / 40) - RenderDistance + 1, 0f, 199);
-                    renderYStart = (int)MathHelper.Clamp((player.Player.Location.Y / 40) - RenderDistance + 1, 0f, 129);
-                    renderXEnd = (int)MathHelper.Clamp((player.Player.Location.X / 40) + RenderDistance + 1, 0, 199);
-                    renderYEnd = (int)MathHelper.Clamp((player.Player.Location.Y / 40) + RenderDistance + 1, 0, 129);
+                    Vector2 playerLoc = player.Player.Location;
+                    renderXStart = (int)MathHelper.Clamp((playerLoc.X / 40) - RenderDistance + 1, 0f, 199);
+                    renderYStart = (int)MathHelper.Clamp((playerLoc.Y / 40) - RenderDistance + 1, 0f, 129);
+                    if (renderXStart == 0) renderXEnd = (int)MathHelper.Clamp((playerLoc.X / 40) + RenderDistance + 12, 0, 199);
+                    else renderXEnd = (int)MathHelper.Clamp((playerLoc.X / 40) + RenderDistance + 4, 0, 199);
+                    renderYEnd = (int)MathHelper.Clamp((playerLoc.Y / 40) + RenderDistance + 1, 0, 129);
+
                     for (int i = renderXStart; i <= renderXEnd; i++)
                         for (int j = renderYStart; j <= renderYEnd; j++)
                             chunk[i, j].update(chunk);
-                    //if (randy.Next(0, 2000) == 4)
-                    //   toggleDownfall();
+                    if (!weather.isPercipitationing() && randy.Next(0, 2000) == 4)
+                        toggleDownfall();
+                    weather.update(gameTime.ElapsedGameTime.TotalSeconds);
 
                     checkClicks(gameTime);
                 }
@@ -183,9 +185,6 @@ if ((GameSaveRequested) && (result.IsCompleted))
         {
             if (!weather.isPercipitationing())
             {
-                //_InformationBlock Info = (_InformationBlock)chunk[19, 12];
-                //if (Info.ShouldSnow) weather.Snow();
-                //else weather.Rain();
                 weather.Rain();
                 Console.WriteLine("WEATHEREDING!");
             }
@@ -270,13 +269,16 @@ if ((GameSaveRequested) && (result.IsCompleted))
         }
         //Render on Screen
         Matrix cameraTransform;
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            //spriteBatch.Begin();
-            cameraTransform = Matrix.CreateTranslation(-(Convert.ToInt32(player.Player.Location.X) - 350), -(Convert.ToInt32(player.Player.Location.Y) - 130), zoom);
-            //cameraTransform = Matrix.CreateTranslation(-(player.Player.Location.X - 350), -(player.Player.Location.Y - 130), zoom);
+
+            Vector2 Target = new Vector2((Convert.ToInt32(player.Player.Location.X) - 350), (Convert.ToInt32(player.Player.Location.Y) - 130));
+            Vector2 Target1 = player.highlighted;
+            Target += Target1;
+
+            cameraTransform = Matrix.CreateTranslation((int)-Target.X, (int)-Target.Y, 0f);
+            cameraTransform.M41 = MathHelper.Clamp(cameraTransform.M41, -7200, 0);
             cameraTransform.Translation.Normalize();
 
             spriteBatch.Begin(SpriteSortMode.Immediate,
@@ -285,11 +287,11 @@ if ((GameSaveRequested) && (result.IsCompleted))
             if (MenuRef.state == MenuRef.GameStates.Playing)
             {
                 for (int i = renderXStart; i <= renderXEnd; i++)
-                    for (int j = renderYStart; j <= renderYEnd; j++) 
+                    for (int j = renderYStart; j <= renderYEnd; j++)
                         chunk[i, j].Draw(spriteBatch);
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
-                // weather.Draw(spriteBatch);// Draw Weather 
+                weather.Draw(spriteBatch);// Draw Weather 
             }
 
             console.Draw(spriteBatch);

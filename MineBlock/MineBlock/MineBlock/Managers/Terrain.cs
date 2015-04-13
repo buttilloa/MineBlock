@@ -69,13 +69,13 @@ namespace MineBlock
 
                 for (int i = 0; i < Math.Abs(genheight - height); i++)
                 {
-                    blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new Trampoline(Math.Abs(genheight - height) + i, height - i);
-                    blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new Trampoline(Math.Abs(genheight - height) - i, height + i);
+                    blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new CobbleStone(Math.Abs(genheight - height) + i, height - i);
+                    blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new CobbleStone(Math.Abs(genheight - height) - i, height + i);
                 }
-           /* /*blocks[19, 12] = new _InformationBlock(19, 12);
-            _InformationBlock Info = (_InformationBlock)blocks[19, 12];
-            Info.Biome = "Stone";
-            Info.chunk = chunk; */
+            /* /*blocks[19, 12] = new _InformationBlock(19, 12);
+             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
+             Info.Biome = "Stone";
+             Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Stone" + " Chunk at " + chunk);
             return blocks;
         }
@@ -206,7 +206,7 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone/gravel";
             Info.chunk = chunk; */
-           Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
+            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
             return blocks;
         }
         public static Block[,] genDirt(Block[,] blocks, int chunk)
@@ -217,7 +217,7 @@ namespace MineBlock
                 {
                     blocks[i, j] = new Air(i, j);
                 }
-            int height = Game1.randy.Next(genheight-1, genheight+1);
+            int height = Game1.randy.Next(genheight - 1, genheight + 1);
             for (int i = 0; i < 20; i++)
             {
                 if (Game1.randy.Next(0, 5) == 3)
@@ -234,16 +234,16 @@ namespace MineBlock
                 for (int j = height + 1; j < 13; j++)
                 {
 
-                    blocks[i, j] = new Dirt(i, j); 
+                    blocks[i, j] = new Dirt(i, j);
                 }
-            
+
             /*blocks[19, 12] = new _InformationBlock(19, 12);
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Dirt";
             Info.chunk = chunk; */
-            Game1.mobManager.AddMob(new Mobs.Pig(10, (height - 1), chunk));
-            Game1.mobManager.AddMob(new Mobs.Cow(2, (height - 1), chunk));
-            Game1.mobManager.AddMob(new Mobs.Chicken(17, (height - 1), chunk));
+            Game1.mobManager.AddMob(new Mobs.Pig(((chunk % 10)*20) + 10, ((chunk / 10)*13) + (height - 1), chunk));
+            Game1.mobManager.AddMob(new Mobs.Cow(((chunk % 10)*20) + 2, ((chunk / 10)*13) + (height - 1), chunk));
+            Game1.mobManager.AddMob(new Mobs.Chicken(((chunk % 10)*20) + 17, ((chunk / 10)*13) + (height - 1), chunk));
             genTree(blocks);
             Console.WriteLine("Succesfully Generated a " + "Dirt" + " Chunk at " + chunk);
             return blocks;
@@ -415,7 +415,7 @@ namespace MineBlock
         }
         public static void genTree(Block[,] chunks)
         {
-            int treeheight = Game1.randy.Next(genheight - 5, genheight-1);
+            int treeheight = Game1.randy.Next(genheight - 5, genheight - 1);
             int xcoord = Game1.randy.Next(2, 18);
             for (int i = treeheight; i < genheight; i++) chunks[xcoord, i] = new Wood(xcoord, i);
             chunks[xcoord, treeheight - 1] = new Leaf(xcoord, treeheight - 1);
@@ -423,72 +423,72 @@ namespace MineBlock
             chunks[xcoord - 1, treeheight - 1] = new Leaf(xcoord - 1, treeheight - 1);
             chunks[xcoord + 1, treeheight] = new Leaf(xcoord + 1, treeheight);
             chunks[xcoord - 1, treeheight] = new Leaf(xcoord - 1, treeheight);
-            chunks[xcoord , treeheight] = new Leaf(xcoord , treeheight);
+            chunks[xcoord, treeheight] = new Leaf(xcoord, treeheight);
             chunks[xcoord + 2, treeheight] = new Leaf(xcoord + 2, treeheight);
             chunks[xcoord - 2, treeheight] = new Leaf(xcoord - 2, treeheight);
         }
-        public static Block[,] genTerrain(Block[,] chunks,int chunkcount)
+        public static Block[,] genTerrain(Block[,] chunks, int chunkcount)
         {
-          
+
             Block[,] blocks = new Block[20, 13];
             //chunks = new Block[200, 130];
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 130; j++)
-                    if(chunks[i,j] ==null )
-                    chunks[i, j] = new Air(i, j);
-                    for (int p = 1; p < chunkcount; p++)
+                    if (chunks[i, j] == null)
+                        chunks[i, j] = new Air(i, j);
+            for (int p = 1; p < chunkcount; p++)
+            {
+
+                if (p < 10)
+                {
+                    Block[,] genned;
+                    switch (Game1.randy.Next(0, 5))
                     {
-
-                        if (p < 10)
-                        {
-                            Block[,] genned;
-                            switch (Game1.randy.Next(0, 5))
+                        case 1:
                             {
-                                case 1:
-                                    {
 
-                                        genned = genStone(blocks, p);
-                                        break;
-                                    }
-                                case 2:
-                                    {
-                                        genned = genSnow(blocks, p);
-                                        break;
-                                    }
-                                case 3:
-                                    {
-                                        genned = genBeach(blocks, p);
-                                        break;
-                                    }
-                                case 4:
-                                    {
-                                        genned = genMycelium(blocks, p);
-                                        break;
-                                    }
-                                default: genned = genDirt(blocks, p); break;
+                                genned = genStone(blocks, p);
+                                break;
                             }
-                            int chunkx = p % 10;
-                            int chunky = p / 10;
-                            for (int i = 0; i < 20; i++)
-                                for (int j = 0; j < 13; j++)
-                                    chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
-                     
-                        }
-                        else
-                        {
-                            Block[,] genned = genUnderGround(blocks, p);
-                            int chunkx = p % 10;
-                            int chunky = p / 10;
-                            for (int i = 0; i < 20; i++)
-                                for (int j = 0; j < 13; j++)
-                                    chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
-                        }
-
+                        case 2:
+                            {
+                                genned = genSnow(blocks, p);
+                                break;
+                            }
+                        case 3:
+                            {
+                                genned = genBeach(blocks, p);
+                                break;
+                            }
+                        case 4:
+                            {
+                                genned = genMycelium(blocks, p);
+                                break;
+                            }
+                        default: genned = genDirt(blocks, p); break;
                     }
-                    for (int i = 0; i < 200; i++)
-                        for (int j = 0; j < 130; j++)
-                        { chunks[i, j].x = i; chunks[i, j].y = j; }
-                    Game1.player.updateBlocks(chunks);
+                    int chunkx = p % 10;
+                    int chunky = p / 10;
+                    for (int i = 0; i < 20; i++)
+                        for (int j = 0; j < 13; j++)
+                            chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
+
+                }
+                else
+                {
+                    Block[,] genned = genUnderGround(blocks, p);
+                    int chunkx = p % 10;
+                    int chunky = p / 10;
+                    for (int i = 0; i < 20; i++)
+                        for (int j = 0; j < 13; j++)
+                            chunks[i + (20 * chunkx), j + (13 * chunky)] = genned[i, j];
+                }
+
+            }
+            for (int i = 0; i < 200; i++)
+                for (int j = 0; j < 130; j++)
+                { chunks[i, j].x = i; chunks[i, j].y = j; }
+            Game1.player.updateBlocks(chunks);
             return chunks;
         }
     }

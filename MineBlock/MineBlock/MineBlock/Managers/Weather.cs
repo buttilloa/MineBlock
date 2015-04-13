@@ -11,12 +11,13 @@ namespace MineBlock
     {
         bool isRaining = false;
         bool isSnowing = false;
+        int startPos;
         List<Rectangle> snows = new List<Rectangle>();
-     
-        int SnowTime = 0;
+
+        double SnowTime = 0;
         List<Rectangle> rains = new List<Rectangle>();
 #if WINDOWS
-        int rainCount = 600;   
+        int rainCount = 600;
         int snowCount = 500;
         Texture2D Blank;
 #endif
@@ -24,32 +25,38 @@ namespace MineBlock
          int rainCount = 200;
          int snowCount = 200;
 #endif
-        int rainTime = 0;
+        double rainTime = 0;
         public Weather()
         {
-            Blank = Tm.getTexture(Tm.Texture.Blank);  
+            Blank = Tm.getTexture(Tm.Texture.Blank);
         }
 
         public void Rain()
         {
             rainTime = 0;
             rains.Clear();
+            startPos = Game1.renderXStart*40;
             for (int i = 0; i < rainCount; i++)
-                rains.Add(new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-600, -1), 2, 5));
+                rains.Add(GenParticle(false));
             //for (int i = 400; i < (rainCount); i++)
             //    rains.Add(new Rectangle(Game1.randy.Next(10, 780), Game1.randy.Next(-600, -1), 2, 5));
             SoundEffects.Rain.Play();
-           isRaining = true;
+            isRaining = true;
+
         }
-        public bool isPercipitationing(){
+        public bool isPercipitationing()
+        {
             if (isSnowing || isRaining)
                 return true;
             return false;
-            }
+        }
         public void Stop()
         {
+            rains.Clear();
+            snows.Clear();
             isSnowing = false;
             isRaining = false;
+           
             SoundEffects.Rain.Stop(true);
             SoundEffects.Snow.Stop(true);
         }
@@ -57,70 +64,74 @@ namespace MineBlock
         {
             SnowTime = 0;
             snows.Clear();
-            for (int i = 0; i < snowCount;i++)
-                snows.Add(new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-600, -1), 3, 3));
+            startPos = Game1.renderXStart*40;
+            for (int i = 0; i < snowCount; i++)
+                snows.Add(GenParticle(true));//new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-600, -1), 3, 3));
             //for (int i = 400; i < (snowCount); i++)
             //    snows.Add(new Rectangle(Game1.randy.Next(10, 780), Game1.randy.Next(-600, -1), 3, 3));
             SoundEffects.Snow.Play();
             isSnowing = true;
         }
-        public void Draw(SpriteBatch batch)
+        public Rectangle GenParticle(bool Snow)
+        {
+          
+            if(!Snow)
+            return new Rectangle(startPos + Game1.randy.Next(-10, 1000), Game1.randy.Next(-600, -1), 2, 5);
+            return new Rectangle(startPos + Game1.randy.Next(-10, 1000), Game1.randy.Next(-600, -1), 3, 3);
+        }
+        public void update(double elaspedSeconds)
         {
             if (isSnowing)
             {
-                for (int i = 0; i < snowCount - 1; i++)
+                for (int i = 0; i < snows.Count; i++)
                 {
-                    if (snows[i].Y < 600)
-                        snows[i] = new Rectangle(snows[i].X, snows[i].Y + Game1.randy.Next(1, 4), 3, 3);
-                    batch.Draw(Blank, snows[i], Color.White);
-                    foreach (Block block in Game1.chunk)
-                        if (block.index != 6 && block.index != 0)
-                            if (snows[i].Intersects(new Rectangle(block.x * 40, block.y * 40, 40, 40)))
-                            {
-                                if (SnowTime < 1600)
-                                    snows[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
-                            }
-                    if (snows[i].Y > 600 )
+                    snows[i] = new Rectangle(snows[i].X, snows[i].Y + Game1.randy.Next(2, 4), 2, 5);
+                    int x = snows[i].X / 40;
+                    int y = (snows[i].Y + 5) / 40;
+                    if (x >= 200 && y >= 130) snows[i] = GenParticle(true);
+                    if (x > -1 && y > -1)
                     {
-                        if(SnowTime < 1600)
-                        snows[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 3, 3);
+                        Block check = Game1.chunk[x, y];
+                        if (check.isSolid || check.index == 53)
+                            if (SnowTime < SoundEffects.SnowDuration)
+                                snows[i] = GenParticle(true);
+                            else snows.RemoveAt(i);
                     }
-
                 }
-                SnowTime++;
-                if (SnowTime > 2000) Stop();
+                SnowTime+= elaspedSeconds;
                
+                
+                if (snows.Count ==0) Stop();
+
             }
-            if (isRaining)
+            else if (isRaining)
             {
-                for (int i = 0; i < rainCount - 1; i++)
+                for (int i = 0; i < rains.Count; i++)
                 {
-                    if (rains[i].Y < 600)
-                        rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
-                    batch.Draw(Blank, rains[i], Color.Blue);
-                    for (int x = (int)(Game1.player.Player.Location.X / 40) - 11; x < (Game1.player.Player.Location.X / 40) + 11; x++)
-                       for (int y = (int)(Game1.player.Player.Location.Y / 40) - 11; y < (Game1.player.Player.Location.Y / 40) + 11;y++)
-                           if (Game1.chunk[x,y].index != 6 && Game1.chunk[x,y].index != 0)
-                                    if (rains[i].Intersects(new Rectangle(Game1.chunk[x,y].x * 40, Game1.chunk[x,y].y * 40, 40, 40)))
-                                    {
-                                        rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
-                                        if (rainTime > 1600)
-                                            rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
-                                    }
-                            
-                    if (rains[i].Y > 600)
+                    rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
+                    int x = rains[i].X / 40;
+                    int y = (rains[i].Y + 5) / 40;
+                    if (x >= 200 && y >= 130) rains[i] = GenParticle(false);
+                    if (x > -1 && y > -1)
                     {
-                        if (rainTime < 1600)
-                            rains[i] = new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-20, -1), 2, 5);
+                        Block check = Game1.chunk[x, y];
+                        if (check.isSolid || check.index == 53)
+                            if (rainTime < SoundEffects.RainDuration)
+                                rains[i] = GenParticle(false);
+                            else  rains.RemoveAt(i);
                     }
-
                 }
-                rainTime++;
-              
-                if (rainTime > 2000) Stop();
-
+                rainTime += elaspedSeconds;
+                if (rains.Count ==0) Stop();
             }
         }
-    
+        public void Draw(SpriteBatch batch)
+        {
+            if (isSnowing) foreach (Rectangle snow in snows)
+                    batch.Draw(Blank, snow, Color.White);
+            else if (isRaining) foreach (Rectangle rain in rains)
+                    batch.Draw(Blank, rain, Color.Blue);
+        }
+
     }
 }
