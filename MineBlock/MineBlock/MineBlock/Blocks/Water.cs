@@ -21,14 +21,14 @@ namespace MineBlock.Blocks
             if (Game1.randy.Next(0, 10) == 5)
             {
                 if (x > 0)
-                    if (Chunk.CalculateChunk(chunks,x - 1, y).index == 0)
-                        Chunk.PlaceBlock(chunks,x - 1, y, new Water(x - 1, y));
+                    if (Chunk.getBlockAt(chunks,x - 1, y).index == 0)
+                        Chunk.SetBlock(chunks,x - 1, y, new Water(x - 1, y));
                 if (x < chunks.GetLength(0))
-                    if (Chunk.CalculateChunk(chunks, x + 1, y).index == 0)
-                        Chunk.PlaceBlock(chunks, x + 1, y, new Water(x + 1, y));
+                    if (Chunk.getBlockAt(chunks, x + 1, y).index == 0)
+                        Chunk.SetBlock(chunks, x + 1, y, new Water(x + 1, y));
                 if (y < chunks.GetLength(1))
-                    if (Chunk.CalculateChunk(chunks, x, y+1).index == 0)
-                        Chunk.PlaceBlock(chunks, x, y+1, new Water(x, y+1));
+                    if (Chunk.getBlockAt(chunks, x, y+1).index == 0)
+                        Chunk.SetBlock(chunks, x, y+1, new Water(x, y+1));
             }
         }
 

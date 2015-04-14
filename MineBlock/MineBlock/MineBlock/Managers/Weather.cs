@@ -31,18 +31,22 @@ namespace MineBlock
             Blank = Tm.getTexture(Tm.Texture.Blank);
         }
 
-        public void Rain()
+        public void Rain(int start)
         {
-            rainTime = 0;
-            rains.Clear();
-            startPos = Game1.renderXStart*40;
-            for (int i = 0; i < rainCount; i++)
-                rains.Add(GenParticle(false));
-            //for (int i = 400; i < (rainCount); i++)
-            //    rains.Add(new Rectangle(Game1.randy.Next(10, 780), Game1.randy.Next(-600, -1), 2, 5));
-            SoundEffects.Rain.Play();
-            isRaining = true;
-
+            if (Chunk.getChunk(Game1.chunks, start, 0).ShouldSnow)
+                Snow(start);
+            else
+            {
+                rainTime = 0;
+                rains.Clear();
+                startPos = start * 40;
+                for (int i = 0; i < rainCount; i++)
+                    rains.Add(GenParticle(false));
+                //for (int i = 400; i < (rainCount); i++)
+                //    rains.Add(new Rectangle(Game1.randy.Next(10, 780), Game1.randy.Next(-600, -1), 2, 5));
+                SoundEffects.Rain.Play();
+                isRaining = true;
+            }
         }
         public bool isPercipitationing()
         {
@@ -60,11 +64,11 @@ namespace MineBlock
             SoundEffects.Rain.Stop(true);
             SoundEffects.Snow.Stop(true);
         }
-        public void Snow()
+        public void Snow(int start)
         {
             SnowTime = 0;
             snows.Clear();
-            startPos = Game1.renderXStart*40;
+            startPos = start*40;
             for (int i = 0; i < snowCount; i++)
                 snows.Add(GenParticle(true));//new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-600, -1), 3, 3));
             //for (int i = 400; i < (snowCount); i++)
@@ -91,11 +95,15 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) snows[i] = GenParticle(true);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Chunk.CalculateChunk(Game1.chunks,x, y);
+                        Block check = Chunk.getBlockAt(Game1.chunks, x, y);
                         if (check.isSolid || check.index == 53)
+                        {
+                            if (check.index == 2|| check.index == 3)
+                                Chunk.SetBlock(Game1.chunks, x, y, new MineBlock.Blocks.SnowyGrass(x, y));
                             if (SnowTime < SoundEffects.SnowDuration)
                                 snows[i] = GenParticle(true);
                             else snows.RemoveAt(i);
+                        }
                     }
                 }
                 SnowTime+= elaspedSeconds;
@@ -114,11 +122,16 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) rains[i] = GenParticle(false);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Chunk.CalculateChunk(Game1.chunks, x, y);
+                        Block check = Chunk.getBlockAt(Game1.chunks, x, y); 
+                        
                         if (check.isSolid || check.index == 53)
+                        {
+                            if (check.index == 66 || check.index == 68)
+                                Chunk.SetBlock(Game1.chunks, x, y, new MineBlock.Blocks.Dirt(x, y));
                             if (rainTime < SoundEffects.RainDuration)
                                 rains[i] = GenParticle(false);
-                            else  rains.RemoveAt(i);
+                            else rains.RemoveAt(i);
+                        }
                     }
                 }
                 rainTime += elaspedSeconds;

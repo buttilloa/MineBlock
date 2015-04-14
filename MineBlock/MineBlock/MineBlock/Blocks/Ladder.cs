@@ -22,7 +22,7 @@ namespace MineBlock.Blocks
         public override void update(Chunk[,] chunks)
         {
             if (y < chunks.GetLength(1))
-                if (Chunk.CalculateChunk(chunks, x, y + 1).index == 0 || Chunk.CalculateChunk(chunks, x, y + 1).index == 14 || Chunk.CalculateChunk(chunks, x, y + 1).index == 11)
+                if (Chunk.getBlockAt(chunks, x, y + 1).index == 0 || Chunk.getBlockAt(chunks, x, y + 1).index == 14 || Chunk.getBlockAt(chunks, x, y + 1).index == 11)
                 {
                     manualDraw = true;
 
@@ -33,8 +33,8 @@ namespace MineBlock.Blocks
                     {
                         //manualDraw = false;
                         y = y + 1;
-                        Chunk.PlaceBlock(chunks,x, y , new Ladder(x, y));
-                        Chunk.PlaceBlock(chunks,x, y - 1, new Air(x, y - 1));
+                        Chunk.SetBlock(chunks,x, y , new Ladder(x, y));
+                        Chunk.SetBlock(chunks,x, y - 1, new Air(x, y - 1));
                     }
                 }
             base.update(chunks);

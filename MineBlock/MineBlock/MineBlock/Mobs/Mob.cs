@@ -47,7 +47,7 @@ namespace MineBlock
             return new Mob();
         }
         public Block blocks(int x, int y){
-            return Chunk.CalculateChunk(Game1.chunks, x, y);
+            return Chunk.getBlockAt(Game1.chunks, x, y);
     }
         public virtual void update(GameTime time)
         {

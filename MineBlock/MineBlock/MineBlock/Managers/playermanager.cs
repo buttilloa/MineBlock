@@ -81,7 +81,7 @@ namespace MineBlock
       
         Block bottomBlock(Chunk[,] chunks)
         {
-            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1);
+            return Chunk.getBlockAt(chunks,(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1);
         }
         public void update(GameTime time, Chunk[,] chunks)
         {
@@ -176,25 +176,25 @@ namespace MineBlock
         }
         Block RightBlock(Chunk[,] chunks)
         {
-            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40));
+            return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40));
         }
         Block LeftBlock(Chunk[,] chunks)
         {
-            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40));
+            return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40));
         }
         Block BlockAbove(Chunk[,] chunks)
         {
-            return Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1);
+            return Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1);
         }
         Boolean isOnLadder(Chunk[,] chunks)
         {
-            if (Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1).index == 83)
+            if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1).index == 83)
                 return true;
             return false;
         }
         Boolean isonGround(Chunk[,] chunks)
         {
-            if (Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2).isSolid)
+            if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2).isSolid)
                 return true;
             return false;
         }

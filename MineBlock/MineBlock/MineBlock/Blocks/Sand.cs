@@ -23,7 +23,7 @@ namespace MineBlock.Blocks
         public override void update(Chunk[,] chunks)
         {
             if (y < chunks.GetLength(1)*20)
-                if (!Chunk.CalculateChunk(chunks, x, y + 1).isSolid)
+                if (!Chunk.getBlockAt(chunks, x, y + 1).isSolid)
                 {
                     manualDraw = true;
 
@@ -34,8 +34,8 @@ namespace MineBlock.Blocks
                     {
                         //manualDraw = false;
                         y = y + 1;
-                        Chunk.PlaceBlock(chunks, x, y, new Sand(x, y));
-                        Chunk.PlaceBlock(chunks, x, y - 1, new Air(x, y - 1));
+                        Chunk.SetBlock(chunks, x, y, new Sand(x, y));
+                        Chunk.SetBlock(chunks, x, y - 1, new Air(x, y - 1));
                         
                     }
                 }

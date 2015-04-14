@@ -19,7 +19,7 @@ namespace MineBlock.Blocks
         public override void update(Chunk[,] chunks)
         {
          if (Game1.randy.Next(0, 100) == 8&& y !=0 )
-             if (Chunk.CalculateChunk(chunks,x, y - 1).index == 0) Chunk.PlaceBlock(chunks,x, y, new Grass(Chunk.CalculateChunk(chunks,x, y).x, Chunk.CalculateChunk(chunks,x, y).y));
+             if (Chunk.getBlockAt(chunks,x, y - 1).index == 0) Chunk.SetBlock(chunks,x, y, new Grass(Chunk.getBlockAt(chunks,x, y).x, Chunk.getBlockAt(chunks,x, y).y));
 
          base.update(chunks);
         }

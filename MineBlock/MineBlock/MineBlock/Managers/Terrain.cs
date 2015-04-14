@@ -138,7 +138,7 @@ namespace MineBlock
             //Info.Biome = "Stone/gravel";
             //Info.chunk = chunk; */
             Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
-            return new Chunk(chunk,Chunk.Biome.StoneGravel,blocks);
+            return new Chunk(chunk, Chunk.Biome.StoneGravel, blocks);
         }
         public static Chunk genStoneWithGravel(int chunk)
         {
@@ -370,7 +370,7 @@ namespace MineBlock
             Console.WriteLine("Succesfully Generated a " + "Beach" + " Chunk at " + chunk);
             return new Chunk(chunk, Chunk.Biome.Beach, blocks);
         }
-        public static Chunk GenerateSpawnTerrain(MobManager mobManager,PlayerManager player)
+        public static Chunk GenerateSpawnTerrain(MobManager mobManager, PlayerManager player)
         {
             int height = Game1.randy.Next(6, 10);
             int maxheight = 20;
@@ -406,7 +406,7 @@ namespace MineBlock
             genTree(blocks);
             //chunks.Add(blocks);-
             //currentChunk = blocks;
-            
+
             return new Chunk(0, Chunk.Biome.Spawn, blocks);
         }
         public static void genTree(Block[,] chunks)
@@ -426,14 +426,8 @@ namespace MineBlock
         public static Chunk[,] genTerrain(int chunkcount)
         {
 
-genheight = Game1.randy.Next(6, 10);
-            Chunk[,] chunks = new Chunk[10,10];
-            //chunks = new Block[200, 200];
-            //for (int i = 0; i < 200; i++)
-            //    for (int j = 0; j < 200; j++)
-            //        if (chunks[i, j] == null)
-             //           chunks[i, j] = new Air(i, j);
-            
+            genheight = Game1.randy.Next(6, 15);
+            Chunk[,] chunks = new Chunk[10, 10];
             for (int p = 0; p < chunkcount; p++)
             {
 
@@ -444,50 +438,45 @@ genheight = Game1.randy.Next(6, 10);
                     {
                         case 1:
                             {
-
-                                genned = genStone( p);
+                                genned = genStone(p);
                                 break;
                             }
                         case 2:
                             {
-                                genned = genSnow( p);
+                                genned = genSnow(p);
                                 break;
                             }
                         case 3:
                             {
-                                genned = genBeach( p);
+                                genned = genBeach(p);
                                 break;
                             }
                         case 4:
                             {
-                                genned = genMycelium( p);
+                                genned = genMycelium(p);
                                 break;
                             }
-                        default: genned = genDirt( p); break;
+                        default: genned = genDirt(p); break;
                     }
                     int chunkx = p % 10;
                     int chunky = p / 10;
-                   // for (int i = 0; i < 20; i++)
-                   //     for (int j = 0; j < 20; j++)
-                   //         chunks[i + (20 * chunkx), j + (20 * chunky)] = genned.getBlocks()[i, j];
+
                     chunks[chunkx, chunky] = genned;
                 }
                 else
                 {
-                    Chunk genned = genUnderGround( p);
+                    Chunk genned = genUnderGround(p);
                     int chunkx = p % 10;
                     int chunky = p / 10;
-                   // for (int i = 0; i < 20; i++)
-                    //    for (int j = 0; j < 20; j++)
-                    //        chunks[i + (20 * chunkx), j + (20 * chunky)] = genned[i, j];
+
                     chunks[chunkx, chunky] = genned;
                 }
 
             }
             for (int i = 0; i < 10; i++)
                 for (int j = 0; j < 10; j++)
-                { chunks[i,j].organiseBlocks(); }
-           // Game1.player.updateBlocks(chunks);
+                    chunks[i, j].organiseBlocks();
+
             return chunks;
         }
     }

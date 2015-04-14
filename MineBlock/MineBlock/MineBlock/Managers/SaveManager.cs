@@ -108,7 +108,7 @@ namespace MineBlock
             int chunky = chunk / 10;
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
-                    block[i, j] = Chunk.CalculateChunk(Game1.chunks, i, j);
+                    block[i, j] = Chunk.getBlockAt(Game1.chunks, i, j);
             SaveData.Position = 0;
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
@@ -188,7 +188,7 @@ namespace MineBlock
              SaveData.Position = 0;
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 200; j++)
-                { SaveData.WriteByte((byte)Chunk.CalculateChunk(Game1.chunks,i,j).index);
+                { SaveData.WriteByte((byte)Chunk.getBlockAt(Game1.chunks,i,j).index);
                     /*if (block[i, j].index == 255)
                     {
                         _InformationBlock Info = (_InformationBlock)block[i, j];
@@ -220,7 +220,7 @@ namespace MineBlock
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 200; j++)
                 {
-                    Chunk.PlaceBlock(chunks,i,j, new Block().returnBlock(SaveData.ReadByte(), i, j));
+                    Chunk.SetBlock(chunks,i,j, new Block().returnBlock(SaveData.ReadByte(), i, j));
                    //Console.WriteLine("Read: " + (byte)chunk[i, j].index + " in position " + SaveData.Position + " for chunk " + chunk);
                 }
             /*if (blocks[19, 12].index != 255)

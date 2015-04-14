@@ -42,7 +42,7 @@ namespace MineBlock.Commands
             Type hai = Type.GetType(args[1]);
             ConstructorInfo ctor = hai.GetConstructor(new[] { typeof(int), typeof(int) });
             Block instance = (Block)ctor.Invoke(new object[] { Convert.ToInt32(args[2]), Convert.ToInt32(args[3]) });
-            Chunk.PlaceBlock(Game1.chunks, Convert.ToInt32(args[2]), Convert.ToInt32(args[3]), instance);
+            Chunk.SetBlock(Game1.chunks, Convert.ToInt32(args[2]), Convert.ToInt32(args[3]), instance);
             Console.WriteLine("" + instance);
 
             return "Changed block" + "[" + Convert.ToInt32(args[2]) + "." + Convert.ToInt32(args[3]) + "] to " + instance;
@@ -297,7 +297,7 @@ namespace MineBlock.Commands
         public override String Execute(String[] args)
         {
            if (!Game1.weather.isPercipitationing())
-                Game1.toggleDownfall();
+                Game1.toggleDownfall(Game1.renderXStart);
             else Game1.weather.Stop();
             return "Toggled Downfall";
         }
@@ -316,7 +316,7 @@ namespace MineBlock.Commands
         {
             try
             {
-                Commandblock cb = (Commandblock)Chunk.CalculateChunk(Game1.chunks,Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
+                Commandblock cb = (Commandblock)Chunk.getBlockAt(Game1.chunks,Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
                 if (args.Length > 2)
                     cb.command = new String[args.Length-2];
                 for (int i = 3; i < args.Length; i ++)
@@ -359,15 +359,15 @@ namespace MineBlock.Commands
             for (int i = 0; i < Game1.chunks.GetLength(0); i++)
                 for (int j = 0; j < Game1.chunks.GetLength(1); j++)
                 {
-                    Chunk.PlaceBlock(Game1.chunks,i, j, Chunk.CalculateChunk(Game1.chunks,Game1.randy.Next(0, 200), Game1.randy.Next(0, 130)).Reset(i, j));
+                    Chunk.SetBlock(Game1.chunks,i, j, Chunk.getBlockAt(Game1.chunks,Game1.randy.Next(0, 200), Game1.randy.Next(0, 130)).Reset(i, j));
                     Thread.Sleep(00001);
                 }
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 130; j++)
                 {
-                    Chunk.CalculateChunk(Game1.chunks,i, j).x = i;
-                    Chunk.CalculateChunk(Game1.chunks,i, j).y = j;
-                    Chunk.CalculateChunk(Game1.chunks,i, j).isfucked = true;
+                    Chunk.getBlockAt(Game1.chunks,i, j).x = i;
+                    Chunk.getBlockAt(Game1.chunks,i, j).y = j;
+                    Chunk.getBlockAt(Game1.chunks,i, j).isfucked = true;
 
                 }
             
