@@ -103,15 +103,15 @@ namespace MineBlock
             {
                 SaveData = container.CreateFile("saveData"+chunk);
             }
-            Block[,] block = new Block[20, 13];
+            Block[,] block = new Block[20, 20];
             int chunkx = chunk % 10;
-            int chunky = chunk / 10; 
+            int chunky = chunk / 10;
             for (int i = 0; i < 20; i++)
-                for (int j = 0; j < 13; j++)
-                    block[i,j] = Game1.chunk[i + (20 * chunkx), j + (13 * chunky)];
+                for (int j = 0; j < 20; j++)
+                    block[i, j] = Chunk.CalculateChunk(Game1.chunks, i, j);
             SaveData.Position = 0;
             for (int i = 0; i < 20; i++)
-                for (int j = 0; j < 13; j++)
+                for (int j = 0; j < 20; j++)
                 {
 
                     SaveData.WriteByte((byte)block[i, j].index);
@@ -132,9 +132,9 @@ namespace MineBlock
         public Block[,] LoadChunk(int chunk)
         {
             Stream SaveData = null;
-            Block[,] blocks = new Block[20, 13];
+            Block[,] blocks = new Block[20, 20];
             for (int i = 0; i < 20; i++)
-                for (int j = 0; j < 13; j++)
+                for (int j = 0; j < 20; j++)
                 {
                     blocks[i, j] = new Air(i, j);
                 }
@@ -149,7 +149,7 @@ namespace MineBlock
                 SaveData = container.CreateFile("saveData" + chunk);
             }
             for (int i = 0; i < 20; i++)
-                for (int j = 0; j < 13; j++)
+                for (int j = 0; j < 20; j++)
                 {
                     blocks[i, j] = blocks[i, j].returnBlock(SaveData.ReadByte(), i, j);
                     //Console.WriteLine("Read: " + (byte)blocks[i, j].index + " in position " + SaveData.Position + " for chunk " + chunk);
@@ -187,8 +187,8 @@ namespace MineBlock
             }
              SaveData.Position = 0;
             for (int i = 0; i < 200; i++)
-                for (int j = 0; j < 130; j++)
-                { SaveData.WriteByte((byte)Game1.chunk[i, j].index);
+                for (int j = 0; j < 200; j++)
+                { SaveData.WriteByte((byte)Chunk.CalculateChunk(Game1.chunks,i,j).index);
                     /*if (block[i, j].index == 255)
                     {
                         _InformationBlock Info = (_InformationBlock)block[i, j];
@@ -203,9 +203,10 @@ namespace MineBlock
             SaveData.Close();
             SaveData.Dispose();
         }
-        public Block[,] LoadInoneChunk(Block[,] chunk)
+        public Chunk[,] LoadInoneChunk()
         {
             Stream SaveData = null;
+            var chunks = Game1.chunks;
             if (container.FileExists("saveData" ))
             {
                 //Load number here.
@@ -217,9 +218,9 @@ namespace MineBlock
                 SaveData = container.CreateFile("saveData" );
             }
             for (int i = 0; i < 200; i++)
-                for (int j = 0; j < 130; j++)
+                for (int j = 0; j < 200; j++)
                 {
-                    chunk[i, j] = new Block().returnBlock(SaveData.ReadByte(), i, j);
+                    Chunk.PlaceBlock(chunks,i,j, new Block().returnBlock(SaveData.ReadByte(), i, j));
                    //Console.WriteLine("Read: " + (byte)chunk[i, j].index + " in position " + SaveData.Position + " for chunk " + chunk);
                 }
             /*if (blocks[19, 12].index != 255)
@@ -236,7 +237,7 @@ namespace MineBlock
             Console.WriteLine("Chunks Succesfully loaded");
             SaveData.Close();
             SaveData.Dispose();
-            return chunk;
+            return chunks;
 
         }
         
@@ -291,7 +292,7 @@ namespace MineBlock
             SaveData.Position = 0;
             //Game1.switchChunk(player,SaveData.ReadByte());
             player.Player.Location = new Vector2(SaveData.ReadByte(), SaveData.ReadByte());
-            player.updateBlocks(Game1.chunk);
+            //player.updateBlocks(Game1.chunks);
 
             for (int i = 0; i < 9; i++)
                 player.hotbar[i] = new Block().returnBlock((int)SaveData.ReadByte(), (i * 40) + 16, 16).ItemBlock();
@@ -383,10 +384,10 @@ namespace MineBlock
             SaveData.Dispose();
         }
 
-        public Block[,] loadSave(int selectedSave,int currentChunkNumber, Block[,]chunks,PlayerManager player, MobManager mobManager )
+        public Chunk[,] loadSave(int selectedSave,int currentChunkNumber,PlayerManager player, MobManager mobManager )
         {
 #if WINDOWS
-            chunks = new Block[200, 130];
+            
             Console.WriteLine("READING SAVE " + selectedSave);
             GetDevice();
             GetContainer("MineBlock" + selectedSave);
@@ -394,7 +395,7 @@ namespace MineBlock
             {
                 //chunks[currentChunkNumber] = LoadChunk(currentChunkNumber);
                 //chunks.Add(currentChunk);
-                Game1.chunk = LoadInoneChunk(chunks);
+                Game1.chunks = LoadInoneChunk();
                 //chunks = loadTerrainCollum(chunks);
                 LoadPlayer(player);
                 mobManager.RemoveMobs();
@@ -402,16 +403,16 @@ namespace MineBlock
             }
             else
             {
-              Block[,] genned = Terrain.GenerateSpawnTerrain(mobManager, player);
+              //Chunk genned = Terrain.GenerateSpawnTerrain(mobManager, player);
                 //int chunkx = p % 10;
                 //int chunky = p / 10;
-                for (int i = 0; i < 20; i++)
-                    for (int j = 0; j < 13; j++)
-                        chunks[i, j] = genned[i, j];
+               // for (int i = 0; i < 20; i++)
+               //     for (int j = 0; j < 20; j++)
+               //         Chunk.PlaceBlock(chunks,i, j ,genned.getBlocks()[i, j]);
                 //currentChunk = chunks[0];
-                chunks = Terrain.genTerrain(chunks, 100);
+                
             }
-            return chunks;
+            return Terrain.genTerrain(100);
 #endif
 
         }
@@ -423,10 +424,10 @@ namespace MineBlock
                 int chunkx = p % 10;
                 int chunky = p / 10; 
                 for (int i = 0; i < 20; i++)
-                    for (int j = 0; j < 13; j++)
-                        chunks[i + (20 * chunkx), j + (13 * chunky)] = loaded[i, j];
+                    for (int j = 0; j < 20; j++)
+                        chunks[i + (20 * chunkx), j + (20 * chunky)] = loaded[i, j];
                 for (int i = 0; i < 200; i++)
-                    for (int j = 0; j < 130; j++)
+                    for (int j = 0; j < 200; j++)
                         if (chunks[i, j] == null)
                             chunks[i, j] = new Air(i, j);
                 //chunks.Add(LoadChunk(p));

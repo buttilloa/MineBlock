@@ -42,7 +42,7 @@ namespace MineBlock.Commands
             Type hai = Type.GetType(args[1]);
             ConstructorInfo ctor = hai.GetConstructor(new[] { typeof(int), typeof(int) });
             Block instance = (Block)ctor.Invoke(new object[] { Convert.ToInt32(args[2]), Convert.ToInt32(args[3]) });
-            Game1.chunk[Convert.ToInt32(args[2]), Convert.ToInt32(args[3])] = instance;
+            Chunk.PlaceBlock(Game1.chunks, Convert.ToInt32(args[2]), Convert.ToInt32(args[3]), instance);
             Console.WriteLine("" + instance);
 
             return "Changed block" + "[" + Convert.ToInt32(args[2]) + "." + Convert.ToInt32(args[3]) + "] to " + instance;
@@ -125,7 +125,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            Game1.chunk = Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber, Game1.chunk, Game1.player, Game1.mobManager);
+            Game1.chunks = Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber,  Game1.player, Game1.mobManager);
             Managers.MenuRef.state = Managers.MenuRef.GameStates.Playing;
             return "Game Loaded " + args[1];
         }
@@ -316,7 +316,7 @@ namespace MineBlock.Commands
         {
             try
             {
-                Commandblock cb = (Commandblock)Game1.chunk[Convert.ToInt32(args[1]), Convert.ToInt32(args[2])];
+                Commandblock cb = (Commandblock)Chunk.CalculateChunk(Game1.chunks,Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
                 if (args.Length > 2)
                     cb.command = new String[args.Length-2];
                 for (int i = 3; i < args.Length; i ++)
@@ -356,27 +356,27 @@ namespace MineBlock.Commands
         }
         public void stuff()
         {
-            for (int i = 0; i < 200; i++)
-                for (int j = 0; j < 130; j++)
+            for (int i = 0; i < Game1.chunks.GetLength(0); i++)
+                for (int j = 0; j < Game1.chunks.GetLength(1); j++)
                 {
-                    Game1.chunk[i, j] = Game1.chunk[Game1.randy.Next(0, 200), Game1.randy.Next(0, 130)].Reset(i, j);
+                    Chunk.PlaceBlock(Game1.chunks,i, j, Chunk.CalculateChunk(Game1.chunks,Game1.randy.Next(0, 200), Game1.randy.Next(0, 130)).Reset(i, j));
                     Thread.Sleep(00001);
                 }
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 130; j++)
                 {
-                    Game1.chunk[i, j].x = i;
-                    Game1.chunk[i, j].y = j;
-                    Game1.chunk[i, j].isfucked = true;
+                    Chunk.CalculateChunk(Game1.chunks,i, j).x = i;
+                    Chunk.CalculateChunk(Game1.chunks,i, j).y = j;
+                    Chunk.CalculateChunk(Game1.chunks,i, j).isfucked = true;
 
                 }
             
-            Game1.player.updateBlocks(Game1.chunk);
+           // Game1.player.updateBlocks(Game1.chunk);
         }
         public override String Execute(String[] args)
         {
             Game1.console.isShown = false;
-            SoundEffects.Fuck.Play();
+            //SoundEffects.Fuck.Play();
             fuck = new Thread(new ThreadStart(this.stuff));
             fuck.Start();
                 

@@ -19,7 +19,7 @@ namespace MineBlock
         Vector2 Velocity = new Vector2(0, 0);
         public bool flip = false;
         readonly Vector2 gravity = new Vector2(0, 259.8f);
-        Block[,] blocks;
+        //Block[,] blocks;
         public int name = 0;
         public int Health = 100;
 
@@ -32,7 +32,7 @@ namespace MineBlock
             HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
             Blank = Tm.getTexture(Tm.Texture.Blank);
             pericles1 = Tm.getFont(Tm.Font.f1);
-            blocks = Game1.chunk;
+          
         }
         public Mob returnMob(int index, int X, int Y, int chunk)
         {
@@ -46,13 +46,16 @@ namespace MineBlock
             }
             return new Mob();
         }
+        public Block blocks(int x, int y){
+            return Chunk.CalculateChunk(Game1.chunks, x, y);
+    }
         public virtual void update(GameTime time)
         {
 
             float elapsed = (float)time.ElapsedGameTime.TotalSeconds;
             subPixel += (Velocity * elapsed);
-            blocks = Game1.chunk;
-            blocks[(int)Position.X, (int)Position.Y + 1].EntityStandingEvent(this);
+            //blocks = Game1.chunk;
+            blocks((int)Position.X, (int)Position.Y + 1).EntityStandingEvent(this);
             if (subPixel.X > 39)
             {
                 subPixel = new Vector2(0, subPixel.Y);
@@ -77,13 +80,13 @@ namespace MineBlock
             //sprite.Location = Position;  
             try
             {
-                if (blocks[getX(), getY()].index != 0)
+                if (blocks(getX(), getY()).index != 0)
                     Velocity = new Vector2(Velocity.X, -15f);
             }
             catch (System.IndexOutOfRangeException) { Console.WriteLine("Mob dun messud up"); }
             //if (getY()*40 > 400)
             //    CurrentChunk = Game1.randy.Next(0, Game1.chunk);
-            if (blocks[getX(), getY() + 1].index == 0)
+            if (blocks(getX(), getY() + 1).index == 0)
             {
 
                 Velocity += gravity * elapsed;
@@ -115,12 +118,12 @@ namespace MineBlock
                 {
                     try
                     {
-                        if (blocks[getX() - 1, getY()].index == 0)
+                        if (blocks(getX() - 1, getY()).index == 0)
                         {
                             flip = true;
                             Velocity = new Vector2(-75, Velocity.Y);
                         }
-                        else if (blocks[getX(), getY() - 1].index == 0 && blocks[getX() - 1, getY() - 1].index == 0) Velocity = new Vector2(-75, -175);
+                        else if (blocks(getX(), getY() - 1).index == 0 && blocks(getX() - 1, getY() - 1).index == 0) Velocity = new Vector2(-75, -175);
                         else Velocity = new Vector2(0, Velocity.Y);
                     }
                     catch (System.IndexOutOfRangeException) { Dir = 2; }
@@ -129,12 +132,12 @@ namespace MineBlock
                 {
                     try
                     {
-                        if (blocks[getX() + 1, getY()].index == 0)
+                        if (blocks(getX() + 1, getY()).index == 0)
                         {
                             flip = false;
                             Velocity = new Vector2(75, Velocity.Y);
                         }
-                        else if (blocks[getX(), getY() - 1].index == 0 && blocks[getX() - 1, getY() + 1].index == 0) Velocity = new Vector2(75, -175);
+                        else if (blocks(getX(), getY() - 1).index == 0 && blocks(getX() - 1, getY() + 1).index == 0) Velocity = new Vector2(75, -175);
                         else Velocity = new Vector2(0, Velocity.Y);
                     }
                     catch (System.IndexOutOfRangeException) { Dir = 1; }

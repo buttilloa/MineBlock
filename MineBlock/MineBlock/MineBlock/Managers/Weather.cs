@@ -91,7 +91,7 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) snows[i] = GenParticle(true);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Game1.chunk[x, y];
+                        Block check = Chunk.CalculateChunk(Game1.chunks,x, y);
                         if (check.isSolid || check.index == 53)
                             if (SnowTime < SoundEffects.SnowDuration)
                                 snows[i] = GenParticle(true);
@@ -114,7 +114,7 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) rains[i] = GenParticle(false);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Game1.chunk[x, y];
+                        Block check = Chunk.CalculateChunk(Game1.chunks, x, y);
                         if (check.isSolid || check.index == 53)
                             if (rainTime < SoundEffects.RainDuration)
                                 rains[i] = GenParticle(false);

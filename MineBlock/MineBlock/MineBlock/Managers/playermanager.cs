@@ -17,7 +17,7 @@ namespace MineBlock
         public Sprite Player;
         Texture2D Guy, hotboarSheet, HotBoarSelector, pointer, HealthBar, Blank, Cursor;
 
-        Block[,] blocks;
+        //Block[,] blocks;
         public Item[] hotbar = new Item[9];
         //Weapon currentWeapon = new Handgun();
         //public List<Bullet> shots = new List<Bullet>();
@@ -78,21 +78,18 @@ namespace MineBlock
 
 
         }
-        public void updateBlocks(Block[,] block)
+      
+        Block bottomBlock(Chunk[,] chunks)
         {
-            blocks = block;
+            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1);
         }
-        Block bottomBlock()
-        {
-            return blocks[(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1];
-        }
-        public void update(GameTime time)
+        public void update(GameTime time, Chunk[,] chunks)
         {
             Health = (int)MathHelper.Clamp(Health, 0, 100);
          
             try
             {
-               if ((bottomBlock().index == 83 && HandleInputs.isKeyDown("S")) || !bottomBlock().isSolid)
+               if ((bottomBlock(chunks).index == 83 && HandleInputs.isKeyDown("S")) || !bottomBlock(chunks).isSolid)
                 {
                     float timed = (float)time.ElapsedGameTime.TotalSeconds;
                     Player.Velocity += gravity * timed;
@@ -106,7 +103,7 @@ namespace MineBlock
                     Player.Velocity = new Vector2(Player.Velocity.X, 0);
                 }
                 
-                bottomBlock().EntityStandingEvent(this);
+                bottomBlock(chunks).EntityStandingEvent(this);
             }
             catch (System.IndexOutOfRangeException) { Console.WriteLine("ERROR: NO BLOCK BELOW YOU"); }
             if (Player.Velocity.X > 0)
@@ -139,44 +136,19 @@ namespace MineBlock
             else highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location / 40) - new Vector2(8, 3));
             try
             {
-                if (HandleInputs.isKeyDown("D") && (!RightBlock().isSolid)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
-                else if (HandleInputs.isKeyDown("A") && (!LeftBlock().isSolid)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
+                if (HandleInputs.isKeyDown("D") && (!RightBlock(chunks).isSolid)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
+                else if (HandleInputs.isKeyDown("A") && (!LeftBlock(chunks).isSolid)) Player.Velocity = new Vector2(-150, Player.Velocity.Y);
                 else Player.Velocity = new Vector2(0, Player.Velocity.Y);
             }
             catch (System.IndexOutOfRangeException) { }
 
-            if (HandleInputs.isKeyDown("W") && (isonGround() || isOnLadder()) && Player.Location.Y > 0)
+            if (HandleInputs.isKeyDown("W") && (isonGround(chunks) || isOnLadder(chunks)) && Player.Location.Y > 0)
             {
-                if (!BlockAbove().isSolid)
+                if (!BlockAbove(chunks).isSolid)
                     Player.Velocity = new Vector2(0, -175);
             }
-            if (HandleInputs.isKeyUp("T") && ChunkTp != "")
-                if (Convert.ToInt32(ChunkTp) > -1 && Convert.ToInt32(ChunkTp) < Game1.chunk.Length)
-                {
-                    blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].switchTeleporter(true);
-                    teleporterMessage = "Yes Sir";
-                    WantsToChangeTP = true;
-                }
-            if (bottomBlock().index == 46)
-            {
-                blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].switchTeleporter(false);
-            }
-            if (HandleInputs.isKeyDown("T"))
-            {
-                if (Player.Location.X <= -30 || Player.Location.X >= 730) WantsToChange = true;
-                if (blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1].index == 45)
-                {
-                    teleporterMessage = "Enter Chunk to Tp to: " + ChunkTp;
-                    drawTeleporterMessage = true;
-                    if (HandleInputs.isKeyDown("Back")) ChunkTp = "";
-#if WINDOWS
-                    ChunkTp += HandleInputs.SimNumPad(ChunkTp);
-#endif
-#if XBOX
-                    ChunkTp = HandleInputs.SimNumPad(ChunkTp);
-#endif
-                }
-            }
+           
+           
             selected = HandleInputs.HotBar(selected);
            
             if(playerinv.isdisplayed)
@@ -202,27 +174,27 @@ namespace MineBlock
             }
             if (chestInvCount[slot] <= 0) chestInv[slot] = new Air(0, 0);
         }
-        Block RightBlock()
+        Block RightBlock(Chunk[,] chunks)
         {
-            return blocks[(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40)];
+            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40));
         }
-        Block LeftBlock()
+        Block LeftBlock(Chunk[,] chunks)
         {
-            return blocks[(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40)];
+            return Chunk.CalculateChunk(chunks,(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40));
         }
-        Block BlockAbove()
+        Block BlockAbove(Chunk[,] chunks)
         {
-            return blocks[(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1];
+            return Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1);
         }
-        Boolean isOnLadder()
+        Boolean isOnLadder(Chunk[,] chunks)
         {
-            if (blocks[(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1].index == 83)
+            if (Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1).index == 83)
                 return true;
             return false;
         }
-        Boolean isonGround()
+        Boolean isonGround(Chunk[,] chunks)
         {
-            if (blocks[(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2].index != 0)
+            if (Chunk.CalculateChunk(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2).isSolid)
                 return true;
             return false;
         }

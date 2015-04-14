@@ -28,26 +28,26 @@ namespace MineBlock.Blocks
             damage = olddamage;
 
         }
-        public override void update(Block[,] blocks)
+        public override void update(Chunk[,] chunks)
         {
-            base.update(blocks);
+            base.update(chunks);
             if (x < 199 && x > 0 && Game1.randy.Next(0, 100) == 8)
             {
-                if (blocks[x + 1, y].index == 0 && blocks[x - 1, y].index == 0)
+                if (Chunk.CalculateChunk(chunks,x + 1, y).index == 0 && Chunk.CalculateChunk(chunks,x - 1, y).index == 0)
                 {
                     if (special != 3) special = 3;
                 }
-                else if (blocks[x + 1, y].index == 0)
+                else if (Chunk.CalculateChunk(chunks,x + 1, y).index == 0)
                 {
                     if (special != 2) special = 2;
                 }
-                else if (blocks[x - 1, y].index == 0)
+                else if (Chunk.CalculateChunk(chunks,x - 1, y).index == 0)
                 {
                     if (special != 1) special = 1;
                 }
                 else if (special != 0) special = 0;
 
-                if (blocks[x, y - 1].index != 0) blocks[x, y] = new Dirt(blocks[x, y].x, blocks[x, y].y);
+                if (Chunk.CalculateChunk(chunks,x, y - 1).index != 0) Chunk.PlaceBlock(chunks,x, y,  new Dirt(Chunk.CalculateChunk(chunks,x, y).x, Chunk.CalculateChunk(chunks,x, y).y));
             }
 
         }

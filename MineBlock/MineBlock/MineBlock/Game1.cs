@@ -5,6 +5,7 @@ using MineBlock.Commands;
 using MineBlock.Items;
 using MineBlock.Managers;
 using System;
+using System.Collections.Generic;
 
 
 
@@ -17,7 +18,8 @@ namespace MineBlock
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
         public static MobManager mobManager; // Manages Mobs
-        public static Block[,] chunk = new Block[200, 130];
+        public static Chunk[,] chunks = new Chunk[10,10];
+        //public static Block[,] Chunk = new Block[200, 200];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
         public static PlayerManager player; // Manages Player
         public static Weather weather; // Manages Weather
@@ -48,8 +50,8 @@ namespace MineBlock
 
             Content.RootDirectory = "Content";
             graphics.PreferMultiSampling = true;
-            // graphics.PreferredBackBufferHeight = 1080;
-            // graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
+             //graphics.PreferredBackBufferWidth = 1920;
             // graphics.IsFullScreen = true;
             this.Window.Title = "Colonization";
             // this.graphics.SynchronizeWithVerticalRetrace = false;
@@ -111,8 +113,8 @@ if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage 
         //Update the Games Logic
         protected override void Update(GameTime gameTime)
         {
-            try
-            {
+            //try
+           // {
 
                 if (console.isShown)
                     console.getKeyStrokes();
@@ -154,7 +156,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
 #endif
                     if (HandleInputs.isKeyDown("Up")) zoom += .01f;
                     if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
-                    player.update(gameTime);
+                    player.update(gameTime,chunks);
                     mobManager.update(gameTime);
                     Vector2 playerLoc = player.Player.Location;
                     renderXStart = (int)MathHelper.Clamp((playerLoc.X / 40) - RenderDistance + 1, 0f, 199);
@@ -165,7 +167,11 @@ if ((GameSaveRequested) && (result.IsCompleted))
 
                     for (int i = renderXStart; i <= renderXEnd; i++)
                         for (int j = renderYStart; j <= renderYEnd; j++)
-                            chunk[i, j].update(chunk);
+                            Chunk.UpdateBlock(chunks, i, j);
+                    
+                    //chunks[i % 20][j % 20].getBlocks()[i, j].update(chunks[i][j], chunks[i][j - 1], chunks[i - 1][j], chunks[i + 1][j], chunks[i][j + 1]);
+                            //chunks[i][j].updateBlocks(chunks[i][j],chunks[i][j-1],chunks[i-1][j],chunks[i+1][j],chunks[i][j+1]);
+
                     if (!weather.isPercipitationing() && randy.Next(0, 2000) == 4)
                         toggleDownfall();
                     weather.update(gameTime.ElapsedGameTime.TotalSeconds);
@@ -174,12 +180,13 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 }
                 else menu.update();
                 base.Update(gameTime);
-            }
+            /*}
             catch (Exception e)
             {
                 MenuRef.SetErrorMenu(e.Message, e.StackTrace);
                 MenuRef.state = MenuRef.GameStates.Error;
             }
+             */
         }
         public static void toggleDownfall()
         {
@@ -221,17 +228,17 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 {
                     if (player.hotbar[player.selected].Blockindex != -1)
                     {
-                        if (chunk[(int)player.highlighted.X, (int)player.highlighted.Y].index == 26)
-                            player.useChest((Chest)chunk[(int)player.highlighted.X, (int)player.highlighted.Y]);
-                        if (player.hotbar[player.selected].Count > 0 && chunk[(int)player.highlighted.X, (int)player.highlighted.Y].index == 0 || player.hotbar[player.selected].Count > 0 && chunk[(int)player.highlighted.X, (int)player.highlighted.Y].index == 14)
+                        //if (Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 26)
+                        //    player.useChest((Chest)chunk[(int)player.highlighted.X, (int)player.highlighted.Y]);
+                        if (player.hotbar[player.selected].Count > 0 && Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 0 || player.hotbar[player.selected].Count > 0 && Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 14)
                         {
 
-                            chunk[(int)player.highlighted.X, (int)player.highlighted.Y] = player.hotbar[player.selected].ReturnBlock().Place((int)player.highlighted.X, (int)player.highlighted.Y);
+                            Chunk.PlaceBlock(chunks,(int)player.highlighted.X, (int)player.highlighted.Y, player.hotbar[player.selected].ReturnBlock().Place((int)player.highlighted.X, (int)player.highlighted.Y));
 
                             player.hotbar[player.selected].Count--;
                             if (player.hotbar[player.selected].Count == 0)
                                 player.hotbar[player.selected] = new Air((player.selected * 40) + 16, 16).ItemBlock();
-                            player.updateBlocks(chunk);
+                            //player.updateBlocks(chunk);
                         }
 
                     }
@@ -240,27 +247,27 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 if (HandleInputs.LeftTrigger())
                 {
 
-                    if (chunk[(int)player.highlighted.X, (int)player.highlighted.Y].index != 0 && chunk[(int)player.highlighted.X, (int)player.highlighted.Y].canMine)
+                    if (Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index != 0 && Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).canMine)
                     {
 
                         Tool currentTool = null;
                         if (player.hotbar[player.selected] is Tool)
                             currentTool = (Tool)player.hotbar[player.selected];
-                        float minetime = chunk[(int)player.highlighted.X, (int)player.highlighted.Y].MineTime;
+                        float minetime = Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).MineTime;
                         if (minetimer == -1)
                             minetimer = 0;
                         if (minetimer > -1 && minetimer < minetime)
                         {
                             float extradmg = 0;
-                            if (player.hotbar[player.selected].Blockindex < 0 && chunk[(int)player.highlighted.X, (int)player.highlighted.Y].preferedTool != null) if (chunk[(int)player.highlighted.X, (int)player.highlighted.Y].preferedTool.index == player.hotbar[player.selected].index) extradmg = 1f * (currentTool.upgrade + 5f);
+                            if (player.hotbar[player.selected].Blockindex < 0 && Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool != null) if (Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool.index == player.hotbar[player.selected].index) extradmg = 1f * (currentTool.upgrade + 5f);
                             minetimer += 1f + extradmg;
-                            chunk[(int)player.highlighted.X, (int)player.highlighted.Y].damage += 1f + extradmg;
+                           Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).damage += 1f + extradmg;
                         }
                         if (minetimer >= minetime)
                         {
                             minetimer = -1;
-                            player.addToInv(chunk[(int)player.highlighted.X, (int)player.highlighted.Y].Mine((int)player.highlighted.X, (int)player.highlighted.Y), 1);
-                            chunk[(int)player.highlighted.X, (int)player.highlighted.Y] = new Air((int)player.highlighted.X, (int)player.highlighted.Y);
+                            player.addToInv(Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).Mine((int)player.highlighted.X, (int)player.highlighted.Y), 1);
+                            Chunk.PlaceBlock(chunks,(int)player.highlighted.X, (int)player.highlighted.Y, new Air((int)player.highlighted.X, (int)player.highlighted.Y));
                             if (player.hotbar[player.selected] is Tool) currentTool.damage--;
                         }
                     }
@@ -288,7 +295,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
             {
                 for (int i = renderXStart; i <= renderXEnd; i++)
                     for (int j = renderYStart; j <= renderYEnd; j++)
-                        chunk[i, j].Draw(spriteBatch);
+                        Chunk.CalculateChunk(chunks,i,j).Draw(spriteBatch);
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
                 weather.Draw(spriteBatch);// Draw Weather 

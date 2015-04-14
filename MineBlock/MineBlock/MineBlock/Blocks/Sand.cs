@@ -20,25 +20,26 @@ namespace MineBlock.Blocks
             MineTime = 60;
             preferedTool = new MineBlock.Items.Shovel(0);
         }
-        public override void update(Block[,] blocks)
+        public override void update(Chunk[,] chunks)
         {
-            if (y < 130)
-                if (blocks[x, y + 1].index == 0 || blocks[x, y + 1].index == 14 || blocks[x, y + 1].index == 11)
+            if (y < chunks.GetLength(1)*20)
+                if (!Chunk.CalculateChunk(chunks, x, y + 1).isSolid)
                 {
                     manualDraw = true;
-                   
-                    ydub = (y*40) + added;
-                    if (ydub < (y+1) * 40)
-                        added+=4;
+
+                    ydub = (y * 40) + added;
+                    if (ydub < (y + 1) * 40)
+                        added += 4;
                     else
                     {
                         //manualDraw = false;
-                        y = y+1;
-                        blocks[x, y] = new Sand(x, y);
-                        blocks[x, y - 1] = new Air(x, y - 1);
+                        y = y + 1;
+                        Chunk.PlaceBlock(chunks, x, y, new Sand(x, y));
+                        Chunk.PlaceBlock(chunks, x, y - 1, new Air(x, y - 1));
+                        
                     }
                 }
-            base.update(blocks);
+            base.update(chunks);
         }
 
         public override Block Reset(int X, int Y)

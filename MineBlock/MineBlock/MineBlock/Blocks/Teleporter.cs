@@ -16,13 +16,13 @@ namespace MineBlock.Blocks
             MineTime = 240;
             preferedTool = new MineBlock.Items.Pick(0);
         }
-        public override void update(Block[,] blocks)
+        public override void update(Chunk[,] chunks)
         {
         
             if(index!=46)
             if(Game1.randy.Next(0,100)==4)
                 index = 46;
-            base.update(blocks);
+            base.update(chunks);
         }
         public override void switchTeleporter(Boolean isLava)
         {

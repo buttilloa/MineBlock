@@ -81,7 +81,7 @@ namespace MineBlock
             }
             return new Block();
         }
-        public virtual void update(Block[,] blocks)
+        public virtual void update(Chunk[,] chunks)
         {
             if (damage > 0)
                 if (Game1.randy.Next(0, 10) == 5)

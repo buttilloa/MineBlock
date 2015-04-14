@@ -116,6 +116,7 @@
     <Compile Include="Blocks\CobbleStone.cs" />
     <Compile Include="Blocks\Leaf.cs" />
     <Compile Include="Blocks\Wood.cs" />
+    <Compile Include="Chunk.cs" />
     <Compile Include="Commands\Commandblock.cs" />
     <Compile Include="Blocks\Dirt.cs" />
     <Compile Include="Blocks\Grass.cs" />

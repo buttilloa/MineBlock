@@ -19,10 +19,10 @@ namespace MineBlock.Blocks
             MineTime = 30;
             isSolid = false;
         }
-        public override void update(Block[,] blocks)
+        public override void update(Chunk[,] chunks)
         {
-            if (y < 130)
-                if (blocks[x, y + 1].index == 0 || blocks[x, y + 1].index == 14 || blocks[x, y + 1].index == 11)
+            if (y < chunks.GetLength(1))
+                if (Chunk.CalculateChunk(chunks, x, y + 1).index == 0 || Chunk.CalculateChunk(chunks, x, y + 1).index == 14 || Chunk.CalculateChunk(chunks, x, y + 1).index == 11)
                 {
                     manualDraw = true;
 
@@ -33,11 +33,11 @@ namespace MineBlock.Blocks
                     {
                         //manualDraw = false;
                         y = y + 1;
-                        blocks[x, y] = new Ladder(x, y);
-                        blocks[x, y - 1] = new Air(x, y - 1);
+                        Chunk.PlaceBlock(chunks,x, y , new Ladder(x, y));
+                        Chunk.PlaceBlock(chunks,x, y - 1, new Air(x, y - 1));
                     }
                 }
-            base.update(blocks);
+            base.update(chunks);
         }
          public override Block Reset(int X, int Y)
         {

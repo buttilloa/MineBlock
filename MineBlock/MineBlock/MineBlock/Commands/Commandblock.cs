@@ -18,11 +18,12 @@ namespace MineBlock.Blocks
             index = 158;
             command = new string[0];
         }
-        public override void update(Block[,] blocks)
+        public override void update(Chunk[,] chunks)
         {
             if (index != 158)
                 if (Game1.randy.Next(0, 80) == 4)
                     index = 158;
+            base.update(chunks);
         }
         public override void EntityStandingEvent(object caller)
         {
