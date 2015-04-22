@@ -21,7 +21,7 @@ namespace MineBlock.Items
         }
         public override void DrawMini(SpriteBatch batch, int Xpos, int Ypos)
         {
-            batch.Draw(ToolSheet, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, index * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+            batch.Draw(ToolSheet, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, (index-1) * 40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
             batch.Draw(Blank, new Rectangle(Xpos, Ypos + 25, handleDamage(), 3), damage > StartDamage / 2 ? Color.Green : damage > StartDamage / 4 ? Color.Orange : Color.Red);
 
         }
@@ -40,13 +40,13 @@ namespace MineBlock.Items
             if (!Flip)
             {
                 int X = x + 67; int Y = y + 55;
-                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, (index-1)*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
 
             }
             else
             {
                 int X = x + 15; int Y = y + 55;
-                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, index*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(ToolSheet, new Vector2(X, Y), new Rectangle(upgrade * 40, (index-1)*40, 40, 40), Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.FlipHorizontally, 0f);
             }
         }
     }
@@ -57,7 +57,7 @@ namespace MineBlock.Items
 
         public Pick(int level)
         {
-            index = 0;
+            index = 1;
             upgrade = level - 1;
             hasCount = false;
             Count = 1;
@@ -72,7 +72,7 @@ namespace MineBlock.Items
 
         public Shovel(int level)
         {
-            index = 1;
+            index = 2;
             upgrade = level - 1;
             hasCount = false;
             Count = 1;

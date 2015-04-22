@@ -16,6 +16,16 @@ namespace MineBlock.Items
         public bool hasCount = true;
         Block ItemBlock;
         protected Texture2D terrainsheet;
+        public static Item ItemFromIndex(int index)
+        {
+            switch (index)
+            {
+                case 1: { return new Pick(1); }
+                case 2: { return new Shovel(1); }
+            }
+            return new Item();
+        }
+      
         public Item() {
             terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
         }

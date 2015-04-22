@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using MineBlock.Items;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,8 +51,9 @@ namespace MineBlock.Managers
                         writer.Write(chunk.getBlocks()[i, j].x);
                         writer.Write(chunk.getBlocks()[i, j].y);
                     }
-                writer.Write("--END--");
-
+             
+                writer.Dispose();
+                writer.Close();
             }
         }
         public PlayerManager LoadPlayer()
@@ -66,7 +68,11 @@ namespace MineBlock.Managers
                 player.hotbar = new MineBlock.Items.Item[9];
                 for (int i = 0; i < 9; i++)
                 {
-                    player.hotbar[i] = new Block().returnBlock(reader.ReadInt32(),(i * 40) + 16, 16).ItemBlock();
+                    int index = reader.ReadInt32();
+                    if (index > 0)
+                        player.hotbar[i] = new Block().returnBlock(index, (i * 40) + 16, 16).ItemBlock();
+                    else
+                        player.hotbar[i] = Item.ItemFromIndex(0 - index);
                     player.hotbar[i].Count = reader.ReadInt32();
                 }
                
@@ -81,9 +87,14 @@ namespace MineBlock.Managers
                 writer.Write((int)Game1.player.Player.Location.Y);
                 for(int i =0; i < 9;i++)
                 {
+                    if (Game1.player.hotbar[i].Blockindex == -1)
+                        writer.Write(0 - Game1.player.hotbar[i].index);
+                    else
                     writer.Write(Game1.player.hotbar[i].Blockindex);
                     writer.Write(Game1.player.hotbar[i].Count);
                 }
+                writer.Dispose();
+                writer.Close();
             }
         }
         public void saveAll(List<Chunk> chunks)
@@ -112,6 +123,8 @@ namespace MineBlock.Managers
                             blocks[i, j] = new Block().returnBlock(index, xpos, xpos);
 
                         }
+                    reader.Dispose();
+                    reader.Close();
                     return new Chunk(chunkX, chunkY, (Chunk.Biome)biome, blocks, Snow);
 
                 }

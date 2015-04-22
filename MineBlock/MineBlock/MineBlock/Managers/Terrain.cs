@@ -457,19 +457,18 @@ namespace MineBlock
             else genned = genUnderGround(x, y);
             return genned;
         }
-        public static List<Chunk> loadSpawn()
+        public static void loadSpawn()
         {
             List<Chunk> chunks = new List<Chunk>();
-            for (int i = 0; i < 10; i++)
+            for (int i = -5; i < 5; i++)
                 for (int j = 0; j < 10; j++)
                 {
-                    chunks.Add( GenChunk(i, j));
+                    chunks.Add(GenChunk(i, j));
                 }
-            foreach (Chunk chunk in chunks)
-                chunk.organiseBlocks();
+           
             Game1.player = Game1.save.LoadPlayer();
             Game1.save.saveAll(chunks);
-            return chunks;
+           
 
         }
         public static Chunk[,] genTerrain(int chunkcount) // Depricated

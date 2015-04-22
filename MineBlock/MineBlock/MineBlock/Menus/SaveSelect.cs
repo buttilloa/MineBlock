@@ -45,7 +45,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 1;
-                    Game1.Loadedchunks = Terrain.loadSpawn();
+                 Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -55,7 +55,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 2;
-                    Game1.Loadedchunks = Terrain.loadSpawn();
+                    Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -65,7 +65,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 3;
-                    Game1.Loadedchunks = Terrain.loadSpawn();
+                   Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -75,7 +75,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 4;
-                    Game1.Loadedchunks = Terrain.loadSpawn();
+                    Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -85,7 +85,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 5;
-                    Game1.Loadedchunks = Terrain.loadSpawn();
+                    Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }

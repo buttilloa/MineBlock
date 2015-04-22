@@ -258,8 +258,7 @@ namespace MineBlock
             }
             batch.Draw(HotBoarSelector, new Rectangle((selected * 40) + 7, 7, 48, 48), hotbarSelector);
 
-            if (drawTeleporterMessage)
-                batch.DrawString(pericles14, teleporterMessage, new Vector2(320, 200), Color.White);
+            
             //batch.Draw(hotboarSheet, new Vector2(400, 12), new Rectangle(2, 2, 39, 40), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             //currentWeapon.DrawInInv(batch, 400, 12);

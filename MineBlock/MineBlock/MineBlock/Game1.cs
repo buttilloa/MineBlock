@@ -37,6 +37,7 @@ namespace MineBlock
         private SpriteFont pericles14;
         public static int RenderDistance = 11;
         public static int renderXStart, renderYStart, renderXEnd, renderYEnd;
+      
         private static Texture2D t;
 
 #if XBOX
@@ -98,7 +99,7 @@ namespace MineBlock
         //Unload Content
         protected override void UnloadContent()
         {
-
+         
 
         }
 
@@ -150,10 +151,10 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     player.update(gameTime,Loadedchunks);
                     mobManager.update(gameTime);
                     Vector2 playerLoc = player.Player.Location;
-                    renderXStart = (int)(playerLoc.X / 40) - RenderDistance + 1; if (renderXStart < 0) renderXStart = 0;
+                    renderXStart = (int)(playerLoc.X / 40) - RenderDistance + 1;// if (renderXStart < 0) renderXStart = 0;
                     renderYStart = (int)(playerLoc.Y / 40) - RenderDistance + 1; if (renderYStart < 0) renderYStart = 0;
-                    if (renderXStart == 0) renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 12;
-                    else renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 4;
+                   // if (renderXStart == 0) renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 12;
+                     renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 4;
                     renderYEnd = (int)(playerLoc.Y / 40) + RenderDistance + 1;
 
                     for (int i = renderXStart; i <= renderXEnd; i++)
@@ -275,10 +276,11 @@ if ((GameSaveRequested) && (result.IsCompleted))
            // if (cameraTransform.M41 > 0) cameraTransform.M41 = 0;
             cameraTransform.Translation.Normalize();
 
+           
             spriteBatch.Begin(SpriteSortMode.Immediate,
                   BlendState.AlphaBlend, SamplerState.AnisotropicClamp, null, null, null,
                   cameraTransform); // moveable objects
-            if (MenuRef.state == MenuRef.GameStates.Playing)
+             if (MenuRef.state == MenuRef.GameStates.Playing)
             {
                 for (int i = renderXStart; i <= renderXEnd; i++)
                     for (int j = renderYStart; j <= renderYEnd; j++)
@@ -297,6 +299,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 player.Drawstatic(spriteBatch);
                 spriteBatch.DrawString(pericles14, "X: " + (((int)player.Player.Location.X / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 10), Color.White);// Draw Current Chunk int
                 spriteBatch.DrawString(pericles14, "Y: " + (((int)player.Player.Location.Y / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 24), Color.White); // Draw Current Biome
+               
             }
 
             else menu.Draw(spriteBatch);  // Draw Menus
