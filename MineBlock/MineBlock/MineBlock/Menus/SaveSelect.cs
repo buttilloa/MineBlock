@@ -24,11 +24,11 @@ namespace MineBlock.Menus
         public SaveSelect()
             : base()
         {
-            if (Game1.saves.hasSaved(1)) Savestate1exists = true; // Check for Existing Saves
-            if (Game1.saves.hasSaved(2)) Savestate2exists = true;
-            if (Game1.saves.hasSaved(3)) Savestate3exists = true;
-            if (Game1.saves.hasSaved(4)) Savestate4exists = true;
-            if (Game1.saves.hasSaved(5)) Savestate5exists = true;
+            if (Game1.save.hasSaved(1)) Savestate1exists = true; // Check for Existing Saves
+            if (Game1.save.hasSaved(2)) Savestate2exists = true;
+            if (Game1.save.hasSaved(3)) Savestate3exists = true;
+            if (Game1.save.hasSaved(4)) Savestate4exists = true;
+            if (Game1.save.hasSaved(5)) Savestate5exists = true;
             MenuRef.state = MenuRef.GameStates.SaveSelect;
         }
         public override void getTextures()
@@ -45,7 +45,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 1;
-                    Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.player, Game1.mobManager);
+                    Game1.Loadedchunks = Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -55,7 +55,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 2;
-                    Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.player, Game1.mobManager);
+                    Game1.Loadedchunks = Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -65,7 +65,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 3;
-                    Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber, Game1.player, Game1.mobManager);
+                    Game1.Loadedchunks = Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -75,7 +75,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 4;
-                    Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber,  Game1.player, Game1.mobManager);
+                    Game1.Loadedchunks = Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -85,7 +85,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 5;
-                    Game1.chunks = Game1.saves.loadSave(Game1.selectedSave, Game1.currentChunkNumber,  Game1.player, Game1.mobManager);
+                    Game1.Loadedchunks = Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }

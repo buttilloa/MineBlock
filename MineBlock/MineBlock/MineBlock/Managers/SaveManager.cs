@@ -108,7 +108,7 @@ namespace MineBlock
             int chunky = chunk / 10;
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
-                    block[i, j] = Chunk.getBlockAt(Game1.chunks, i, j);
+                    block[i, j] = Chunk.getBlockAt(Game1.Loadedchunks, i, j);
             SaveData.Position = 0;
             for (int i = 0; i < 20; i++)
                 for (int j = 0; j < 20; j++)
@@ -188,7 +188,7 @@ namespace MineBlock
              SaveData.Position = 0;
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 200; j++)
-                { SaveData.WriteByte((byte)Chunk.getBlockAt(Game1.chunks,i,j).index);
+                { SaveData.WriteByte((byte)Chunk.getBlockAt(Game1.Loadedchunks,i,j).index);
                     /*if (block[i, j].index == 255)
                     {
                         _InformationBlock Info = (_InformationBlock)block[i, j];
@@ -206,7 +206,7 @@ namespace MineBlock
         public Chunk[,] LoadInoneChunk()
         {
             Stream SaveData = null;
-            var chunks = Game1.chunks;
+            var chunks = Game1.Loadedchunks;
             if (container.FileExists("saveData" ))
             {
                 //Load number here.
@@ -237,8 +237,8 @@ namespace MineBlock
             Console.WriteLine("Chunks Succesfully loaded");
             SaveData.Close();
             SaveData.Dispose();
-            return chunks;
-
+           // return chunks;
+            return new Chunk[10,10];
         }
         
         public void SavePlayer(PlayerManager player)
@@ -395,7 +395,7 @@ namespace MineBlock
             {
                 //chunks[currentChunkNumber] = LoadChunk(currentChunkNumber);
                 //chunks.Add(currentChunk);
-                Game1.chunks = LoadInoneChunk();
+               // Game1.Loadedchunks = LoadInoneChunk();
                 //chunks = loadTerrainCollum(chunks);
                 LoadPlayer(player);
                 mobManager.RemoveMobs();

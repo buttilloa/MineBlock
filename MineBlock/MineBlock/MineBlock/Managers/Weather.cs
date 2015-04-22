@@ -33,7 +33,7 @@ namespace MineBlock
 
         public void Rain(int start)
         {
-            if (Chunk.getChunk(Game1.chunks, start, 0).ShouldSnow)
+            if (Chunk.getChunk(Game1.Loadedchunks, start, 0).ShouldSnow)
                 Snow(start);
             else
             {
@@ -95,11 +95,11 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) snows[i] = GenParticle(true);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Chunk.getBlockAt(Game1.chunks, x, y);
+                        Block check = Chunk.getBlockAt(Game1.Loadedchunks, x, y);
                         if (check.isSolid || check.index == 53)
                         {
                             if (check.index == 2|| check.index == 3)
-                                Chunk.SetBlock(Game1.chunks, x, y, new MineBlock.Blocks.SnowyGrass(x, y));
+                                Chunk.SetBlock(Game1.Loadedchunks, x, y, new MineBlock.Blocks.SnowyGrass(x, y));
                             if (SnowTime < SoundEffects.SnowDuration)
                                 snows[i] = GenParticle(true);
                             else snows.RemoveAt(i);
@@ -122,12 +122,12 @@ namespace MineBlock
                     if (x >= 200 && y >= 130) rains[i] = GenParticle(false);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Chunk.getBlockAt(Game1.chunks, x, y); 
+                        Block check = Chunk.getBlockAt(Game1.Loadedchunks, x, y); 
                         
                         if (check.isSolid || check.index == 53)
                         {
                             if (check.index == 66 || check.index == 68)
-                                Chunk.SetBlock(Game1.chunks, x, y, new MineBlock.Blocks.Dirt(x, y));
+                                Chunk.SetBlock(Game1.Loadedchunks, x, y, new MineBlock.Blocks.Dirt(x, y));
                             if (rainTime < SoundEffects.RainDuration)
                                 rains[i] = GenParticle(false);
                             else rains.RemoveAt(i);

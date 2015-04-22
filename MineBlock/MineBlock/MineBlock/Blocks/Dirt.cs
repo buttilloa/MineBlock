@@ -16,12 +16,12 @@ namespace MineBlock.Blocks
             MineTime = 60;
             preferedTool = new MineBlock.Items.Shovel(0);
         }
-        public override void update(Chunk[,] chunks)
+        public override void update(List<Chunk> chunks)
         {
-         if (Game1.randy.Next(0, 100) == 8&& y !=0 )
-             if (Chunk.getBlockAt(chunks,x, y - 1).index == 0) Chunk.SetBlock(chunks,x, y, new Grass(Chunk.getBlockAt(chunks,x, y).x, Chunk.getBlockAt(chunks,x, y).y));
+            if (Game1.randy.Next(0, 100) == 8 && y != 0)
+                if (Chunk.getBlockAt(chunks, x, y - 1).index == 0) Chunk.SetBlock(chunks, x, y, new Grass(Chunk.getBlockAt(chunks, x, y).x, Chunk.getBlockAt(chunks, x, y).y));
 
-         base.update(chunks);
+            base.update(chunks);
         }
         public override Block Place(int x, int y)
         {

@@ -42,11 +42,11 @@ namespace MineBlock
         public Inventory playerinv;
         private SpriteFont pericles14, pericles1;
 
-        public PlayerManager(Texture2D sheet, Texture2D hotbatsheet, Texture2D hotbarselector)
+        public PlayerManager()
         {
-            Guy = sheet;
-            hotboarSheet = hotbatsheet;
-            HotBoarSelector = hotbarselector;
+            Guy = Tm.getTexture(Tm.Texture.playerSheet);
+            hotboarSheet = Tm.getTexture(Tm.Texture.hotbarsheet); 
+            HotBoarSelector = Tm.getTexture(Tm.Texture.hotbarselector);
             for (int i = 0; i < 9; i++)
             {
                 hotbar[i] = new Air((i * 40) + 16, 16).ItemBlock();
@@ -67,7 +67,7 @@ namespace MineBlock
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
             Player.AddFrame(new Rectangle(2, 122, 102, 120));
-            playerinv = new Inventory(hotbatsheet);
+            playerinv = new Inventory(hotboarSheet);
             //playerinv.displayinv();
             pericles14 = Tm.getFont(Tm.Font.f14);
             pericles1 = Tm.getFont(Tm.Font.f1);
@@ -78,12 +78,12 @@ namespace MineBlock
 
 
         }
-      
-        Block bottomBlock(Chunk[,] chunks)
+
+        Block bottomBlock(List<Chunk> chunks)
         {
             return Chunk.getBlockAt(chunks,(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1);
         }
-        public void update(GameTime time, Chunk[,] chunks)
+        public void update(GameTime time, List<Chunk> chunks)
         {
             Health = (int)MathHelper.Clamp(Health, 0, 100);
          
@@ -174,25 +174,25 @@ namespace MineBlock
             }
             if (chestInvCount[slot] <= 0) chestInv[slot] = new Air(0, 0);
         }
-        Block RightBlock(Chunk[,] chunks)
+        Block RightBlock(List<Chunk> chunks)
         {
             return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40));
         }
-        Block LeftBlock(Chunk[,] chunks)
+        Block LeftBlock(List<Chunk> chunks)
         {
             return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40));
         }
-        Block BlockAbove(Chunk[,] chunks)
+        Block BlockAbove(List<Chunk> chunks)
         {
             return Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1);
         }
-        Boolean isOnLadder(Chunk[,] chunks)
+        Boolean isOnLadder(List<Chunk> chunks)
         {
             if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1).index == 83)
                 return true;
             return false;
         }
-        Boolean isonGround(Chunk[,] chunks)
+        Boolean isonGround(List<Chunk> chunks)
         {
             if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2).isSolid)
                 return true;

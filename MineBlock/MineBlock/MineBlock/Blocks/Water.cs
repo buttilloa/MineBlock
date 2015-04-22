@@ -16,19 +16,19 @@ namespace MineBlock.Blocks
             canMine = false;
             isSolid = false;
         }
-        public override void update(Chunk[,] chunks)
+        public override void update(List<Chunk> chunks)
         {
             if (Game1.randy.Next(0, 10) == 5)
             {
                 if (x > 0)
-                    if (Chunk.getBlockAt(chunks,x - 1, y).index == 0)
-                        Chunk.SetBlock(chunks,x - 1, y, new Water(x - 1, y));
-                if (x < chunks.GetLength(0))
-                    if (Chunk.getBlockAt(chunks, x + 1, y).index == 0)
-                        Chunk.SetBlock(chunks, x + 1, y, new Water(x + 1, y));
-                if (y < chunks.GetLength(1))
-                    if (Chunk.getBlockAt(chunks, x, y+1).index == 0)
-                        Chunk.SetBlock(chunks, x, y+1, new Water(x, y+1));
+                    if (Chunk.getBlockAt(chunks, x - 1, y).index == 0)
+                        Chunk.SetBlock(chunks, x - 1, y, new Water(x - 1, y));
+
+                if (Chunk.getBlockAt(chunks, x + 1, y).index == 0)
+                    Chunk.SetBlock(chunks, x + 1, y, new Water(x + 1, y));
+
+                if (Chunk.getBlockAt(chunks, x, y + 1).index == 0)
+                    Chunk.SetBlock(chunks, x, y + 1, new Water(x, y + 1));
             }
         }
 

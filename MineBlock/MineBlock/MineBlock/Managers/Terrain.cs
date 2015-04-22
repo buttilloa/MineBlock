@@ -8,8 +8,8 @@ namespace MineBlock
 {
     public class Terrain
     {
-        public static int genheight = 0;
-        public static Chunk genStone(int chunk)
+        public static int genheight = -1;
+        public static Chunk genStone(int x, int y)
         {
 
             Block[,] blocks = new Block[20, 20];
@@ -72,10 +72,10 @@ namespace MineBlock
                     blocks[19 - (Math.Abs(genheight - height) + i), height - i] = new CobbleStone(Math.Abs(genheight - height) + i, height - i);
                     blocks[0 + (Math.Abs(genheight - height) - i), height + i] = new CobbleStone(Math.Abs(genheight - height) - i, height + i);
                 }
-            Console.WriteLine("Succesfully Generated a " + "Stone" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.Stone, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Stone" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.Stone, blocks, false);
         }
-        public static Chunk genUnderGround(int chunk)
+        public static Chunk genUnderGround(int x, int y)
         {
 
             Block[,] blocks = new Block[20, 20];
@@ -137,10 +137,10 @@ namespace MineBlock
             //_InformationBlock Info = (_InformationBlock)blocks[19, 12];
             //Info.Biome = "Stone/gravel";
             //Info.chunk = chunk; */
-            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.StoneGravel, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x,y, Chunk.Biome.StoneGravel, blocks,false);
         }
-        public static Chunk genStoneWithGravel(int chunk)
+        public static Chunk genStoneWithGravel(int x,int y)
         {
 
             Block[,] blocks = new Block[20, 20];
@@ -202,10 +202,10 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Stone/gravel";
             Info.chunk = chunk; */
-            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.StoneGravel, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Stone with gravel" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.StoneGravel, blocks, false);
         }
-        public static Chunk genDirt(int chunk)
+        public static Chunk genDirt(int x , int y)
         {
             Block[,] blocks = new Block[20, 20];
             for (int i = 0; i < 20; i++)
@@ -237,14 +237,14 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Dirt";
             Info.chunk = chunk; */
-            Game1.mobManager.AddMob(new Mobs.Pig(((chunk % 10) * 20) + 10, ((chunk / 10) * 20) + (height - 1), chunk));
-            Game1.mobManager.AddMob(new Mobs.Cow(((chunk % 10) * 20) + 2, ((chunk / 10) * 20) + (height - 1), chunk));
-            Game1.mobManager.AddMob(new Mobs.Chicken(((chunk % 10) * 20) + 17, ((chunk / 10) * 20) + (height - 1), chunk));
+            Game1.mobManager.AddMob(new Mobs.Pig((x * 20) + 10, (y * 20) + (height - 1), 0));
+            Game1.mobManager.AddMob(new Mobs.Cow((x * 20) + 2, (y * 20) + (height - 1), 0));
+            Game1.mobManager.AddMob(new Mobs.Chicken((x * 20) + 17, (y * 20) + (height - 1), 0));
             genTree(blocks);
-            Console.WriteLine("Succesfully Generated a " + "Dirt" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.StoneGravel, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Dirt" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.Dirt, blocks, false);
         }
-        public static Chunk genSnow(int chunk)
+        public static Chunk genSnow(int x , int y)
         {
             Block[,] blocks = new Block[20, 20];
             for (int i = 0; i < 20; i++)
@@ -268,10 +268,10 @@ namespace MineBlock
             Info.Biome = "Snow";
             Info.chunk = chunk; 
             Info.ShouldSnow = true;*/
-            Console.WriteLine("Succesfully Generated a " + "Snow" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.Snow, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Snow" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.StoneGravel, blocks, true);
         }
-        public static Chunk genMycelium(int chunk)
+        public static Chunk genMycelium(int x ,int y)
         {
             Block[,] blocks = new Block[20, 20];
             for (int i = 0; i < 20; i++)
@@ -300,10 +300,10 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Mycelium";
             Info.chunk = chunk; */
-            Console.WriteLine("Succesfully Generated a " + "Mycelium" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.Mycelium, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Mycelium" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.Mycelium, blocks, false);
         }
-        public static Chunk genBeach(int chunk)
+        public static Chunk genBeach(int x, int y)
         {
             Block[,] blocks = new Block[20, 20];
             for (int i = 0; i < 20; i++)
@@ -367,8 +367,8 @@ namespace MineBlock
             _InformationBlock Info = (_InformationBlock)blocks[19, 12];
             Info.Biome = "Beach";
             Info.chunk = chunk; */
-            Console.WriteLine("Succesfully Generated a " + "Beach" + " Chunk at " + chunk);
-            return new Chunk(chunk, Chunk.Biome.Beach, blocks);
+            Console.WriteLine("Succesfully Generated a " + "Beach" + " Chunk at " + "x:" + x + " y:" + y);
+            return new Chunk(x, y, Chunk.Biome.Beach, blocks, false);
         }
         public static Chunk GenerateSpawnTerrain(MobManager mobManager, PlayerManager player)
         {
@@ -423,59 +423,115 @@ namespace MineBlock
             chunks[xcoord + 2, treeheight] = new Leaf(xcoord + 2, treeheight);
             chunks[xcoord - 2, treeheight] = new Leaf(xcoord - 2, treeheight);
         }
-        public static Chunk[,] genTerrain(int chunkcount)
+        public static Chunk GenChunk(int x, int y)
+        {
+            if (genheight == -1) genheight = Game1.randy.Next(6, 15);
+            Chunk genned = Game1.save.LoadChunk(x, y);
+            if (genned != null)
+                return genned;
+            if (y == 0)
+                switch (Game1.randy.Next(0, 5))
+                {
+                    case 1:
+                        {
+                            genned = genStone(x, y);
+                            break;
+                        }
+                    case 2:
+                        {
+                            genned = genSnow(x, y);
+                            break;
+                        }
+                    case 3:
+                        {
+                            genned = genBeach(x, y);
+                            break;
+                        }
+                    case 4:
+                        {
+                            genned = genMycelium(x, y);
+                            break;
+                        }
+                    default: genned = genDirt(x, y); break;
+                }
+            else genned = genUnderGround(x, y);
+            return genned;
+        }
+        public static List<Chunk> loadSpawn()
+        {
+            List<Chunk> chunks = new List<Chunk>();
+            for (int i = 0; i < 10; i++)
+                for (int j = 0; j < 10; j++)
+                {
+                    chunks.Add( GenChunk(i, j));
+                }
+            foreach (Chunk chunk in chunks)
+                chunk.organiseBlocks();
+            Game1.player = Game1.save.LoadPlayer();
+            Game1.save.saveAll(chunks);
+            return chunks;
+
+        }
+        public static Chunk[,] genTerrain(int chunkcount) // Depricated
         {
 
             genheight = Game1.randy.Next(6, 15);
             Chunk[,] chunks = new Chunk[10, 10];
-            for (int p = 0; p < chunkcount; p++)
+             for (int i = 0; i < 10; i++)
+                 for (int j = 0; j < 10; j++)
+                 {
+                     if (j == 0)
+                     {
+                         Chunk genned;
+                         switch (Game1.randy.Next(0, 5))
+                         {
+                             case 1:
+                                 {
+                                     genned = genStone(i, j);
+                                     break;
+                                 }
+                             case 2:
+                                 {
+                                     genned = genSnow(i, j);
+                                     break;
+                                 }
+                             case 3:
+                                 {
+                                     genned = genBeach(i, j);
+                                     break;
+                                 }
+                             case 4:
+                                 {
+                                     genned = genMycelium(i, j);
+                                     break;
+                                 }
+                             default: genned = genDirt(i, j); break;
+                         }
+
+
+                         chunks[i, j] = genned;
+                     }
+                     else
+                     {
+                         Chunk genned = genUnderGround(i, j);
+
+                         chunks[i, j] = genned;
+                     }
+
+                 }
+            
+            /*for (int i = 0; i < chunkcount; i++)
             {
 
-                if (p < 10)
-                {
-                    Chunk genned;
-                    switch (Game1.randy.Next(0, 5))
-                    {
-                        case 1:
-                            {
-                                genned = genStone(p);
-                                break;
-                            }
-                        case 2:
-                            {
-                                genned = genSnow(p);
-                                break;
-                            }
-                        case 3:
-                            {
-                                genned = genBeach(p);
-                                break;
-                            }
-                        case 4:
-                            {
-                                genned = genMycelium(p);
-                                break;
-                            }
-                        default: genned = genDirt(p); break;
-                    }
-                    int chunkx = p % 10;
-                    int chunky = p / 10;
-
-                    chunks[chunkx, chunky] = genned;
-                }
-                else
-                {
-                    Chunk genned = genUnderGround(p);
-                    int chunkx = p % 10;
-                    int chunky = p / 10;
-
-                    chunks[chunkx, chunky] = genned;
-                }
-
+                int chunkx = i % 10;
+                int chunky = i / 10;
+                Chunk genned = Game1.save.LoadChunk(chunkx, chunky);
+                chunks[chunkx, chunky] = genned;
             }
-            for (int i = 0; i < 10; i++)
-                for (int j = 0; j < 10; j++)
-                    chunks[i, j].organiseBlocks();
+            */
+                for (int i = 0; i < 10; i++)
+                    for (int j = 0; j < 10; j++)
+                        chunks[i, j].organiseBlocks();
 
             return chunks;
         }

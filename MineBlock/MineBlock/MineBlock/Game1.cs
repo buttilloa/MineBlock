@@ -18,14 +18,16 @@ namespace MineBlock
         GraphicsDeviceManager graphics; // Graphics
         SpriteBatch spriteBatch; // SpriteBatch
         public static MobManager mobManager; // Manages Mobs
-        public static Chunk[,] chunks = new Chunk[10,10];
+       // public static Chunk[,] chunks = new Chunk[10,10];
+        public static List<Chunk> Loadedchunks = new List<Chunk>();
         //public static Block[,] Chunk = new Block[200, 200];
         public static Random randy = new Random(System.Environment.TickCount); // Random?
         public static PlayerManager player; // Manages Player
         public static Weather weather; // Manages Weather
         public static int selectedSave = 0; // Save Slot
         public static MenuRef menu;  // Manages Menus
-        public static SaveManager saves = new SaveManager(); // Manages Saves
+       // public static SaveManager saves = new SaveManager(); // Manages Saves
+        public static SaveHandler save = new SaveHandler();
         public static ConsoleManager console; // Manages the ingame Console
         public float zoom = 0.0f;
         public static Color cursorColor = Color.White;
@@ -85,21 +87,11 @@ namespace MineBlock
             mobManager = new MobManager();
             console = new ConsoleManager();
             weather = new Weather();
-            player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
+            player = new PlayerManager();
             pericles14 = Tm.getFontFromString("f14");
             t = Tm.getTextureFromString("t");
 
-#if WINDOWS
-            saves.GetDevice(); // Get Save Device
-#endif
-#if XBOX
-if ((!Guide.IsVisible) && (GameSaveRequested == false)) // Request Xbox Storage Device
-            {
-                GameSaveRequested = true;
-                result = StorageDevice.BeginShowSelector(
-                        PlayerIndex.One, null, null);
-            }
-#endif
+
             menu.Init();
 
         }
@@ -155,18 +147,18 @@ if ((GameSaveRequested) && (result.IsCompleted))
 #endif
                     if (HandleInputs.isKeyDown("Up")) zoom += .01f;
                     if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
-                    player.update(gameTime,chunks);
+                    player.update(gameTime,Loadedchunks);
                     mobManager.update(gameTime);
                     Vector2 playerLoc = player.Player.Location;
-                    renderXStart = (int)MathHelper.Clamp((playerLoc.X / 40) - RenderDistance + 1, 0f, 199);
-                    renderYStart = (int)MathHelper.Clamp((playerLoc.Y / 40) - RenderDistance + 1, 0f, 129);
-                    if (renderXStart == 0) renderXEnd = (int)MathHelper.Clamp((playerLoc.X / 40) + RenderDistance + 12, 0, 199);
-                    else renderXEnd = (int)MathHelper.Clamp((playerLoc.X / 40) + RenderDistance + 4, 0, 199);
-                    renderYEnd = (int)MathHelper.Clamp((playerLoc.Y / 40) + RenderDistance + 1, 0, 129);
+                    renderXStart = (int)(playerLoc.X / 40) - RenderDistance + 1; if (renderXStart < 0) renderXStart = 0;
+                    renderYStart = (int)(playerLoc.Y / 40) - RenderDistance + 1; if (renderYStart < 0) renderYStart = 0;
+                    if (renderXStart == 0) renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 12;
+                    else renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 4;
+                    renderYEnd = (int)(playerLoc.Y / 40) + RenderDistance + 1;
 
                     for (int i = renderXStart; i <= renderXEnd; i++)
                         for (int j = renderYStart; j <= renderYEnd; j++)
-                            Chunk.UpdateBlock(chunks, i, j);
+                            Chunk.UpdateBlock(Loadedchunks, i, j);
                    if (!weather.isPercipitationing() && randy.Next(0, 2000) == 4)
                         toggleDownfall(renderXStart);
                     weather.update(gameTime.ElapsedGameTime.TotalSeconds);
@@ -223,10 +215,10 @@ if ((GameSaveRequested) && (result.IsCompleted))
                     {
                         //if (Chunk.CalculateChunk(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 26)
                         //    player.useChest((Chest)chunk[(int)player.highlighted.X, (int)player.highlighted.Y]);
-                        if (player.hotbar[player.selected].Count > 0 && Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 0 || player.hotbar[player.selected].Count > 0 && Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 14)
+                        if (player.hotbar[player.selected].Count > 0 && Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 0 || player.hotbar[player.selected].Count > 0 && Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).index == 14)
                         {
 
-                            Chunk.SetBlock(chunks,(int)player.highlighted.X, (int)player.highlighted.Y, player.hotbar[player.selected].ReturnBlock().Place((int)player.highlighted.X, (int)player.highlighted.Y));
+                            Chunk.SetBlock(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y, player.hotbar[player.selected].ReturnBlock().Place((int)player.highlighted.X, (int)player.highlighted.Y));
 
                             player.hotbar[player.selected].Count--;
                             if (player.hotbar[player.selected].Count == 0)
@@ -240,27 +232,27 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 if (HandleInputs.LeftTrigger())
                 {
 
-                    if (Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).index != 0 && Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).canMine)
+                    if (Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).index != 0 && Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).canMine)
                     {
 
                         Tool currentTool = null;
                         if (player.hotbar[player.selected] is Tool)
                             currentTool = (Tool)player.hotbar[player.selected];
-                        float minetime = Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).MineTime;
+                        float minetime = Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).MineTime;
                         if (minetimer == -1)
                             minetimer = 0;
                         if (minetimer > -1 && minetimer < minetime)
                         {
                             float extradmg = 0;
-                            if (player.hotbar[player.selected].Blockindex < 0 && Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool != null) if (Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool.index == player.hotbar[player.selected].index) extradmg = 1f * (currentTool.upgrade + 5f);
+                            if (player.hotbar[player.selected].Blockindex < 0 && Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool != null) if (Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).preferedTool.index == player.hotbar[player.selected].index) extradmg = 1f * (currentTool.upgrade + 5f);
                             minetimer += 1f + extradmg;
-                           Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).damage += 1f + extradmg;
+                           Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).damage += 1f + extradmg;
                         }
                         if (minetimer >= minetime)
                         {
                             minetimer = -1;
-                            player.addToInv(Chunk.getBlockAt(chunks,(int)player.highlighted.X, (int)player.highlighted.Y).Mine((int)player.highlighted.X, (int)player.highlighted.Y), 1);
-                            Chunk.SetBlock(chunks,(int)player.highlighted.X, (int)player.highlighted.Y, new Air((int)player.highlighted.X, (int)player.highlighted.Y));
+                            player.addToInv(Chunk.getBlockAt(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y).Mine((int)player.highlighted.X, (int)player.highlighted.Y), 1);
+                            Chunk.SetBlock(Loadedchunks,(int)player.highlighted.X, (int)player.highlighted.Y, new Air((int)player.highlighted.X, (int)player.highlighted.Y));
                             if (player.hotbar[player.selected] is Tool) currentTool.damage--;
                         }
                     }
@@ -274,11 +266,13 @@ if ((GameSaveRequested) && (result.IsCompleted))
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             Vector2 Target = new Vector2((Convert.ToInt32(player.Player.Location.X) - 350), (Convert.ToInt32(player.Player.Location.Y) - 130));
-            Vector2 Target1 = player.highlighted;
-            Target += Target1;
-
+            //Vector2 Target = new Vector2((Convert.ToInt32(mobManager.bot.Botsprite.Location.X) - 350), (Convert.ToInt32(mobManager.bot.Botsprite.Location.Y) - 130));
+            //Vector2 Target1 = player.highlighted;
+            //Target += Target1;
             cameraTransform = Matrix.CreateTranslation((int)-Target.X, (int)-Target.Y, 0f);
-            cameraTransform.M41 = MathHelper.Clamp(cameraTransform.M41, -7200, 0);
+           
+           // cameraTransform.M41 = MathHelper.Clamp(cameraTransform.M41, -Int32.MaxValue, 0);
+           // if (cameraTransform.M41 > 0) cameraTransform.M41 = 0;
             cameraTransform.Translation.Normalize();
 
             spriteBatch.Begin(SpriteSortMode.Immediate,
@@ -288,7 +282,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
             {
                 for (int i = renderXStart; i <= renderXEnd; i++)
                     for (int j = renderYStart; j <= renderYEnd; j++)
-                        Chunk.getBlockAt(chunks,i,j).Draw(spriteBatch);
+                        Chunk.getBlockAt(Loadedchunks,i,j).Draw(spriteBatch);
                 player.Draw(spriteBatch);//Draw Player
                 mobManager.Draw(spriteBatch); // Draw Mobs
                 weather.Draw(spriteBatch);// Draw Weather 

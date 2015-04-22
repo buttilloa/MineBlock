@@ -18,7 +18,7 @@ namespace MineBlock.Blocks
             index = 158;
             command = new string[0];
         }
-        public override void update(Chunk[,] chunks)
+        public override void update(List<Chunk> chunks)
         {
             if (index != 158)
                 if (Game1.randy.Next(0, 80) == 4)

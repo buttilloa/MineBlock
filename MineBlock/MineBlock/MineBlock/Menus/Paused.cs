@@ -34,9 +34,9 @@ namespace MineBlock.Menus
                 CursorTouching = 1;
                 if (HandleInputs.LeftTrigger())
                 {
+                    Game1.save.saveAll(Game1.Loadedchunks);
                     Game1.mobManager = new MobManager();
-                    Game1.player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
-                    MenuRef.SetMenu(new TitleScreen());
+                     MenuRef.SetMenu(new TitleScreen());
                 }
             }
             else if (Cursor.Intersects(Paused2))

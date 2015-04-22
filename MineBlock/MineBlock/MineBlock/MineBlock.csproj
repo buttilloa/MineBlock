@@ -142,6 +142,7 @@
     <Compile Include="Items\Tool.cs" />
     <Compile Include="Managers\Inventory.cs" />
     <Compile Include="Managers\MenuRef.cs" />
+    <Compile Include="Managers\SaveHandler.cs" />
     <Compile Include="Tm.cs" />
     <Compile Include="Menus\BaseMenu.cs" />
     <Compile Include="Menus\CrashMenu.cs" />

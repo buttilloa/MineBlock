@@ -16,7 +16,7 @@ namespace MineBlock.Blocks
             canMine = false;
             isSolid = false;
         }
-        public override void update(Chunk[,] chunks)
+        public override void update(List<Chunk> chunks)
         {
             if (Game1.randy.Next(0, 30) == 5)
             {
@@ -27,20 +27,18 @@ namespace MineBlock.Blocks
                     if (Chunk.getBlockAt(chunks, x - 1, y).index == 14)
                         Chunk.SetBlock(chunks, x, y, new BedRock(x, y));
                 }
-                if (x < chunks.GetLength(0))
-                {
-                    if (Chunk.getBlockAt(chunks, x + 1, y).index == 0)
-                        Chunk.SetBlock(chunks, x + 1, y, new Lava(x + 1, y));
-                    if (Chunk.getBlockAt(chunks, x + 1, y).index == 14)
-                        Chunk.SetBlock(chunks, x, y, new Lava(x, y));
-                }
-                if (y < chunks.GetLength(1))
-                {
-                    if (Chunk.getBlockAt(chunks, x, y + 1).index == 0)
-                        Chunk.SetBlock(chunks, x, y + 1, new Lava(x, y + 1));
-                    if (Chunk.getBlockAt(chunks, x, y + 1).index == 14)
-                        Chunk.SetBlock(chunks, x, y, new Lava(x, y));
-                }
+
+                if (Chunk.getBlockAt(chunks, x + 1, y).index == 0)
+                    Chunk.SetBlock(chunks, x + 1, y, new Lava(x + 1, y));
+                if (Chunk.getBlockAt(chunks, x + 1, y).index == 14)
+                    Chunk.SetBlock(chunks, x, y, new Lava(x, y));
+
+
+                if (Chunk.getBlockAt(chunks, x, y + 1).index == 0)
+                    Chunk.SetBlock(chunks, x, y + 1, new Lava(x, y + 1));
+                if (Chunk.getBlockAt(chunks, x, y + 1).index == 14)
+                    Chunk.SetBlock(chunks, x, y, new Lava(x, y));
+
                 if (y > 0)
                 {
 

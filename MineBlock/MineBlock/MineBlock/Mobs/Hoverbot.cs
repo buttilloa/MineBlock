@@ -112,14 +112,14 @@ namespace MineBlock.Mobs
         }
         public void getTarget1Block(Boolean mine)
         {
-            target1 = Chunk.getBlockAt(Game1.chunks,(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y);
+            target1 = Chunk.getBlockAt(Game1.Loadedchunks,(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y);
             startx = target1.x;
 
 
         }
         public void getTarget2Block(Boolean mine)
         {
-            target2 = Chunk.getBlockAt(Game1.chunks,(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y);
+            target2 = Chunk.getBlockAt(Game1.Loadedchunks,(int)Game1.player.highlighted.X, (int)Game1.player.highlighted.Y);
             if (mine)
             {
                 // target2.MineTime *= 2;
@@ -135,7 +135,7 @@ namespace MineBlock.Mobs
 
         public void mineBlock()
         {
-            target1 = Chunk.getBlockAt(Game1.chunks,target1.x, target1.y);
+            target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x, target1.y);
             int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).X);
             int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).Y);
             if (target1.y < target1.y + ycount)
@@ -158,14 +158,14 @@ namespace MineBlock.Mobs
                             minetimer = -1;
                             if (target1.index != 0)
                                addToInv(target1.Mine(target1.x, target1.y), 1);
-                            Chunk.SetBlock(Game1.chunks,target1.x, target1.y, new Air(0, 0));
-                            target1 = Chunk.getBlockAt(Game1.chunks,target1.x + 1, target1.y);
+                            Chunk.SetBlock(Game1.Loadedchunks,target1.x, target1.y, new Air(0, 0));
+                            target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x + 1, target1.y);
 
                         }
                     }
-                    else target1 = Chunk.getBlockAt(Game1.chunks,target1.x + 1, target1.y);
+                    else target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x + 1, target1.y);
                 }
-                else { target1 = Chunk.getBlockAt(Game1.chunks,startx, target1.y + 1); }
+                else { target1 = Chunk.getBlockAt(Game1.Loadedchunks,startx, target1.y + 1); }
             }
             else
             {
@@ -175,7 +175,7 @@ namespace MineBlock.Mobs
         }
         public void PlaceBlock()
         {
-            target1 = Chunk.getBlockAt(Game1.chunks,target1.x, target1.y);
+            target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x, target1.y);
             int xcount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).X);
             int ycount = Math.Abs((int)(new Vector2(target1.x, target1.y) - new Vector2(target2.x + 1, target2.y + 1)).Y);
             if (target1.y < target1.y + ycount)
@@ -188,16 +188,16 @@ namespace MineBlock.Mobs
                         if (dist <= 4)
                         {
                             if (Game1.player.hotbar[Game1.player.selected].Count > 0)
-                                Chunk.SetBlock(Game1.chunks,target1.x, target1.y,  Game1.player.hotbar[Game1.player.selected].ReturnBlock().Place(target1.x, target1.y));
-                            target1 = Chunk.getBlockAt(Game1.chunks,target1.x + 1, target1.y);
+                                Chunk.SetBlock(Game1.Loadedchunks,target1.x, target1.y,  Game1.player.hotbar[Game1.player.selected].ReturnBlock().Place(target1.x, target1.y));
+                            target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x + 1, target1.y);
                             Game1.player.hotbar[Game1.player.selected].Count--;
                             if (Game1.player.hotbar[Game1.player.selected].Count == 0)
                                 Game1.player.hotbar[Game1.player.selected] = new Air((Game1.player.selected * 40) + 16, 16).ItemBlock();
                         }
                     }
-                    else target1 = Chunk.getBlockAt(Game1.chunks,target1.x + 1, target1.y);
+                    else target1 = Chunk.getBlockAt(Game1.Loadedchunks,target1.x + 1, target1.y);
                 }
-                else target1 = Chunk.getBlockAt(Game1.chunks,startx, target1.y + 1);
+                else target1 = Chunk.getBlockAt(Game1.Loadedchunks,startx, target1.y + 1);
             }
             else { target1 = new Block(); botstate = BotState.follow; }
         }

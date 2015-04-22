@@ -22,7 +22,7 @@ namespace MineBlock.Menus
             : base()
         {
             Game1.mobManager = new MobManager();
-            Game1.player = new PlayerManager(Tm.getTexture(Tm.Texture.playerSheet), Tm.getTexture(Tm.Texture.hotbarsheet), Tm.getTexture(Tm.Texture.hotbarselector));
+            Game1.player = new PlayerManager();
             MenuRef.state = MenuRef.GameStates.TitleScreen;
             Splashs = new string[6];
             Splashs[0] = "You looked different through your window";

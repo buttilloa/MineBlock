@@ -16,7 +16,7 @@ namespace MineBlock.Blocks
             MineTime = 240;
             preferedTool = new MineBlock.Items.Pick(0);
         }
-        public override void update(Chunk[,] chunks)
+        public override void update(List<Chunk> chunks)
         {
         
             if(index!=46)

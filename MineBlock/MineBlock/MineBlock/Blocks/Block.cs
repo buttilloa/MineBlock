@@ -67,6 +67,7 @@ namespace MineBlock
                 case 46: return new Teleporter(X, Y);
                 case 47: return new PigBlock(X, Y);
                 case 53: return new Leaf(X, Y);
+                case 65: return new Trampoline(X, Y);
                 case 66: return new Snow(X, Y);
                 case 68: return new SnowyGrass(X, Y);
                 case 77: return new Mycelium(X, Y);
@@ -81,7 +82,7 @@ namespace MineBlock
             }
             return new Block();
         }
-        public virtual void update(Chunk[,] chunks)
+        public virtual void update(List<Chunk> chunks)
         {
             if (damage > 0)
                 if (Game1.randy.Next(0, 10) == 5)
