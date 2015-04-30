@@ -15,12 +15,12 @@ namespace MineBlock.Menus
         Rectangle Savestate3 = new Rectangle(330, 220, 152, 43);
         Rectangle Savestate4 = new Rectangle(488, 326, 152, 43);
         Rectangle Savestate5 = new Rectangle(628, 220, 152, 43);
- public Boolean Savestate1exists = false;
-        public Boolean Savestate2exists = false;
-        public Boolean Savestate3exists = false;
-        public Boolean Savestate4exists = false;
-        public Boolean Savestate5exists = false;
-       
+        Boolean Savestate1exists = false;
+        Boolean Savestate2exists = false;
+        Boolean Savestate3exists = false;
+        Boolean Savestate4exists = false;
+        Boolean Savestate5exists = false;
+
         public SaveSelect()
             : base()
         {
@@ -33,19 +33,19 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Tm.getTexture(Tm.Texture.SaveSelect);
+            Background = Tm.getTexture(Tm.Textures.SaveSelect);
             base.getTextures();
         }
         public override void Update()
         {
-          
+
             if (Cursor.Intersects(Savestate1))
             {
                 CursorTouching = 1;
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 1;
-                 Terrain.loadSpawn();
+                    Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -65,7 +65,7 @@ namespace MineBlock.Menus
                 if (HandleInputs.LeftTrigger())
                 {
                     Game1.selectedSave = 3;
-                   Terrain.loadSpawn();
+                    Terrain.loadSpawn();
                     MenuRef.state = MenuRef.GameStates.Playing;
                 }
             }
@@ -95,7 +95,7 @@ namespace MineBlock.Menus
         }
         public override void Draw(SpriteBatch batch)
         {
-            
+
             batch.Draw(Background, new Rectangle(0, 0, GameWindow.Width, GameWindow.Height), Color.White);
             batch.DrawString(pericles14, "Select the Game to Load", new Vector2(280, 100), Color.White);
             batch.DrawString(pericles14, "Save Game 1", new Vector2(Savestate1.X + 15, Savestate1.Y + 6), Color.White);

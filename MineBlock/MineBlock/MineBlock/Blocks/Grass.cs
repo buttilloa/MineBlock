@@ -17,7 +17,7 @@ namespace MineBlock.Blocks
             special = 0;
             MineTime = 60;
             preferedTool = new MineBlock.Items.Shovel(0);
-            grass = Tm.getTexture(Tm.Texture.grass);
+            grass = Tm.getTexture(Tm.Textures.grass);
         }
         public Grass(int XPos, int yPos, int orientation , float olddamage)
         {

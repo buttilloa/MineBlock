@@ -16,8 +16,8 @@ namespace MineBlock.Items
         private Texture2D ToolSheet, Blank;
         public Tool()
         {
-            Blank = Tm.getTexture(Tm.Texture.Blank);
-            ToolSheet = Tm.getTexture(Tm.Texture.Tools);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
+            ToolSheet = Tm.getTexture(Tm.Textures.Tools);
         }
         public override void DrawMini(SpriteBatch batch, int Xpos, int Ypos)
         {

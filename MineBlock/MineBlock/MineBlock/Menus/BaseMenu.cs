@@ -28,11 +28,11 @@ namespace MineBlock.Menus
         }
         public virtual void getTextures()
         {
-            Pointer = Tm.getTexture(Tm.Texture.Pointer);
+            Pointer = Tm.getTexture(Tm.Textures.Pointer);
             pericles1 = Tm.getFont(Tm.Font.f1);
             pericles14 = Tm.getFont(Tm.Font.f14);
-            SaveSelectHighlight = Tm.getTexture(Tm.Texture.SaveSelectHighlight);
-            Blank = Tm.getTexture(Tm.Texture.Blank);
+            SaveSelectHighlight = Tm.getTexture(Tm.Textures.SaveSelectHighlight);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
         }
         public virtual void Update()
         {

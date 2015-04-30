@@ -27,7 +27,7 @@ namespace MineBlock.Items
         }
       
         public Item() {
-            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
+            terrainsheet = Tm.getTexture(Tm.Textures.terrainsheet);  
         }
         public Item(Block itemBlock)
         {
@@ -35,7 +35,7 @@ namespace MineBlock.Items
             Blockindex = ItemBlock.index;
             int x = ItemBlock.x;
             int y = ItemBlock.y;
-            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet);  
+            terrainsheet = Tm.getTexture(Tm.Textures.terrainsheet);  
         }
 
         public Block ReturnBlock()

@@ -54,7 +54,7 @@ namespace MineBlock
             Content.RootDirectory = "Content";
             graphics.PreferMultiSampling = true;
             //graphics.PreferredBackBufferHeight = 1080;
-             //graphics.PreferredBackBufferWidth = 1920;
+            // graphics.PreferredBackBufferWidth = 1920;
             // graphics.IsFullScreen = true;
             this.Window.Title = "Colonization";
             // this.graphics.SynchronizeWithVerticalRetrace = false;
@@ -111,7 +111,7 @@ namespace MineBlock
 
                 if (console.isShown)
                     console.getKeyStrokes();
-                else if (HandleInputs.isKeyDown("OemTilde")) console.isShown = true;
+                else if (HandleInputs.isKeyDown("OemTilde") && HandleInputs.isKeyDown("LeftShift")) console.isShown = true;
                 if (HandleInputs.isKeyDown("Escape") && MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
                 {
                     MenuRef.state = MenuRef.GameStates.Paused;
@@ -266,7 +266,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            Vector2 Target = new Vector2((Convert.ToInt32(player.Player.Location.X) - 350), (Convert.ToInt32(player.Player.Location.Y) - 130));
+            Vector2 Target = new Vector2((Convert.ToInt32(player.Player.Location.X) - ((Window.ClientBounds.Width-100)/2)), (Convert.ToInt32(player.Player.Location.Y) - ((Window.ClientBounds.Height-100)/2)));
             //Vector2 Target = new Vector2((Convert.ToInt32(mobManager.bot.Botsprite.Location.X) - 350), (Convert.ToInt32(mobManager.bot.Botsprite.Location.Y) - 130));
             //Vector2 Target1 = player.highlighted;
             //Target += Target1;
@@ -297,8 +297,8 @@ if ((GameSaveRequested) && (result.IsCompleted))
             if (MenuRef.state == MenuRef.GameStates.Playing)
             {
                 player.Drawstatic(spriteBatch);
-                spriteBatch.DrawString(pericles14, "X: " + (((int)player.Player.Location.X / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 10), Color.White);// Draw Current Chunk int
-                spriteBatch.DrawString(pericles14, "Y: " + (((int)player.Player.Location.Y / 40) + 1), new Vector2(this.Window.ClientBounds.Width - 110, 24), Color.White); // Draw Current Biome
+                spriteBatch.DrawString(pericles14, "X: " + (((int)player.highlighted.X ) + 1), new Vector2(this.Window.ClientBounds.Width - 100, 10), Color.White);// Draw Current Chunk int
+                spriteBatch.DrawString(pericles14, "Y: " + (((int)player.highlighted.Y) + 1), new Vector2(this.Window.ClientBounds.Width - 100, 24), Color.White); // Draw Current Biome
                
             }
 

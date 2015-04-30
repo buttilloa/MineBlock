@@ -18,9 +18,12 @@ namespace MineBlock.Menus
         int currentSplash = 1;
         float Splashsize = 1;
         bool increase = true;
+        Texture2D StartTex, OptionsTex;
         public TitleScreen()
             : base()
         {
+            StartButton = new Rectangle((base.GameWindow.Width / 2) - (StartButton.Width / 2), (base.GameWindow.Height/2)-(StartButton.Height*0), 153, 43);
+          
             Game1.mobManager = new MobManager();
             Game1.player = new PlayerManager();
             MenuRef.state = MenuRef.GameStates.TitleScreen;
@@ -38,7 +41,9 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Tm.getTexture(Tm.Texture.TitleScreen);
+            Background = Tm.getTexture(Tm.Textures.TitleScreen);
+            StartTex = Tm.getTextureFromString("Start");
+            OptionsTex = Tm.getTextureFromString("Settings");
             base.getTextures();
         }
         public override void disposeMenu()
@@ -72,7 +77,10 @@ namespace MineBlock.Menus
 
 
             batch.Draw(Background, new Rectangle(0, 0, GameWindow.Width, GameWindow.Height), Color.White);
+            batch.Draw(StartTex, StartButton, Color.White);
+            batch.Draw(OptionsTex, OptionsButton, Color.White);
             batch.Draw(Pointer, new Rectangle((int)cursorPos.X, (int)cursorPos.Y, 12, 19), Game1.cursorColor);
+            
 
             if (increase && Splashsize <= 1.1f) Splashsize += .005f;
             if (Splashsize > 1.1f) increase = false;

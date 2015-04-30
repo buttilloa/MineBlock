@@ -170,7 +170,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\TitleScreen.xnb</Output>
-      <Time>2015-04-03T18:31:59.5687899-04:00</Time>
+      <Time>2015-04-30T16:29:58.9755429-04:00</Time>
     </Item>
     <Item>
       <Source>Misc\Weather.bmp</Source>
@@ -254,6 +254,33 @@
       <Time>2015-04-04T15:44:35.748967-04:00</Time>
     </Item>
     <Item>
+      <Source>Mobs\CowLeg.png</Source>
+      <Name>Mobs\CowLeg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb</Output>
+      <Time>2015-04-04T15:52:58.6586879-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Menus\Start.png</Source>
+      <Name>Menus\Start</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Start.xnb</Output>
+      <Time>2015-04-30T16:28:21.8579992-04:00</Time>
+    </Item>
+    <Item>
+      <Source>Menus\Settings.png</Source>
+      <Name>Menus\Settings</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Settings.xnb</Output>
+      <Time>2015-04-30T16:29:58.9130443-04:00</Time>
+    </Item>
+    <Item>
       <Source>Fonts\Pericles1.spritefont</Source>
       <Name>Fonts\Pericles1</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -279,15 +306,6 @@
       <Options>None</Options>
       <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb</Output>
       <Time>2015-01-22T15:05:16.3248251-05:00</Time>
-    </Item>
-    <Item>
-      <Source>Mobs\CowLeg.png</Source>
-      <Name>Mobs\CowLeg</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb</Output>
-      <Time>2015-04-04T15:52:58.6586879-04:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -328,7 +346,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\WINDOWS\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2014-12-20T10:45:42.1744819-05:00</Value>
+        <Value>2015-04-29T19:56:50.4047816-04:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

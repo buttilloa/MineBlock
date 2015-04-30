@@ -216,13 +216,14 @@ C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\Mi
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Items\tools.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\PigLeg.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\ChickenLeg.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Start.xnb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Menus\Settings.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles1.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles14.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Fonts\Pericles28.xnb
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\MineBlock.exe
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\MineBlock.pdb
-C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.csprojResolveAssemblyReference.cache
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.exe
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.pdb
-C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\bin\x86\Debug\Content\Mobs\CowLeg.xnb

@@ -26,7 +26,9 @@ Content\Menus\options.xnb
 Content\Items\tools.xnb
 Content\Mobs\PigLeg.xnb
 Content\Mobs\ChickenLeg.xnb
+Content\Mobs\CowLeg.xnb
+Content\Menus\Start.xnb
+Content\Menus\Settings.xnb
 Content\Fonts\Pericles1.xnb
 Content\Fonts\Pericles14.xnb
 Content\Fonts\Pericles28.xnb
-Content\Mobs\CowLeg.xnb

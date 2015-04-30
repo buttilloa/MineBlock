@@ -25,7 +25,7 @@ namespace MineBlock.Mobs
       
         public Hoverbot()
         {
-             hoverbot = Tm.getTexture(Tm.Texture.hoverbot);
+             hoverbot = Tm.getTexture(Tm.Textures.hoverbot);
             Botsprite = new Sprite(new Vector2(10, 10), hoverbot, new Rectangle(0, 0, 15, 21), Vector2.Zero);
             Botsprite.scale = 1;
             Botsprite.AddFrame(new Rectangle(32, 0, 15, 21));
@@ -38,7 +38,7 @@ namespace MineBlock.Mobs
                 count[i] = 0;
             }
            
-              hotbarsheet = Tm.getTexture(Tm.Texture.hotbarsheet);
+              hotbarsheet = Tm.getTexture(Tm.Textures.hotbarsheet);
               pericles1 = Tm.getFont(Tm.Font.f1);
         }
        
@@ -98,6 +98,7 @@ namespace MineBlock.Mobs
         {
             Botsprite.Velocity = (location - Botsprite.Location) * 2f;
             Botsprite.Velocity.Normalize();
+            if (Vector2.Distance(location, Botsprite.Location) > 750) Botsprite.Location = location;
             if (Botsprite.Velocity == new Vector2(0, 0)) Botsprite.Location = new Vector2(0, 0);
             Botsprite.Velocity = new Vector2(MathHelper.Clamp(Botsprite.Velocity.X, -speed, speed), MathHelper.Clamp(Botsprite.Velocity.Y, -speed, speed));
             if (Botsprite.Velocity.X != 0)

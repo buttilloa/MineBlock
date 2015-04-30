@@ -11,30 +11,23 @@ namespace MineBlock.Managers
 {
     public class SaveHandler
     {
-        const string dir = @"C:\Users\Anthony\Documents\SavedGames\MineBlock\Saves\";
-        string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);  
+       
+        private string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\MineBlock\Saves\";  
         public SaveHandler()
         {
            
         }
-        public String CalcFileName(int saveSlot,int x, int y)
+        public String CalcFileName(int saveSlot, int x, int y)
         {
-            String nDir = dir + saveSlot + "\\" + x + "-" + y + ".dat";
-            if (!Directory.Exists(dir + saveSlot))
-            Directory.CreateDirectory(dir+saveSlot);
-               //DirectorySecurity Sec = di.GetAccessControl();
-               //string User = System.Environment.UserName;// + "\\" +
-                                                             
-               //Sec.AddAccessRule(new FileSystemAccessRule(User,
-                  //                               FileSystemRights.FullControl, AccessControlType.Deny));
-               //di.SetAccessControl(Sec);
-            
-                return  nDir;
+            String nDir = userAppData + saveSlot + "\\" + x + "-" + y + ".dat";
+            if (!Directory.Exists(userAppData + saveSlot))
+                Directory.CreateDirectory(userAppData + saveSlot);
+            return nDir;
 
         }
         public bool hasSaved(int saveSlot)
         {
-            return Directory.Exists(dir + saveSlot);
+            return Directory.Exists(userAppData + saveSlot);
 }
         public void SaveChunk(Chunk chunk)
         {
@@ -59,8 +52,8 @@ namespace MineBlock.Managers
         public PlayerManager LoadPlayer()
         {
             PlayerManager player = new PlayerManager();
-            if (File.Exists(dir + Game1.selectedSave + "\\Player.dat"))
-            using (BinaryReader reader = new BinaryReader(File.Open(dir + Game1.selectedSave + "\\Player.dat", FileMode.Open)))
+            if (File.Exists(userAppData + Game1.selectedSave + "\\Player.dat"))
+                using (BinaryReader reader = new BinaryReader(File.Open(userAppData + Game1.selectedSave + "\\Player.dat", FileMode.Open)))
             {
                 int x = reader.ReadInt32();
                 int y = reader.ReadInt32();
@@ -81,7 +74,7 @@ namespace MineBlock.Managers
         }
         public void SavePlayer()
         {
-            using (BinaryWriter writer = new BinaryWriter(File.Open(dir+Game1.selectedSave+"\\Player.dat", FileMode.Create)))
+            using (BinaryWriter writer = new BinaryWriter(File.Open(userAppData + Game1.selectedSave + "\\Player.dat", FileMode.Create)))
             {
                 writer.Write((int)Game1.player.Player.Location.X);
                 writer.Write((int)Game1.player.Player.Location.Y);

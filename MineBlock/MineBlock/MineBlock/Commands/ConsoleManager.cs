@@ -46,8 +46,8 @@ namespace MineBlock.Commands
             cmds.Add(new RenderDistance());
             pericles1 = Tm.getFont(Tm.Font.f1);
             pericles14 = Tm.getFont(Tm.Font.f14);
-            Blur = Tm.getTexture(Tm.Texture.Blur);
-            saveSelectHighlight = Tm.getTexture(Tm.Texture.SaveSelectHighlight);
+            Blur = Tm.getTexture(Tm.Textures.Blur);
+            saveSelectHighlight = Tm.getTexture(Tm.Textures.SaveSelectHighlight);
             
         }
         public void ParseCmd()
@@ -55,6 +55,21 @@ namespace MineBlock.Commands
 
             currentcmd++;
             string[] parsed = Command.Split(' ');
+            for (int i = 1; i < parsed.Length; i++)
+            {
+                if (parsed[i][0] == '~')
+                {
+                    parsed[i] = parsed[i].PadRight(2, '0');
+                    parsed[i] = "" + ((Game1.player.Player.Location.X / 40) + Convert.ToInt32(parsed[i].Substring(1)));
+                    i++;
+                    if (parsed[i][0] == '~')
+                    {
+                        parsed[i] = parsed[i].PadRight(2, '0');
+                        parsed[i] = "" + ((Game1.player.Player.Location.Y / 40) + Convert.ToInt32(parsed[i].Substring(1)));
+                        break;
+                    }
+                }
+            }
             foreach (Command cmd in cmds)
                 if (parsed[0] == cmd.usage.ToUpper())
                 {
@@ -81,14 +96,15 @@ namespace MineBlock.Commands
         {
             KeyboardState newState = Keyboard.GetState();
 
-            if (newState.GetPressedKeys().Length > 0)
+            if (newState.GetPressedKeys().Length > 0 && oldstate != null)
             {
                 if (!oldstate.IsKeyDown(newState.GetPressedKeys()[0]))
                 {
                     Keys key = newState.GetPressedKeys()[0];
-
                     if (key.ToString() == "OemTilde")
-                        isShown = false;
+                        Command += "~";
+                    else if (key.ToString() == "OemMinus")
+                        Command += "-";
                     else if (key.ToString() == "Delete")
                         Command = "";
                     else if (key.ToString() == "Space")
@@ -123,8 +139,10 @@ namespace MineBlock.Commands
                             Command += key;
 
                 }
+
             }
             oldstate = newState;
+
         }
         bool IsKeyAChar(Keys key)
         {

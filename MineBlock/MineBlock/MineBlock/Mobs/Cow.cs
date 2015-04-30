@@ -19,8 +19,8 @@ namespace MineBlock.Mobs
             CurrentChunk = Chunk;
             Position = new Vector2(xPos, yPos);
             name = 2;
-            cowsheet = Tm.getTexture(Tm.Texture.cowsheet);
-            cowleg = Tm.getTexture(Tm.Texture.cowleg);
+            cowsheet = Tm.getTexture(Tm.Textures.cowsheet);
+            cowleg = Tm.getTexture(Tm.Textures.cowleg);
         }
         public override void update(GameTime time)
         {

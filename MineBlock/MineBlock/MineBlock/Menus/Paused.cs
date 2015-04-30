@@ -23,7 +23,7 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Tm.getTexture(Tm.Texture.Paused);
+            Background = Tm.getTexture(Tm.Textures.Paused);
 
             base.getTextures();
         }

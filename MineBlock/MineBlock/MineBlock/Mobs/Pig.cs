@@ -22,8 +22,8 @@ namespace MineBlock.Mobs
             CurrentChunk = Chunk;
             Position = new Vector2(xPos, yPos);
             name = 3;
-            PigSheet = Tm.getTexture(Tm.Texture.Pigsheet);
-            Leg = Tm.getTexture(Tm.Texture.PigLeg);
+            PigSheet = Tm.getTexture(Tm.Textures.Pigsheet);
+            Leg = Tm.getTexture(Tm.Textures.PigLeg);
         }
         public Pig(int xPos, int yPos, bool NoAi)
             : base()
@@ -31,8 +31,8 @@ namespace MineBlock.Mobs
 
             Position = new Vector2(xPos, yPos);
             name = 3;
-            PigSheet = Tm.getTexture(Tm.Texture.Pigsheet);
-            Leg = Tm.getTexture(Tm.Texture.PigLeg);
+            PigSheet = Tm.getTexture(Tm.Textures.Pigsheet);
+            Leg = Tm.getTexture(Tm.Textures.PigLeg);
             this.NoAi = NoAi;
             Dir = 1;
             subPixel += new Vector2(0, 12);

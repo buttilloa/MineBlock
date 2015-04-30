@@ -29,8 +29,8 @@ namespace MineBlock
         SpriteFont pericles1;
         public Mob()
         {
-            HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
-            Blank = Tm.getTexture(Tm.Texture.Blank);
+            HealthBar = Tm.getTexture(Tm.Textures.HealthBar);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
             pericles1 = Tm.getFont(Tm.Font.f1);
           
         }

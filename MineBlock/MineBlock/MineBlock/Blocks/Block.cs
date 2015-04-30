@@ -25,7 +25,7 @@ namespace MineBlock
         Rectangle boundingBox;
         public Block()
         {
-            terrainsheet = Tm.getTexture(Tm.Texture.terrainsheet); 
+            terrainsheet = Tm.getTexture(Tm.Textures.terrainsheet); 
             boundingBox = new Rectangle(x * 40, y * 40, 40, 40);
         }
         public virtual void EntityStandingEvent(Object caller)

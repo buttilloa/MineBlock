@@ -37,16 +37,15 @@ namespace MineBlock
         Boolean drawChestInv = false;
         Block[] chestInv = new Block[9];
         int[] chestInvCount = new int[9];
-        String teleporterMessage;
         public String ChunkTp = "";
         public Inventory playerinv;
         private SpriteFont pericles14, pericles1;
 
         public PlayerManager()
         {
-            Guy = Tm.getTexture(Tm.Texture.playerSheet);
-            hotboarSheet = Tm.getTexture(Tm.Texture.hotbarsheet); 
-            HotBoarSelector = Tm.getTexture(Tm.Texture.hotbarselector);
+            Guy = Tm.getTexture(Tm.Textures.playerSheet);
+            hotboarSheet = Tm.getTexture(Tm.Textures.hotbarsheet); 
+            HotBoarSelector = Tm.getTexture(Tm.Textures.hotbarselector);
             for (int i = 0; i < 9; i++)
             {
                 hotbar[i] = new Air((i * 40) + 16, 16).ItemBlock();
@@ -71,10 +70,10 @@ namespace MineBlock
             //playerinv.displayinv();
             pericles14 = Tm.getFont(Tm.Font.f14);
             pericles1 = Tm.getFont(Tm.Font.f1);
-            pointer = Tm.getTexture(Tm.Texture.Pointer);
-            Cursor = Tm.getTexture(Tm.Texture.cursor);
-            Blank = Tm.getTexture(Tm.Texture.Blank);
-            HealthBar = Tm.getTexture(Tm.Texture.HealthBar);
+            pointer = Tm.getTexture(Tm.Textures.Pointer);
+            Cursor = Tm.getTexture(Tm.Textures.cursor);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
+            HealthBar = Tm.getTexture(Tm.Textures.HealthBar);
 
 
         }

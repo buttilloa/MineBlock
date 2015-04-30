@@ -21,8 +21,8 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Blank = Tm.getTexture(Tm.Texture.Blank);
-            Background = Tm.getTexture(Tm.Texture.options);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
+            Background = Tm.getTexture(Tm.Textures.options);
             base.getTextures();
         }
         public override void Update()

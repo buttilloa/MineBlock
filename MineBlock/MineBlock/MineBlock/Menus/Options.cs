@@ -43,10 +43,10 @@ namespace MineBlock.Menus
         }
         public override void getTextures()
         {
-            Background = Tm.getTexture(Tm.Texture.options);
-            cursor = Tm.getTexture(Tm.Texture.cursor);
-            hoverbotTexture = Tm.getTexture(Tm.Texture.hoverbot);
-            hotbarSelector = Tm.getTexture(Tm.Texture.hotbarselector);
+            Background = Tm.getTexture(Tm.Textures.options);
+            cursor = Tm.getTexture(Tm.Textures.cursor);
+            hoverbotTexture = Tm.getTexture(Tm.Textures.hoverbot);
+            hotbarSelector = Tm.getTexture(Tm.Textures.hotbarselector);
             base.getTextures();
         }
         public void getcolors()
@@ -86,7 +86,7 @@ namespace MineBlock.Menus
             else
                 color++;
             return color;
-
+           
         }
         public override void Update()
         {
@@ -151,7 +151,7 @@ namespace MineBlock.Menus
         {
 
 
-            batch.Draw(Background, new Rectangle(0, 0, 800, 520), Color.White);
+            batch.Draw(Background, new Rectangle(0, 0, base.GameWindow.Width, base.GameWindow.Height), Color.White);
             batch.DrawString(pericles14, "Click to cycle colors", new Vector2(400 - 110, 50), intersects(Easter, cursorPos));
             batch.DrawString(pericles14, "Back", new Vector2(Back.X, Back.Y), intersects(Back, cursorPos));
 

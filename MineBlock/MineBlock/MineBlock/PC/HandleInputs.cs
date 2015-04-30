@@ -14,6 +14,7 @@ namespace MineBlock
         public static Boolean[] canTypeNum = new Boolean[10];
         public static Boolean isKeyDown(String key)
         {
+            
             KeyboardState ks = Keyboard.GetState();
             if (ks.IsKeyDown((Keys)Enum.Parse(typeof(Keys), key))) return true;
              return false;

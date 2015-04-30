@@ -41,11 +41,12 @@ namespace MineBlock.Commands
 
             Type hai = Type.GetType(args[1]);
             ConstructorInfo ctor = hai.GetConstructor(new[] { typeof(int), typeof(int) });
-            Block instance = (Block)ctor.Invoke(new object[] { Convert.ToInt32(args[2]), Convert.ToInt32(args[3]) });
-            Chunk.SetBlock(Game1.Loadedchunks, Convert.ToInt32(args[2]), Convert.ToInt32(args[3]), instance);
-            Console.WriteLine("" + instance);
+            Block instance = (Block)ctor.Invoke(new object[] { (int)Convert.ToSingle(args[2]), (int)Convert.ToSingle(args[3]) });
+            Chunk.SetBlock(Game1.Loadedchunks, (int)Convert.ToSingle(args[2]), (int)Convert.ToSingle(args[3]), instance);
+            Chunk.getChunk(Game1.Loadedchunks, (int)Convert.ToSingle(args[2]), (int)Convert.ToSingle(args[3])).organiseBlocks();
+            
 
-            return "Changed block" + "[" + Convert.ToInt32(args[2]) + "." + Convert.ToInt32(args[3]) + "] to " + instance;
+            return "Changed block" + "[" + (int)Convert.ToSingle(args[2]) + "," + (int)Convert.ToSingle(args[3]) + "] to " + instance;
 
         }
 
@@ -125,7 +126,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-           // Game1.chunks = Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber,  Game1.player, Game1.mobManager);
+            // Game1.chunks = Game1.saves.loadSave(Convert.ToInt32(args[1]), Game1.currentChunkNumber,  Game1.player, Game1.mobManager);
             Managers.MenuRef.state = Managers.MenuRef.GameStates.Playing;
             return "Game Loaded " + args[1];
         }
@@ -185,11 +186,11 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-           // Game1.switchChunk(Game1.player, Convert.ToInt32(args[1]));
+            // Game1.switchChunk(Game1.player, Convert.ToInt32(args[1]));
             return "Switched to" + Convert.ToInt32(args[1]);
         }
 
-    }
+    } //Deprocated
     class Tp : Command
     {
 
@@ -201,8 +202,22 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToInt32(args[1])*40, Convert.ToInt32(args[2])*40);
-            return "Tp to " + new Microsoft.Xna.Framework.Vector2(Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
+
+
+           /* if (args[1][0] == '~')
+            {
+                args[1] = args[1].PadRight(2, '0');
+                args[1] = "" + ((Game1.player.Player.Location.X / 40) + Convert.ToInt32(args[1].Substring(1)));
+            }
+            if (args[2][0] == '~')
+            {
+                args[2] = args[2].PadRight(2, '0');
+                args[2] = "" +((Game1.player.Player.Location.Y / 40) + Convert.ToInt32(args[2].Substring(1)));
+            }
+            */
+            
+            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToSingle(args[1]) * 40, Convert.ToSingle(args[2]) * 40);
+            return "Tp to " + new Microsoft.Xna.Framework.Vector2(Convert.ToSingle(args[1]), Convert.ToSingle(args[2]));
         }
 
     }
@@ -242,10 +257,10 @@ namespace MineBlock.Commands
             String output = "";
             foreach (String arg in args)
                 output += arg + " ";
-             output =output.Substring(10);
-             //Game1.console.history.Add(output.ToLower());
+            output = output.Substring(10);
+            //Game1.console.history.Add(output.ToLower());
             Console.WriteLine(output.ToLower());
-            return "Wrote "+output;
+            return "Wrote " + output;
         }
 
     }
@@ -296,7 +311,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-           if (!Game1.weather.isPercipitationing())
+            if (!Game1.weather.isPercipitationing())
                 Game1.toggleDownfall(Game1.renderXStart);
             else Game1.weather.Stop();
             return "Toggled Downfall";
@@ -316,11 +331,11 @@ namespace MineBlock.Commands
         {
             try
             {
-                Commandblock cb = (Commandblock)Chunk.getBlockAt(Game1.Loadedchunks,Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
+                Commandblock cb = (Commandblock)Chunk.getBlockAt(Game1.Loadedchunks, Convert.ToInt32(args[1]), Convert.ToInt32(args[2]));
                 if (args.Length > 2)
-                    cb.command = new String[args.Length-2];
-                for (int i = 3; i < args.Length; i ++)
-                    cb.command[i-3] = args[i];
+                    cb.command = new String[args.Length - 2];
+                for (int i = 3; i < args.Length; i++)
+                    cb.command[i - 3] = args[i];
 
                 return "Added Command";
             }
@@ -341,11 +356,11 @@ namespace MineBlock.Commands
         {
             System.IO.Directory.SetCurrentDirectory(@"C:\Users\Anthony\Documents\SavedGames\MineBlock");
             System.IO.Directory.Delete(@"MineBlock" + args[1].ToString(), true);
-           return "Save Deleted"; 
+            return "Save Deleted";
         }
 
     }
-    class Fuckoff : Command //Depricated 
+    class Fuckoff : Command  //Depricated 
     {
         Thread fuck;
         public Fuckoff()
@@ -365,13 +380,13 @@ namespace MineBlock.Commands
             for (int i = 0; i < 200; i++)
                 for (int j = 0; j < 130; j++)
                 {
-                    Chunk.getBlockAt(Game1.Loadedchunks,i, j).x = i;
-                    Chunk.getBlockAt(Game1.Loadedchunks,i, j).y = j;
-                    Chunk.getBlockAt(Game1.Loadedchunks,i, j).isfucked = true;
+                    Chunk.getBlockAt(Game1.Loadedchunks, i, j).x = i;
+                    Chunk.getBlockAt(Game1.Loadedchunks, i, j).y = j;
+                    Chunk.getBlockAt(Game1.Loadedchunks, i, j).isfucked = true;
 
                 }
-            
-           // Game1.player.updateBlocks(Game1.chunk);
+
+            // Game1.player.updateBlocks(Game1.chunk);
         }
         public override String Execute(String[] args)
         {
@@ -379,7 +394,7 @@ namespace MineBlock.Commands
             //SoundEffects.Fuck.Play();
             fuck = new Thread(new ThreadStart(this.stuff));
             fuck.Start();
-                
+
             return "No you fuck off";
         }
 
@@ -393,10 +408,10 @@ namespace MineBlock.Commands
             index = 17;
             usage = "tmcalls";
         }
-        
+
         public override String Execute(String[] args)
         {
-           
+
             return Tm.getCalls().ToString();
         }
 

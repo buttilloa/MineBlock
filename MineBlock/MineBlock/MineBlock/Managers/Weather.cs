@@ -28,7 +28,7 @@ namespace MineBlock
         double rainTime = 0;
         public Weather()
         {
-            Blank = Tm.getTexture(Tm.Texture.Blank);
+            Blank = Tm.getTexture(Tm.Textures.Blank);
         }
 
         public void Rain(int start)
