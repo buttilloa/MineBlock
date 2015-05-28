@@ -84,8 +84,7 @@ namespace MineBlock
                     Velocity = new Vector2(Velocity.X, -15f);
             }
             catch (System.IndexOutOfRangeException) { Console.WriteLine("Mob dun messud up"); }
-            //if (getY()*40 > 400)
-            //    CurrentChunk = Game1.randy.Next(0, Game1.chunk);
+            
             if (blocks(getX(), getY() + 1).index == 0)
             {
 
@@ -149,7 +148,7 @@ namespace MineBlock
         {
             if (Health < 100)
             {
-                Bar = new Rectangle((int)(((Position.X * 40) + subPixel.X)) - 30, (int)((Position.Y * 40) + subPixel.Y) - 10, 60, 10);
+                Bar = new Rectangle((int)(((Position.X * Constants.BlockSize) + subPixel.X)) - 30, (int)((Position.Y * Constants.BlockSize) + subPixel.Y) - 10, 60, 10);
                 Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
                 batch.Draw(HealthBar, Bar, Color.White);
                 batch.Draw(Blank, Bar2, Health > 50 ? Color.Green : Health > 25 ? Color.Orange : Color.Red);

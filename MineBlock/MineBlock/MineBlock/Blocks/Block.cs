@@ -25,8 +25,8 @@ namespace MineBlock
         Rectangle boundingBox;
         public Block()
         {
-            terrainsheet = Tm.getTexture(Tm.Textures.terrainsheet); 
-            boundingBox = new Rectangle(x * 40, y * 40, 40, 40);
+            terrainsheet = Tm.getTexture(Tm.Textures.terrainsheet);
+            boundingBox = new Rectangle(x * Constants.BlockSize, y * Constants.BlockSize, Constants.BlockSize, Constants.BlockSize);
         }
         public virtual void EntityStandingEvent(Object caller)
         {
@@ -105,12 +105,17 @@ namespace MineBlock
             {
                 int indexY = index / 16;
                 int indexX = index % 16;
-                batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(indexX * 40, indexY * 40, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(terrainsheet, CalcRectangle(x, y), new Rectangle(indexX * 40, indexY * 40, 40, 40), Color.White);
             }
             else
-                batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(index * 40, 0, 40, 40), isfucked ? Color.Red : Color.White);
+                batch.Draw(terrainsheet, CalcRectangle(x,y), new Rectangle(index * 40, 0, 40, 40), Color.White);
+              
 
             handleBlockDmg(batch);
+        }
+        public Rectangle CalcRectangle(int x, int y)
+        {
+            return new Rectangle((x * Constants.BlockSize), (y * Constants.BlockSize), Constants.BlockSize, Constants.BlockSize);
         }
         public void handleBlockDmg(SpriteBatch batch)
         {
@@ -128,7 +133,7 @@ namespace MineBlock
                 else if (damage <= MineTime) drawdamage = 10;
                 if (drawdamage > 0)
                 {
-                    batch.Draw(terrainsheet, new Vector2((x * 40), (y * 40)), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
+                    batch.Draw(terrainsheet, CalcRectangle(x,y), new Rectangle(-40 + (drawdamage * 40), 600, 40, 40), Game1.breakanimcolor);
 
                 }
             }

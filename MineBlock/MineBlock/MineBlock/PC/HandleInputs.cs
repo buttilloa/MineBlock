@@ -36,14 +36,14 @@ namespace MineBlock
             if (Managers.MenuRef.state == Managers.MenuRef.GameStates.Playing)
             {
                 Mouse.SetPosition((int)MathHelper.Clamp(ms.X, 0, Game1.Instance.Window.ClientBounds.Width), (int)MathHelper.Clamp(ms.Y, -10, Game1.Instance.Window.ClientBounds.Height));
-                return new Vector2(ms.X / 40, ms.Y / 40);
+                return new Vector2(ms.X / Constants.BlockSize, ms.Y / Constants.BlockSize);
             }
             return new Vector2(ms.X, ms.Y);
         }
         public static Vector2 getMousepos()
         {
             MouseState ms = Mouse.GetState();
-            return new Vector2(ms.X/40, ms.Y/40);
+            return new Vector2(ms.X / Constants.BlockSize, ms.Y / Constants.BlockSize);
         }
         public static String SimNumPad(String chunk)
         {
@@ -87,8 +87,8 @@ namespace MineBlock
             for (int i = -0; i <= 8; i++)
             {
                 KeyboardState keys = Keyboard.GetState();
-                int temp = i + 1;
-                string test = "D" + temp;
+
+                string test = "D" + (i + 1);
                 if (keys.IsKeyDown((Keys)Enum.Parse(typeof(Keys), test)))
                 {
 
@@ -101,7 +101,7 @@ namespace MineBlock
         }
         public static int HotBar(int current)
         {
-            for (int i = -0; i <= 8; i++)
+            for (int i = 0; i < 9; i++)
             {
                 KeyboardState keys = Keyboard.GetState();
                 int temp = i + 1;

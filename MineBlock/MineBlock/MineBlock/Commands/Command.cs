@@ -202,21 +202,7 @@ namespace MineBlock.Commands
         }
         public override String Execute(String[] args)
         {
-
-
-           /* if (args[1][0] == '~')
-            {
-                args[1] = args[1].PadRight(2, '0');
-                args[1] = "" + ((Game1.player.Player.Location.X / 40) + Convert.ToInt32(args[1].Substring(1)));
-            }
-            if (args[2][0] == '~')
-            {
-                args[2] = args[2].PadRight(2, '0');
-                args[2] = "" +((Game1.player.Player.Location.Y / 40) + Convert.ToInt32(args[2].Substring(1)));
-            }
-            */
-            
-            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToSingle(args[1]) * 40, Convert.ToSingle(args[2]) * 40);
+            Game1.player.Player.Location = new Microsoft.Xna.Framework.Vector2(Convert.ToSingle(args[1]) * Constants.BlockSize, Convert.ToSingle(args[2]) * Constants.BlockSize);
             return "Tp to " + new Microsoft.Xna.Framework.Vector2(Convert.ToSingle(args[1]), Convert.ToSingle(args[2]));
         }
 

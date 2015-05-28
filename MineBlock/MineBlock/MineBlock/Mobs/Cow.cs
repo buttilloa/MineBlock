@@ -45,22 +45,22 @@ namespace MineBlock.Mobs
             else
                 if (rotation > 0f) rotation -= .15f;
                 else if (rotation < 0f) rotation = 0f;
-            batch.Draw(cowsheet, new Vector2(((Position.X * 40) + subPixel.X) - 19, ((Position.Y * 40) + subPixel.Y)), new Rectangle(0, 0, 96, 56), Color.White, 0f, Vector2.Zero, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            batch.Draw(cowsheet, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19, ((Position.Y * Constants.BlockSize) + subPixel.Y)), new Rectangle(0, 0, 96, 56), Color.White, 0f, Vector2.Zero, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             if (flip)
             {
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 34, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 34, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 34, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 34, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
 
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 14, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 14, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 14, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 14, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.FlipHorizontally, 0f);
             }
             else
             {
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 5, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.None, 0f);
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 5, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.None, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 5, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.None, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 5, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.None, 0f);
 
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 25, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.None, 0f);
-                batch.Draw(cowleg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 25, ((Position.Y * 40) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.None, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 25, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, rotation, legBend, 0.4f, SpriteEffects.None, 0f);
+                batch.Draw(cowleg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 25, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 21), new Rectangle(0, 0, 16, 48), Color.White, -rotation, legBend, 0.4f, SpriteEffects.None, 0f);
             }
         }
     }

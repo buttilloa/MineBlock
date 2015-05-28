@@ -80,7 +80,7 @@ namespace MineBlock
 
         Block bottomBlock(List<Chunk> chunks)
         {
-            return Chunk.getBlockAt(chunks,(int)((Player.Location.X -10)/ 40) + 1, (int)((Player.Location.Y + 40) / 40) + 1);
+            return Chunk.getBlockAt(chunks, (int)((Player.Location.X - 10) / Constants.BlockSize) + 1, (int)((Player.Location.Y + 40) / Constants.BlockSize) + 1);
         }
         public void update(GameTime time, List<Chunk> chunks)
         {
@@ -132,7 +132,7 @@ namespace MineBlock
            
             if (playerinv.isdisplayed)
                 highlighted = HandleInputs.getMousepos();
-            else highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location / 40) - new Vector2(8, 3));
+            else highlighted = HandleInputs.moveHighlighter(highlighted) + ((Player.Location / Constants.BlockSize) - new Vector2(8, 3));
             try
             {
                 if (HandleInputs.isKeyDown("D") && (!RightBlock(chunks).isSolid)) Player.Velocity = new Vector2(150, Player.Velocity.Y);
@@ -175,25 +175,25 @@ namespace MineBlock
         }
         Block RightBlock(List<Chunk> chunks)
         {
-            return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 30) / 40) + 1, (int)((Player.Location.Y + 40) / 40));
+            return Chunk.getBlockAt(chunks, (int)((Player.Location.X + 30) / Constants.BlockSize) + 1, (int)((Player.Location.Y + 40) / Constants.BlockSize));
         }
         Block LeftBlock(List<Chunk> chunks)
         {
-            return Chunk.getBlockAt(chunks,(int)((Player.Location.X + 70) / 40) - 1, (int)((Player.Location.Y + 40) / 40));
+            return Chunk.getBlockAt(chunks, (int)((Player.Location.X + 70) / Constants.BlockSize) - 1, (int)((Player.Location.Y + 40) / Constants.BlockSize));
         }
         Block BlockAbove(List<Chunk> chunks)
         {
-            return Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)((Player.Location.Y + 40) / 40) - 1);
+            return Chunk.getBlockAt(chunks, (int)(Player.Location.X / Constants.BlockSize) + 1, (int)((Player.Location.Y + 40) / Constants.BlockSize) - 1);
         }
         Boolean isOnLadder(List<Chunk> chunks)
         {
-            if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 1).index == 83)
+            if (Chunk.getBlockAt(chunks, (int)(Player.Location.X / Constants.BlockSize) + 1, (int)(Player.Location.Y / Constants.BlockSize) + 1).index == 83)
                 return true;
             return false;
         }
         Boolean isonGround(List<Chunk> chunks)
         {
-            if (Chunk.getBlockAt(chunks,(int)(Player.Location.X / 40) + 1, (int)(Player.Location.Y / 40) + 2).isSolid)
+            if (Chunk.getBlockAt(chunks, (int)(Player.Location.X / Constants.BlockSize) + 1, (int)(Player.Location.Y / Constants.BlockSize) + 2).isSolid)
                 return true;
             return false;
         }
@@ -270,7 +270,7 @@ namespace MineBlock
         public void Draw(SpriteBatch batch)
         {
             Player.Draw(batch);
-           
+            batch.Draw(Tm.getTextureFromString("Blur"),new Rectangle((int)Player.Location.X,(int)Player.Location.Y,10,10), Color.White);
             Bar = new Rectangle((int)Player.Location.X + 23, (int)Player.Location.Y + 10, 60, 10);
             Bar2 = new Rectangle(Bar.X + 5, Bar.Y + 2, Health / 2, 4);
             batch.Draw(HealthBar, Bar, Color.White);
@@ -295,7 +295,7 @@ namespace MineBlock
                     }
                 }
             }
-            if (!playerinv.isdisplayed) batch.Draw(Cursor, new Rectangle((int)highlighted.X * 40, (int)highlighted.Y * 40, 40, 40), highlightcolor);
+            if (!playerinv.isdisplayed) batch.Draw(Cursor, new Rectangle((int)highlighted.X * Constants.BlockSize, (int)highlighted.Y * Constants.BlockSize, Constants.BlockSize, Constants.BlockSize), highlightcolor);
 
         }
     }

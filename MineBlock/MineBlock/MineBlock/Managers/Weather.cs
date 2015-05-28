@@ -39,7 +39,7 @@ namespace MineBlock
             {
                 rainTime = 0;
                 rains.Clear();
-                startPos = start * 40;
+                startPos = start * Constants.BlockSize;
                 for (int i = 0; i < rainCount; i++)
                     rains.Add(GenParticle(false));
                 //for (int i = 400; i < (rainCount); i++)
@@ -60,7 +60,7 @@ namespace MineBlock
             snows.Clear();
             isSnowing = false;
             isRaining = false;
-           
+
             SoundEffects.Rain.Stop(true);
             SoundEffects.Snow.Stop(true);
         }
@@ -68,7 +68,7 @@ namespace MineBlock
         {
             SnowTime = 0;
             snows.Clear();
-            startPos = start*40;
+            startPos = start * Constants.BlockSize;
             for (int i = 0; i < snowCount; i++)
                 snows.Add(GenParticle(true));//new Rectangle(Game1.randy.Next(10, 770), Game1.randy.Next(-600, -1), 3, 3));
             //for (int i = 400; i < (snowCount); i++)
@@ -78,9 +78,9 @@ namespace MineBlock
         }
         public Rectangle GenParticle(bool Snow)
         {
-          
-            if(!Snow)
-            return new Rectangle(startPos + Game1.randy.Next(-10, 1000), Game1.randy.Next(-600, -1), 2, 5);
+
+            if (!Snow)
+                return new Rectangle(startPos + Game1.randy.Next(-10, 1000), Game1.randy.Next(-600, -1), 2, 5);
             return new Rectangle(startPos + Game1.randy.Next(-10, 1000), Game1.randy.Next(-600, -1), 3, 3);
         }
         public void update(double elaspedSeconds)
@@ -90,15 +90,15 @@ namespace MineBlock
                 for (int i = 0; i < snows.Count; i++)
                 {
                     snows[i] = new Rectangle(snows[i].X, snows[i].Y + Game1.randy.Next(2, 4), 2, 5);
-                    int x = snows[i].X / 40;
-                    int y = (snows[i].Y + 5) / 40;
+                    int x = snows[i].X / Constants.BlockSize;
+                    int y = (snows[i].Y + 5) / Constants.BlockSize;
                     if (x >= 200 && y >= 130) snows[i] = GenParticle(true);
                     if (x > -1 && y > -1)
                     {
                         Block check = Chunk.getBlockAt(Game1.Loadedchunks, x, y);
                         if (check.isSolid || check.index == 53)
                         {
-                            if (check.index == 2|| check.index == 3)
+                            if (check.index == 2 || check.index == 3)
                                 Chunk.SetBlock(Game1.Loadedchunks, x, y, new MineBlock.Blocks.SnowyGrass(x, y));
                             if (SnowTime < SoundEffects.SnowDuration)
                                 snows[i] = GenParticle(true);
@@ -106,10 +106,10 @@ namespace MineBlock
                         }
                     }
                 }
-                SnowTime+= elaspedSeconds;
-               
-                
-                if (snows.Count ==0) Stop();
+                SnowTime += elaspedSeconds;
+
+
+                if (snows.Count == 0) Stop();
 
             }
             else if (isRaining)
@@ -117,13 +117,13 @@ namespace MineBlock
                 for (int i = 0; i < rains.Count; i++)
                 {
                     rains[i] = new Rectangle(rains[i].X, rains[i].Y + Game1.randy.Next(3, 6), 2, 5);
-                    int x = rains[i].X / 40;
-                    int y = (rains[i].Y + 5) / 40;
+                    int x = rains[i].X / Constants.BlockSize;
+                    int y = (rains[i].Y + 5) / Constants.BlockSize;
                     if (x >= 200 && y >= 130) rains[i] = GenParticle(false);
                     if (x > -1 && y > -1)
                     {
-                        Block check = Chunk.getBlockAt(Game1.Loadedchunks, x, y); 
-                        
+                        Block check = Chunk.getBlockAt(Game1.Loadedchunks, x, y);
+
                         if (check.isSolid || check.index == 53)
                         {
                             if (check.index == 66 || check.index == 68)
@@ -135,7 +135,7 @@ namespace MineBlock
                     }
                 }
                 rainTime += elaspedSeconds;
-                if (rains.Count ==0) Stop();
+                if (rains.Count == 0) Stop();
             }
         }
         public void Draw(SpriteBatch batch)

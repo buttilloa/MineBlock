@@ -227,3 +227,4 @@ C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\Mi
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.exe
 C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.pdb
+C:\Users\Anthony\Documents\Visual Studio 2013\Projects\MineBlock-v3\MineBlock\MineBlock\MineBlock\obj\x86\Debug\MineBlock.csprojResolveAssemblyReference.cache

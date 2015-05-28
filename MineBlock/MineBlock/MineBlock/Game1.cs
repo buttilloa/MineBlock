@@ -35,7 +35,7 @@ namespace MineBlock
         public static Color lasercolor = Color.Red;
         public static Color breakanimcolor = Color.White;
         private SpriteFont pericles14;
-        public static int RenderDistance = 11;
+        public static int RenderDistance = 20;
         public static int renderXStart, renderYStart, renderXEnd, renderYEnd;
       
         private static Texture2D t;
@@ -107,18 +107,18 @@ namespace MineBlock
         protected override void Update(GameTime gameTime)
         {
             //try
-           // {
+            // {
 
-                if (console.isShown)
-                    console.getKeyStrokes();
-                else if (HandleInputs.isKeyDown("OemTilde") && HandleInputs.isKeyDown("LeftShift")) console.isShown = true;
-                if (HandleInputs.isKeyDown("Escape") && MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
-                {
-                    MenuRef.state = MenuRef.GameStates.Paused;
-                    MenuRef.SetMenu(new Menus.Paused());
-                }
-                if (MenuRef.state == MenuRef.GameStates.Playing && !console.isShown)
-                {
+            if (console.isShown)
+                console.getKeyStrokes();
+            else if (HandleInputs.isKeyDown("OemTilde") && HandleInputs.isKeyDown("LeftShift")) console.isShown = true;
+            if (HandleInputs.isKeyDown("Escape") && MenuRef.state != MenuRef.GameStates.Paused) // Opens pause menu
+            {
+                MenuRef.state = MenuRef.GameStates.Paused;
+                MenuRef.SetMenu(new Menus.Paused());
+            }
+            if (MenuRef.state == MenuRef.GameStates.Playing && !console.isShown)
+            {
 #if XBOX
 
 if ((GameSaveRequested) && (result.IsCompleted))
@@ -146,28 +146,28 @@ if ((GameSaveRequested) && (result.IsCompleted))
                 GameSaveRequested = false;
             }
 #endif
-                    if (HandleInputs.isKeyDown("Up")) zoom += .01f;
-                    if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
-                    player.update(gameTime,Loadedchunks);
-                    mobManager.update(gameTime);
-                    Vector2 playerLoc = player.Player.Location;
-                    renderXStart = (int)(playerLoc.X / 40) - RenderDistance + 1;// if (renderXStart < 0) renderXStart = 0;
-                    renderYStart = (int)(playerLoc.Y / 40) - RenderDistance + 1; if (renderYStart < 0) renderYStart = 0;
-                   // if (renderXStart == 0) renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 12;
-                     renderXEnd = (int)(playerLoc.X / 40) + RenderDistance + 4;
-                    renderYEnd = (int)(playerLoc.Y / 40) + RenderDistance + 1;
+                if (HandleInputs.isKeyDown("Up")) zoom += .01f;
+                if (HandleInputs.isKeyDown("Down")) zoom -= .01f;
+                player.update(gameTime, Loadedchunks);
+                mobManager.update(gameTime);
+                Vector2 playerLoc = player.Player.Location;
+                renderXStart = (int)(playerLoc.X / Constants.BlockSize) - RenderDistance + 1;
+                renderYStart = (int)(playerLoc.Y / Constants.BlockSize) - RenderDistance + 1; if (renderYStart < 0) renderYStart = 0;
 
-                    for (int i = renderXStart; i <= renderXEnd; i++)
-                        for (int j = renderYStart; j <= renderYEnd; j++)
-                            Chunk.UpdateBlock(Loadedchunks, i, j);
-                   if (!weather.isPercipitationing() && randy.Next(0, 2000) == 4)
-                        toggleDownfall(renderXStart);
-                    weather.update(gameTime.ElapsedGameTime.TotalSeconds);
+                renderXEnd = (int)(playerLoc.X / Constants.BlockSize) + RenderDistance + 4;
+                renderYEnd = (int)(playerLoc.Y / Constants.BlockSize) + RenderDistance + 1;
 
-                    checkClicks(gameTime);
-                }
-                else menu.update();
-                base.Update(gameTime);
+                for (int i = renderXStart; i <= renderXEnd; i++)
+                    for (int j = renderYStart; j <= renderYEnd; j++)
+                        Chunk.UpdateBlock(Loadedchunks, i, j);
+                if (!weather.isPercipitationing() && randy.Next(0, 2000) == 4)
+                    toggleDownfall(renderXStart);
+                weather.update(gameTime.ElapsedGameTime.TotalSeconds);
+
+                checkClicks(gameTime);
+            }
+            else menu.update();
+            base.Update(gameTime);
             /*}
             catch (Exception e)
             {
@@ -223,7 +223,7 @@ if ((GameSaveRequested) && (result.IsCompleted))
 
                             player.hotbar[player.selected].Count--;
                             if (player.hotbar[player.selected].Count == 0)
-                                player.hotbar[player.selected] = new Air((player.selected * 40) + 16, 16).ItemBlock();
+                                player.hotbar[player.selected] = new Air((player.selected * Constants.BlockSize) + 16, 16).ItemBlock();
                             //player.updateBlocks(chunk);
                         }
 

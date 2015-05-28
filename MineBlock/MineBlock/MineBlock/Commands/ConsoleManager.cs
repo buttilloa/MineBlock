@@ -60,12 +60,12 @@ namespace MineBlock.Commands
                 if (parsed[i][0] == '~')
                 {
                     parsed[i] = parsed[i].PadRight(2, '0');
-                    parsed[i] = "" + ((Game1.player.Player.Location.X / 40) + Convert.ToInt32(parsed[i].Substring(1)));
+                    parsed[i] = "" + ((Game1.player.Player.Location.X / Constants.BlockSize) + Convert.ToInt32(parsed[i].Substring(1)));
                     i++;
                     if (parsed[i][0] == '~')
                     {
                         parsed[i] = parsed[i].PadRight(2, '0');
-                        parsed[i] = "" + ((Game1.player.Player.Location.Y / 40) + Convert.ToInt32(parsed[i].Substring(1)));
+                        parsed[i] = "" + ((Game1.player.Player.Location.Y / Constants.BlockSize) + Convert.ToInt32(parsed[i].Substring(1)));
                         break;
                     }
                 }
@@ -153,16 +153,16 @@ namespace MineBlock.Commands
             if (display)
                 for (int i = Game1.renderXStart; i <= Game1.renderXEnd; i++)
                     for (int j = Game1.renderYStart; j <= Game1.renderYEnd; j++)
-                        batch.DrawString(pericles1, "" + i + "," + j, new Vector2((i * 40) + 2, (j * 40) + 2), Color.White);
+                        batch.DrawString(pericles1, "" + i + "," + j, new Vector2((i * Constants.BlockSize) + 2, (j * Constants.BlockSize) + 2), Color.White);
             if (outlined)
                 for (int i = Game1.renderXStart; i <= Game1.renderXEnd; i++)
-                        for (int j = Game1.renderYStart; j <= Game1.renderYEnd; j++)
-                        batch.Draw(saveSelectHighlight, new Rectangle(i * 40, j * 40, 40, 40), Color.Wheat);
+                    for (int j = Game1.renderYStart; j <= Game1.renderYEnd; j++)
+                        batch.Draw(saveSelectHighlight, new Rectangle(i * Constants.BlockSize, j * Constants.BlockSize, 40, 40), Color.Wheat);
             if (mobCooords)
                 foreach (Mob mob in Game1.mobManager.mobs)
                 {
-                    if (mob.CurrentChunk == Game1.currentChunkNumber) batch.DrawString(pericles14, "" + ((mob.getX() * 40) + mob.subPixel.X) + "," + ((mob.getY() * 40) + mob.subPixel.Y), new Vector2(mob.getX() * 40, (mob.getY() * 40) - 10), Color.Gray);
-                    else batch.DrawString(pericles1, "" + mob.ToString().Substring(15) + " " + mob.CurrentChunk + ((mob.getX() * 40) + mob.subPixel.X) + "," + ((mob.getY() * 40) + mob.subPixel.Y), new Vector2(mob.getX() * 40, (mob.getY() * 40) - 10), Color.Gray);
+                    if (mob.CurrentChunk == Game1.currentChunkNumber) batch.DrawString(pericles14, "" + ((mob.getX() * Constants.BlockSize) + mob.subPixel.X) + "," + ((mob.getY() * Constants.BlockSize) + mob.subPixel.Y), new Vector2(mob.getX() * Constants.BlockSize, (mob.getY() * Constants.BlockSize) - 10), Color.Gray);
+                    else batch.DrawString(pericles1, "" + mob.ToString().Substring(15) + " " + mob.CurrentChunk + ((mob.getX() * Constants.BlockSize) + mob.subPixel.X) + "," + ((mob.getY() * Constants.BlockSize) + mob.subPixel.Y), new Vector2(mob.getX() * Constants.BlockSize, (mob.getY() * Constants.BlockSize) - 10), Color.Gray);
                 }
         }
         public void Drawstatic(SpriteBatch batch)
@@ -170,7 +170,8 @@ namespace MineBlock.Commands
 
             if (isShown)
             {
-                batch.Draw(Blur, new Rectangle(0, 458, 800, 25), Color.White);
+                batch.Draw(Blur, new Rectangle(0, 0, 800, Game1.Instance.Window.ClientBounds.Height), Color.White);
+                batch.Draw(Blur, new Rectangle(0, 458, 800, 25), Color.DarkGray);
                 batch.DrawString(pericles14, Command + "_", new Vector2(2, 458), Color.Gray);
                 String[] temp = history.ToArray();
                 Array.Reverse(temp);

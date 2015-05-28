@@ -47,7 +47,7 @@ namespace MineBlock.Mobs
         {
 
             if (!drawinv)
-                if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * 40)) <= 40)
+                if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * Constants.BlockSize)) <= 40)
                 {
                     drawinv = true;
                     minetimer = 0;
@@ -59,12 +59,12 @@ namespace MineBlock.Mobs
                 if (minetimer > 60)
                 {
                     minetimer = -1;
-                    if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * 40)) > 40)
+                    if (Math.Abs(Vector2.Distance(Botsprite.Location, Game1.player.highlighted * Constants.BlockSize)) > 40)
                     drawinv = false;
                 }
             }
             if (target1.index != -1)
-                flytoLocation(new Vector2(target1.x * 40, target1.y * 40));
+                flytoLocation(new Vector2(target1.x * Constants.BlockSize, target1.y * Constants.BlockSize));
             else if (botstate != BotState.idle) flytoLocation(Game1.player.Player.Location);
             if (HandleInputs.isKeyDown("N") && botstate == BotState.follow)
                 getTarget1Block(true);
@@ -148,7 +148,7 @@ namespace MineBlock.Mobs
                         float minetime = target1.MineTime;
                         if (minetimer == -1)
                             minetimer = 0;
-                        float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * 40, target1.y * 40));
+                        float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * Constants.BlockSize, target1.y * Constants.BlockSize));
                         if (minetimer > -1 && minetimer < minetime && dist <= 2)
                         {
                             minetimer += 5;
@@ -183,7 +183,7 @@ namespace MineBlock.Mobs
             {
                 if (target1.x < target1.x + xcount)
                 {
-                    float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * 40, target1.y * 40));
+                    float dist = Vector2.Distance(Botsprite.Location, new Vector2(target1.x * Constants.BlockSize, target1.y * Constants.BlockSize));
                     if (target1.index == 0 && Game1.player.hotbar[Game1.player.selected].Count > 0)
                     {
                         if (dist <= 4)
@@ -228,7 +228,7 @@ namespace MineBlock.Mobs
         public void draw(SpriteBatch batch)
         {
             if (target1.index >= 0 && botstate != BotState.follow)
-                DrawLine(batch, new Vector2((target1.x * 40) + 20, (target1.y * 40) + 20), new Vector2(Botsprite.Location.X + 6, Botsprite.Location.Y + 13));
+                DrawLine(batch, new Vector2((target1.x * Constants.BlockSize) + 20, (target1.y * Constants.BlockSize) + 20), new Vector2(Botsprite.Location.X + 6, Botsprite.Location.Y + 13));
             Botsprite.Draw(batch);
             if (drawinv)
             {

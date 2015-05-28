@@ -67,24 +67,24 @@ namespace MineBlock.Mobs
             else
                 if (rotation > 0f) rotation -= .11f;
                 else if (rotation < 0f) rotation = 0f;
-            batch.Draw(PigSheet, new Vector2(((Position.X * 40) + subPixel.X) - 19, ((Position.Y * 40) + subPixel.Y) + 15), new Rectangle(0, 0, 96, 40), Color.White, 0f, Vector2.Zero, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            batch.Draw(PigSheet, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15), new Rectangle(0, 0, 96, 40), Color.White, 0f, Vector2.Zero, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 
             if (flip)
             {
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 37, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 37, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 37, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 37, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 19, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 19, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 19, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 19, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             else
             {
                 /*back*/
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 2, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 2, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 2, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 2, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
 
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 20, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
-                batch.Draw(Leg, new Vector2(((Position.X * 40) + subPixel.X) - 19 + 20, ((Position.Y * 40) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 20, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+                batch.Draw(Leg, new Vector2(((Position.X * Constants.BlockSize) + subPixel.X) - 19 + 20, ((Position.Y * Constants.BlockSize) + subPixel.Y) + 15 + 16), new Rectangle(0, 0, 16, 24), Color.White, -rotation, LegBend, 0.4f, flip ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             }
             
         }

@@ -53,7 +53,7 @@ namespace MineBlock.Blocks
         }
         public override void Draw(SpriteBatch batch)
         {
-            batch.Draw(grass, new Vector2( (x * 40),  (y * 40)), new Rectangle((special * 40), 0, 40, 40), Color.White);
+            batch.Draw(grass, CalcRectangle(x,y), new Rectangle((special * 40), 0, 40, 40), Color.White);
             handleBlockDmg(batch);
         }
         public override Block Reset(int X, int Y)

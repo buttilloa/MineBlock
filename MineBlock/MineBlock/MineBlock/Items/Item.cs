@@ -52,7 +52,7 @@ namespace MineBlock.Items
             }
             else if (Blockindex > 0)
                 batch.Draw(terrainsheet, new Vector2(Xpos, Ypos), new Rectangle(Blockindex * 40, 0, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
-            //else batch.Draw(Game1.Tools, new Vector2(Xpos, Ypos), new Rectangle(upgrade * 40, index *40, 40, 40), Color.White, 0f, Vector2.Zero, 0.77f, SpriteEffects.None, 0f);
+            
         }
 
         float rotation = 0;
